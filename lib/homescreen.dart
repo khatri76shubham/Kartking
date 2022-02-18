@@ -149,6 +149,30 @@ class homescreen extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'home',
+            backgroundColor: const Color(0xff7E89F0),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'search',
+            backgroundColor: const Color(0xff7E89F0),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shop),
+            label: 'cart',
+            backgroundColor: const Color(0xff7E89F0),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.chat),
+            label: 'chat',
+            backgroundColor: const Color(0xff7E89F0),
+          ),
+        ],
+      ),
     );
   }
 }

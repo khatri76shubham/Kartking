@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:kartking/foregetpassword.dart';
 import 'package:kartking/homescreen.dart';
+import 'package:kartking/register.dart';
 
 // ignore: camel_case_types
 class login extends StatefulWidget {
@@ -114,16 +116,20 @@ class _loginState extends State<login> {
                           left: 15, bottom: 11, top: 11, right: 15),
                       hintText: "Password"),
                 )),
-            Container(
-              alignment: Alignment.topRight,
-              margin: const EdgeInsets.all(10),
-              padding: const EdgeInsets.all(5),
-              child: const Text(
-                'Foregot Password?',
-                style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.normal,
-                    color: Colors.red),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ForgotPasswordPage()));
+              },
+              child: Container(
+                padding: const EdgeInsets.all(8.0),
+                alignment: Alignment.centerRight,
+                child: const Text(
+                  "Forgot Password ?",
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                ),
               ),
             ),
             Container(
@@ -175,19 +181,28 @@ class _loginState extends State<login> {
                     borderRadius: BorderRadius.circular(30)),
               ),
             ),
-            Container(
-              alignment: Alignment.topRight,
-              margin: const EdgeInsets.all(10),
-              padding: const EdgeInsets.all(5),
-              child: const Text(
-                'Don\'t have a account :'
-                'Register',
-                style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.normal,
-                    color: Colors.red),
+            Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  const Text(
+                    "Don't have account ?",
+                    style: TextStyle(fontSize: 16, color: Color(0xffB721C1C)),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => register()));
+                    },
+                    child: const Text(
+                      "Register",
+                      style: TextStyle(fontSize: 16, color: Colors.white),
+                    ),
+                  ),
+                ],
               ),
-            ),
+            )
           ],
         ),
       ),
