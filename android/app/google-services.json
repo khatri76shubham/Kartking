@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "918192424391",
+    "project_id": "kartking-4f072",
+    "storage_bucket": "kartking-4f072.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:918192424391:android:bc1f2713a523a3d85245e2",
+        "android_client_info": {
+          "package_name": "com.example.kartking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "918192424391-gci5h548uc5khag93cq8o0h3tv0suohu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlRbg2uMipVuSBQdf13Q_tz93CXYbtT_w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "918192424391-gci5h548uc5khag93cq8o0h3tv0suohu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
