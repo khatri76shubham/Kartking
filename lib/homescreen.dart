@@ -7,12 +7,12 @@ class homescreen extends StatelessWidget {
 
   Widget items() {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 5),
+      margin: const EdgeInsets.symmetric(horizontal: 5),
       height: 230,
       width: 160,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: Color(0xff8F99F6),
+        color: const Color(0xff8F99F6),
       ),
       child: Column(
         children: [
@@ -21,19 +21,17 @@ class homescreen extends StatelessWidget {
             child: Image.network(''),
           ),
           Expanded(
-              child: Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: const [
-                Text(
-                  'rice',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: const [
+              Text(
+                'rice',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold),
+              ),
+            ],
           ))
         ],
       ),
@@ -74,7 +72,7 @@ class homescreen extends StatelessWidget {
             Row(
               children: [
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 5),
+                  margin: const EdgeInsets.symmetric(horizontal: 5),
                   height: 150,
                   width: 360,
                   decoration: BoxDecoration(
@@ -154,22 +152,22 @@ class homescreen extends StatelessWidget {
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'home',
-            backgroundColor: const Color(0xff7E89F0),
+            backgroundColor: Color(0xff7E89F0),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
             label: 'search',
-            backgroundColor: const Color(0xff7E89F0),
+            backgroundColor: Color(0xff7E89F0),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.shop),
             label: 'cart',
-            backgroundColor: const Color(0xff7E89F0),
+            backgroundColor: Color(0xff7E89F0),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.chat),
             label: 'chat',
-            backgroundColor: const Color(0xff7E89F0),
+            backgroundColor: Color(0xff7E89F0),
           ),
         ],
       ),
