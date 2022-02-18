@@ -188,12 +188,14 @@ class _loginState extends State<login> {
                 children: <Widget>[
                   const Text(
                     "Don't have account ?",
-                    style: TextStyle(fontSize: 16, color: Color(0xffB721C1C)),
+                    style: TextStyle(fontSize: 16, color: Color(0xffb721c1c)),
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => register()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const register()));
                     },
                     child: const Text(
                       "Register",
