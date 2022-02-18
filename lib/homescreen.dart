@@ -2,8 +2,41 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 // ignore: camel_case_types
+class navbar extends StatefulWidget {
+  const navbar({Key? key}) : super(key: key);
+
+  @override
+  _navbarState createState() => _navbarState();
+}
+
+// ignore: camel_case_types
+class _navbarState extends State<navbar> {
+  int currentIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomNavigationBar(
+      backgroundColor: Colors.white,
+      selectedItemColor: Colors.black,
+      type: BottomNavigationBarType.fixed,
+      currentIndex: currentIndex,
+      showUnselectedLabels: false,
+      onTap: (index) => setState(() => currentIndex = index),
+      items: const [
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'home'),
+        BottomNavigationBarItem(icon: Icon(Icons.search), label: 'search'),
+        BottomNavigationBarItem(icon: Icon(Icons.shop), label: 'cart'),
+        BottomNavigationBarItem(icon: Icon(Icons.chat), label: 'chat'),
+        BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'setting'),
+      ],
+    );
+  }
+}
+
+// ignore: camel_case_types, must_be_immutable
 class homescreen extends StatelessWidget {
-  const homescreen({Key? key}) : super(key: key);
+  // ignore: prefer_const_constructors_in_immutables
+  homescreen({Key? key}) : super(key: key);
 
   Widget items() {
     return Container(
@@ -48,21 +81,6 @@ class homescreen extends StatelessWidget {
           'Home',
           style: TextStyle(color: Colors.black, fontSize: 17),
         ),
-        actions: const [
-          CircleAvatar(
-            child: Icon(Icons.search, size: 22, color: Colors.black),
-            radius: 18,
-            backgroundColor: Color(0xff8F99F6),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 5),
-            child: CircleAvatar(
-              child: Icon(Icons.shop, size: 22, color: Colors.black),
-              radius: 18,
-              backgroundColor: Color(0xff8F99F6),
-            ),
-          ),
-        ],
         backgroundColor: const Color(0xff7E89F0),
       ),
       body: Padding(
@@ -147,30 +165,7 @@ class homescreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'home',
-            backgroundColor: Color(0xff7E89F0),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'search',
-            backgroundColor: Color(0xff7E89F0),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shop),
-            label: 'cart',
-            backgroundColor: Color(0xff7E89F0),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.chat),
-            label: 'chat',
-            backgroundColor: Color(0xff7E89F0),
-          ),
-        ],
-      ),
+      bottomNavigationBar: const navbar(),
     );
   }
 }

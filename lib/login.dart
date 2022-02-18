@@ -139,10 +139,8 @@ class _loginState extends State<login> {
                   onPressed: () {
                     debugPrint(email.text);
                     debugPrint(password.text);
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const homescreen()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => homescreen()));
                   },
                   style: ElevatedButton.styleFrom(
                     minimumSize: Size(double.infinity,
@@ -172,7 +170,7 @@ class _loginState extends State<login> {
                     // ignore: non_constant_identifier_names
                     (Value) => Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
-                        builder: (context) => const homescreen(),
+                        builder: (context) => homescreen(),
                       ),
                     ),
                   );
@@ -188,7 +186,7 @@ class _loginState extends State<login> {
                 children: <Widget>[
                   const Text(
                     "Don't have account ?",
-                    style: TextStyle(fontSize: 16, color: Color(0xffb721c1c)),
+                    style: TextStyle(fontSize: 16, color: Color(0xfb721C1C)),
                   ),
                   GestureDetector(
                     onTap: () {
