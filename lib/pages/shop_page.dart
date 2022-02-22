@@ -19,7 +19,7 @@ class _shoppageState extends State<shoppage> {
           'cart',
           style: TextStyle(color: Colors.black, fontSize: 17),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xff7E89F0),
       ),
       body: const Center(
         child: Text('cart'),

@@ -19,7 +19,7 @@ class _chatpageState extends State<chatpage> {
           'Chat',
           style: TextStyle(color: Colors.black, fontSize: 17),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xff7E89F0),
       ),
       body: const Center(
         child: Text('chat'),

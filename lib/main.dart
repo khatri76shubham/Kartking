@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:kartking/colors.dart';
 import 'package:kartking/login.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
         nextScreen: const login(),
         splashTransition: SplashTransition.fadeTransition,
         pageTransitionType: PageTransitionType.fade,
-        backgroundColor: const Color(0xff7E89F0),
+        backgroundColor: primarycolor,
       ),
     );
   }

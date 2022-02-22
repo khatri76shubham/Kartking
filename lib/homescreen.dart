@@ -1,8 +1,9 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:kartking/colors.dart';
 import 'package:kartking/pages/chat_page.dart';
-import 'package:kartking/pages/home_page.dart';
+import 'package:kartking/home/home_page.dart';
 import 'package:kartking/pages/search_page.dart';
 import 'package:kartking/pages/setting_page.dart';
 import 'package:kartking/pages/shop_page.dart';
@@ -37,8 +38,8 @@ class _homescreenState extends State<homescreen> {
         data: Theme.of(context)
             .copyWith(iconTheme: const IconThemeData(color: Colors.white)),
         child: CurvedNavigationBar(
-          color: const Color(0xff7E89F0),
-          buttonBackgroundColor: Colors.black,
+          color: primarycolor,
+          buttonBackgroundColor: textcolor,
           backgroundColor: Colors.transparent,
           onTap: (index) => setState(() => currentIndex = index),
           items: const [
