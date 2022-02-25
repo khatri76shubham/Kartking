@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kartking/login.dart';
+import 'package:kartking/mainpage/login.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({Key? key}) : super(key: key);

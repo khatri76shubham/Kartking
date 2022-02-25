@@ -1,6 +1,8 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:kartking/colors.dart';
+import 'package:kartking/constant/colors.dart';
 import 'package:kartking/pages/profile_page.dart';
 import 'package:kartking/home/items.dart';
 

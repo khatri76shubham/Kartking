@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:kartking/mainpage/login.dart';
 import 'package:kartking/pages/screens/profile_menu.dart';
 import 'package:kartking/pages/screens/profile_pic.dart';
 
@@ -12,6 +14,7 @@ class profilepage extends StatefulWidget {
 
 // ignore: camel_case_types
 class _profilepageState extends State<profilepage> {
+  final auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +50,11 @@ class _profilepageState extends State<profilepage> {
           ProfileMenu(
             text: 'Log out',
             icon: ("assets/icons/Log out.svg"),
-            press: () {},
+            press: () {
+              auth.signOut();
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => login()));
+            },
           ),
         ],
       ),
