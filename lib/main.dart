@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:kartking/constant/colors.dart';
 import 'package:kartking/mainpage/login.dart';
@@ -20,9 +19,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: AnimatedSplashScreen(
         duration: 500,
-        splash: const Text(
-          'Kart King',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.normal),
+        splash: Column(
+          children: [
+            Expanded(
+              child: Image.asset("assets/images/kartlogo.png"),
+            ),
+            const Text(
+              'Kart King',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.normal),
+            ),
+          ],
         ),
         centered: true,
         nextScreen: const login(),

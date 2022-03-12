@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kartking/mainpage/login.dart';
+import 'package:kartking/my_account.dart';
 import 'package:kartking/pages/screens/profile_menu.dart';
 import 'package:kartking/pages/screens/profile_pic.dart';
 
@@ -27,7 +28,7 @@ class _profilepageState extends State<profilepage> {
       ),
       body: Column(
         children: [
-          const Padding(
+          Padding(
             padding: EdgeInsets.all(8.0),
             child: ProfilePic(),
           ),
@@ -35,7 +36,10 @@ class _profilepageState extends State<profilepage> {
           ProfileMenu(
             text: 'My Account',
             icon: 'assets/icons/User Icon.svg',
-            press: () {},
+            press: () {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => myaccount()));
+            },
           ),
           ProfileMenu(
             text: 'Notification',

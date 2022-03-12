@@ -1,10 +1,10 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:kartking/constant/colors.dart';
+import 'package:kartking/pages/product_overview/productview.dart';
 import 'package:kartking/pages/profile_page.dart';
 import 'package:kartking/home/items.dart';
+import 'package:kartking/pages/store_overview/storeview.dart';
+import 'package:kartking/single_store.dart';
 
 // ignore: camel_case_types
 class homepage extends StatelessWidget {
@@ -109,41 +109,6 @@ class homepage extends StatelessWidget {
     );
   }
 
-  Widget shops() {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 5),
-      height: 230,
-      width: 160,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-        color: Colors.white,
-      ),
-      child: Column(
-        children: [
-          const Expanded(
-            flex: 2,
-            child: Image(
-                image: NetworkImage(
-                    'https://c8.alamy.com/comp/T0CKE4/indian-peering-out-from-counter-at-general-store-bundi-rajasthan-india-T0CKE4.jpg')),
-          ),
-          Expanded(
-              child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: const [
-              Text(
-                'rice',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold),
-              ),
-            ],
-          ))
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -215,30 +180,20 @@ class homepage extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  Container(
-                    child: Column(
-                      children: [items(), items()],
-                    ),
+                  Column(
+                    children: [items(), items()],
                   ),
-                  Container(
-                    child: Column(
-                      children: [items(), items()],
-                    ),
+                  Column(
+                    children: [items(), items()],
                   ),
-                  Container(
-                    child: Column(
-                      children: [items(), items()],
-                    ),
+                  Column(
+                    children: [items(), items()],
                   ),
-                  Container(
-                    child: Column(
-                      children: [items(), items()],
-                    ),
+                  Column(
+                    children: [items(), items()],
                   ),
-                  Container(
-                    child: Column(
-                      children: [items(), items()],
-                    ),
+                  Column(
+                    children: [items(), items()],
                   ),
                 ],
               ),
@@ -265,10 +220,38 @@ class homepage extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  shops(),
-                  shops(),
-                  shops(),
-                  shops(),
+                  singlestore(
+                      storeimage:
+                          'https://img.etimg.com/thumb/width-1200,height-900,imgsize-122620,resizemode-1,msid-75214721/industry/services/retail/future-group-negotiates-rents-for-its-1700-stores.jpg',
+                      storename: 'store',
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => storeview()));
+                      }),
+                  singlestore(
+                      storeimage:
+                          'https://img.etimg.com/thumb/width-1200,height-900,imgsize-122620,resizemode-1,msid-75214721/industry/services/retail/future-group-negotiates-rents-for-its-1700-stores.jpg',
+                      storename: 'store',
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => storeview()));
+                      }),
+                  singlestore(
+                      storeimage:
+                          'https://img.etimg.com/thumb/width-1200,height-900,imgsize-122620,resizemode-1,msid-75214721/industry/services/retail/future-group-negotiates-rents-for-its-1700-stores.jpg',
+                      storename: 'store',
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => storeview()));
+                      }),
+                  singlestore(
+                      storeimage:
+                          'https://img.etimg.com/thumb/width-1200,height-900,imgsize-122620,resizemode-1,msid-75214721/industry/services/retail/future-group-negotiates-rents-for-its-1700-stores.jpg',
+                      storename: 'store',
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => storeview()));
+                      })
                 ],
               ),
             ),
@@ -294,10 +277,38 @@ class homepage extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  shops(),
-                  shops(),
-                  shops(),
-                  shops(),
+                  singlestore(
+                      storeimage:
+                          'https://media.istockphoto.com/photos/all-your-necessities-stored-in-one-place-picture-id1157106624?k=20&m=1157106624&s=612x612&w=0&h=jLXRK4qRL_3QITpschx1Wy2Aj2Vyy47Q1Q_R7hVcPQg=',
+                      storename: 'kirana',
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => storeview()));
+                      }),
+                  singlestore(
+                      storeimage:
+                          'https://img.etimg.com/thumb/width-1200,height-900,imgsize-122620,resizemode-1,msid-75214721/industry/services/retail/future-group-negotiates-rents-for-its-1700-stores.jpg',
+                      storename: 'store',
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => storeview()));
+                      }),
+                  singlestore(
+                      storeimage:
+                          'https://img.etimg.com/thumb/width-1200,height-900,imgsize-122620,resizemode-1,msid-75214721/industry/services/retail/future-group-negotiates-rents-for-its-1700-stores.jpg',
+                      storename: 'store',
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => storeview()));
+                      }),
+                  singlestore(
+                      storeimage:
+                          'https://img.etimg.com/thumb/width-1200,height-900,imgsize-122620,resizemode-1,msid-75214721/industry/services/retail/future-group-negotiates-rents-for-its-1700-stores.jpg',
+                      storename: 'store',
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => storeview()));
+                      }),
                 ],
               ),
             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kartking/pages/product_overview/productview.dart';
 
 class items extends StatefulWidget {
   items({Key? key}) : super(key: key);
@@ -14,15 +15,20 @@ class _itemsState extends State<items> {
       padding: const EdgeInsets.all(8),
       child: Column(
         children: [
-          Container(
-            width: 80,
-            height: 80,
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                    image: NetworkImage(
-                        'https://cdn.apartmenttherapy.info/image/upload/f_jpg,q_auto:eco,c_fill,g_auto,w_1500,ar_1:1/k%2Farchive%2F5cce31c3c20f0f4fa192572d652107f0f6404ffe'))),
-          ),
+          GestureDetector(
+              child: Container(
+                width: 80,
+                height: 80,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                        image: NetworkImage(
+                            'https://cdn.apartmenttherapy.info/image/upload/f_jpg,q_auto:eco,c_fill,g_auto,w_1500,ar_1:1/k%2Farchive%2F5cce31c3c20f0f4fa192572d652107f0f6404ffe'))),
+              ),
+              onTap: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => productview()));
+              }),
           SizedBox(
             height: 15,
           ),
