@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kartking/constant/colors.dart';
-import 'package:kartking/pages/product_overview/productview.dart';
+import 'package:kartking/pages/product_overview/product_view.dart';
 import 'package:kartking/pages/profile_page.dart';
 import 'package:kartking/home/items.dart';
 import 'package:kartking/pages/store_overview/storeview.dart';
@@ -36,7 +36,10 @@ class homepage extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 18.0),
       child: GestureDetector(
-        onTap: () {},
+        onTap: () {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => storeview()));
+        },
         child: Material(
           elevation: 3,
           borderRadius: BorderRadius.circular(18),

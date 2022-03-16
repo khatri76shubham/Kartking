@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kartking/pages/product_overview/productview.dart';
+import 'package:kartking/pages/product_overview/product_view.dart';
 
 class items extends StatefulWidget {
   items({Key? key}) : super(key: key);

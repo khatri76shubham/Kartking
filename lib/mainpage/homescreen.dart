@@ -22,7 +22,7 @@ class _homescreenState extends State<homescreen> {
 
   // ignore: non_constant_identifier_names
   final Screen = [
-    const homepage(),
+    homepage(),
     const searchpage(),
     const shoppage(),
     const chatpage(),

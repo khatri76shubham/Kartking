@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kartking/constant/colors.dart';
 
 // ignore: camel_case_types
 class shoppage extends StatefulWidget {
@@ -14,16 +15,19 @@ class _shoppageState extends State<shoppage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: const IconThemeData(color: Colors.black),
-        title: const Text(
-          'cart',
-          style: TextStyle(color: Colors.black, fontSize: 17),
-        ),
-        backgroundColor: Color(0xff7E89F0),
-      ),
-      body: const Center(
-        child: Text('cart'),
-      ),
+          backgroundColor: primarycolor,
+          iconTheme: const IconThemeData(color: Colors.black),
+          title: Center(
+            child: Column(
+              children: [
+                Text('Your cart', style: TextStyle(color: textcolor)),
+                Text(
+                  'items',
+                  style: Theme.of(context).textTheme.caption,
+                ),
+              ],
+            ),
+          )),
     );
   }
 }

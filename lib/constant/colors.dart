@@ -16,6 +16,7 @@ class Restaurants {
 }
 
 List<Restaurants> restaurantList = [
+  //0
   Restaurants(
       title: "Om Sweet & Snacks",
       locations: "North Indian,  South Indian, Chinese",
@@ -23,6 +24,7 @@ List<Restaurants> restaurantList = [
       rating: "4.2",
       imageUrl:
           "https://2rdnmg1qbg403gumla1v9i2h-wpengine.netdna-ssl.com/wp-content/uploads/sites/3/2016/05/worstSnacks-527905022-770x533-1-745x490.jpg"),
+  //1
   Restaurants(
     title: "The Masala Story",
     locations: "North Indian, Mughlai, Kebab",
@@ -31,6 +33,7 @@ List<Restaurants> restaurantList = [
     imageUrl:
         "https://c.ndtvimg.com/2020-01/a39okhfk_620_625x300_21_January_20.jpg",
   ),
+  //2
   Restaurants(
     title: "Domino's Pizza",
     locations: "Pizza, Fast Food",
@@ -39,6 +42,7 @@ List<Restaurants> restaurantList = [
     imageUrl:
         "https://www.indianhealthyrecipes.com/wp-content/uploads/2015/10/pizza-recipe-1-500x500.jpg",
   ),
+  //3
   Restaurants(
     title: "MCDonald's",
     locations: "Burger, Fast Food, Beverages",
@@ -47,6 +51,7 @@ List<Restaurants> restaurantList = [
     imageUrl:
         "https://www.newfoodmagazine.com/wp-content/uploads/mcdonalds.jpg",
   ),
+  //4
   Restaurants(
     title: "Gohana Faous Jalebi",
     locations: "Street Food, Mithai",
@@ -54,6 +59,7 @@ List<Restaurants> restaurantList = [
     rating: "4.2",
     imageUrl: "https://pbs.twimg.com/media/EhHIY9CWsAA9rN9.jpg",
   ),
+  //5
   Restaurants(
     title: "Burger King",
     locations: "Burger, American, Desserts",
@@ -62,6 +68,7 @@ List<Restaurants> restaurantList = [
     imageUrl:
         "https://media1.s-nbcnews.com/j/newscms/2019_21/2870431/190524-classic-american-cheeseburger-ew-207p_d9270c5c545b30ea094084c7f2342eb4.fit-2000w.jpg",
   ),
+  //6
   Restaurants(
     title: "Haldiram's",
     locations: "North Indian, Mithai, South Indian",
