@@ -61,8 +61,10 @@ class _productviewState extends State<productview> {
       ),
       appBar: AppBar(
         backgroundColor: primarycolor,
-        iconTheme: IconThemeData(color: textcolor),
-        title: Text('Product Overview'),
+        title: Text(
+          'Product Overview',
+          style: TextStyle(color: textcolor),
+        ),
       ),
       body: Column(
         children: [
@@ -76,11 +78,9 @@ class _productviewState extends State<productview> {
                   subtitle: Text('50'),
                 ),
                 Container(
-                  height: 230,
-                  padding: EdgeInsets.all(40),
-                  child: Image.network(
-                      'https://cdn.apartmenttherapy.info/image/upload/f_jpg,q_auto:eco,c_fill,g_auto,w_1500,ar_1:1/k%2Farchive%2F5cce31c3c20f0f4fa192572d652107f0f6404ffe'),
-                ),
+                    height: 230,
+                    padding: EdgeInsets.all(40),
+                    child: Image.asset("assets/images/img_1.png")),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   width: double.infinity,

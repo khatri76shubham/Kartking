@@ -21,14 +21,18 @@ class homepage extends StatelessWidget {
   }
 
   Widget stores(Size size) {
-    return Container(
-      height: size.height,
-      width: size.width,
-      child: ListView.builder(
-          itemCount: restaurantList.length,
-          itemBuilder: (context, index) {
-            return itemBuilder(size, index, context);
-          }),
+    return Expanded(
+      child: Container(
+        height: size.height,
+        width: size.width,
+        child: ListView.builder(
+            physics: ScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: restaurantList.length,
+            itemBuilder: (context, index) {
+              return itemBuilder(size, index, context);
+            }),
+      ),
     );
   }
 
