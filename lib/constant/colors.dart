@@ -5,17 +5,32 @@ Color textcolor = Colors.black;
 Color whitecolor = Colors.white;
 
 class Product {
-  final String? title, image;
+  final String? title, image, price;
 
-  Product({this.title, this.image});
+  Product({this.title, this.image, this.price});
 }
 
 List<Product> demo_products = [
-  Product(title: "Cabbage", image: "assets/images/img_1.png"),
-  Product(title: "Broccoli", image: "assets/images/img_2.png"),
-  Product(title: "Carrot", image: "assets/images/img_3.png"),
-  Product(title: "Pakcoy", image: "assets/images/img_4.png"),
-  Product(title: "Cucumber", image: "assets/images/img_1.png"),
+  Product(
+      title: "Cabbage",
+      image: "assets/images/img_1.png",
+      price: "\u{20B9}${50}"),
+  Product(
+      title: "Broccoli",
+      image: "assets/images/img_2.png",
+      price: '\u{20B9}${20}'),
+  Product(
+      title: "Carrot",
+      image: "assets/images/img_3.png",
+      price: '\u{20B9}${60}'),
+  Product(
+      title: "Pakcoy",
+      image: "assets/images/img_4.png",
+      price: '\u{20B9}${30}'),
+  Product(
+      title: "Cucumber",
+      image: "assets/images/img_1.png",
+      price: '\u{20B9}${40}'),
 ];
 
 class Restaurants {

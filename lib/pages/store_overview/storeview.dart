@@ -15,6 +15,10 @@ class storeview extends StatelessWidget {
           style: TextStyle(color: textcolor),
         ),
         backgroundColor: primarycolor,
+        actions: [
+          IconButton(onPressed: () {}, icon: Icon(Icons.search)),
+          IconButton(onPressed: () {}, icon: Icon(Icons.shopping_cart)),
+        ],
       ),
       body: ListView(
         children: [

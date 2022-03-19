@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:kartking/constant/colors.dart';
-import 'package:kartking/pages/product_overview/product_view.dart';
 import 'package:kartking/pages/profile_page.dart';
 import 'package:kartking/home/items.dart';
 import 'package:kartking/pages/store_overview/storeview.dart';
@@ -22,7 +21,7 @@ class homepage extends StatelessWidget {
 
   Widget stores(Size size) {
     return Expanded(
-      child: Container(
+      child: SizedBox(
         height: size.height,
         width: size.width,
         child: ListView.builder(
