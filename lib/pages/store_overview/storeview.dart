@@ -4,14 +4,15 @@ import 'package:kartking/pages/product_overview/product_card.dart';
 import 'package:kartking/pages/product_overview/product_view.dart';
 
 class storeview extends StatelessWidget {
-  const storeview({Key? key}) : super(key: key);
+  final Restaurants storeno;
+  const storeview({Key? key, required this.storeno}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          restaurantList[0].title,
+          storeno.title,
           style: TextStyle(color: textcolor),
         ),
         backgroundColor: primarycolor,
@@ -29,7 +30,7 @@ class storeview extends StatelessWidget {
                 padding: EdgeInsets.all(15),
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage(restaurantList[0].imageUrl),
+                      image: NetworkImage(storeno.imageUrl),
                       fit: BoxFit.cover,
                       colorFilter: new ColorFilter.mode(
                           Colors.black.withOpacity(0.7), BlendMode.dstIn),
@@ -52,7 +53,7 @@ class storeview extends StatelessWidget {
                               height: 20,
                             ),
                             Text(
-                              restaurantList[0].title,
+                              storeno.title,
                               style: TextStyle(
                                 color: textcolor,
                                 fontWeight: FontWeight.w600,
@@ -102,7 +103,7 @@ class storeview extends StatelessWidget {
                       height: 15,
                     ),
                     Text(
-                      restaurantList[0].locations,
+                      storeno.locations,
                       style: TextStyle(
                           color: textcolor,
                           fontSize: 14,
@@ -163,7 +164,8 @@ class storeview extends StatelessWidget {
                         product: demo_products[index],
                         press: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => productview()));
+                              builder: (context) =>
+                                  productview(itemnu: demo_products[index])));
                         },
                       )),
             ),

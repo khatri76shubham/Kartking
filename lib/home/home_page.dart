@@ -40,8 +40,8 @@ class homepage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 18.0),
       child: GestureDetector(
         onTap: () {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => storeview()));
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => storeview(storeno: restaurantList[index])));
         },
         child: Material(
           elevation: 3,
@@ -230,34 +230,22 @@ class homepage extends StatelessWidget {
                       storeimage:
                           'https://img.etimg.com/thumb/width-1200,height-900,imgsize-122620,resizemode-1,msid-75214721/industry/services/retail/future-group-negotiates-rents-for-its-1700-stores.jpg',
                       storename: 'store',
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => storeview()));
-                      }),
+                      onTap: () {}),
                   singlestore(
                       storeimage:
                           'https://img.etimg.com/thumb/width-1200,height-900,imgsize-122620,resizemode-1,msid-75214721/industry/services/retail/future-group-negotiates-rents-for-its-1700-stores.jpg',
                       storename: 'store',
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => storeview()));
-                      }),
+                      onTap: () {}),
                   singlestore(
                       storeimage:
                           'https://img.etimg.com/thumb/width-1200,height-900,imgsize-122620,resizemode-1,msid-75214721/industry/services/retail/future-group-negotiates-rents-for-its-1700-stores.jpg',
                       storename: 'store',
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => storeview()));
-                      }),
+                      onTap: () {}),
                   singlestore(
                       storeimage:
                           'https://img.etimg.com/thumb/width-1200,height-900,imgsize-122620,resizemode-1,msid-75214721/industry/services/retail/future-group-negotiates-rents-for-its-1700-stores.jpg',
                       storename: 'store',
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => storeview()));
-                      })
+                      onTap: () {})
                 ],
               ),
             ),
@@ -287,34 +275,22 @@ class homepage extends StatelessWidget {
                       storeimage:
                           'https://media.istockphoto.com/photos/all-your-necessities-stored-in-one-place-picture-id1157106624?k=20&m=1157106624&s=612x612&w=0&h=jLXRK4qRL_3QITpschx1Wy2Aj2Vyy47Q1Q_R7hVcPQg=',
                       storename: 'kirana',
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => storeview()));
-                      }),
+                      onTap: () {}),
                   singlestore(
                       storeimage:
                           'https://img.etimg.com/thumb/width-1200,height-900,imgsize-122620,resizemode-1,msid-75214721/industry/services/retail/future-group-negotiates-rents-for-its-1700-stores.jpg',
                       storename: 'store',
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => storeview()));
-                      }),
+                      onTap: () {}),
                   singlestore(
                       storeimage:
                           'https://img.etimg.com/thumb/width-1200,height-900,imgsize-122620,resizemode-1,msid-75214721/industry/services/retail/future-group-negotiates-rents-for-its-1700-stores.jpg',
                       storename: 'store',
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => storeview()));
-                      }),
+                      onTap: () {}),
                   singlestore(
                       storeimage:
                           'https://img.etimg.com/thumb/width-1200,height-900,imgsize-122620,resizemode-1,msid-75214721/industry/services/retail/future-group-negotiates-rents-for-its-1700-stores.jpg',
                       storename: 'store',
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => storeview()));
-                      }),
+                      onTap: () {}),
                 ],
               ),
             ),

@@ -25,10 +25,7 @@ class _itemsState extends State<items> {
                         image: NetworkImage(
                             'https://cdn.apartmenttherapy.info/image/upload/f_jpg,q_auto:eco,c_fill,g_auto,w_1500,ar_1:1/k%2Farchive%2F5cce31c3c20f0f4fa192572d652107f0f6404ffe'))),
               ),
-              onTap: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => productview()));
-              }),
+              onTap: () {}),
           SizedBox(
             height: 15,
           ),

@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:kartking/constant/colors.dart';
 
 class productview extends StatelessWidget {
-  const productview({Key? key}) : super(key: key);
+  final Product itemnu;
+  const productview({Key? key, itemno, required this.itemnu}) : super(key: key);
 
   Widget bottombar() {
     return Padding(
@@ -134,7 +135,7 @@ class productview extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "product name",
+                            itemnu.title,
                             style: TextStyle(
                                 color: whitecolor,
                                 fontWeight: FontWeight.bold,
@@ -146,7 +147,7 @@ class productview extends StatelessWidget {
                                   text: TextSpan(children: [
                                 TextSpan(text: "Price\n"),
                                 TextSpan(
-                                  text: "\u{20B9}${50}",
+                                  text: itemnu.price,
                                   style: Theme.of(context)
                                       .textTheme
                                       .headline4!
@@ -157,7 +158,7 @@ class productview extends StatelessWidget {
                               ])),
                               Expanded(
                                   child: Image.asset(
-                                "assets/images/img_1.png",
+                                itemnu.image,
                                 fit: BoxFit.fill,
                               )),
                             ],
