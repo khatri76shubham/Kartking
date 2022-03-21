@@ -5,9 +5,9 @@ Color textcolor = Colors.black;
 Color whitecolor = Colors.white;
 
 class Product {
-  final String? title, image, price;
+  String title, image, price;
 
-  Product({this.title, this.image, this.price});
+  Product({required this.title, required this.image, required this.price});
 }
 
 List<Product> demo_products = [

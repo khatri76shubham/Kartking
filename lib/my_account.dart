@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kartking/constant/colors.dart';
+
+import 'mainpage/login.dart';
 
 class myaccount extends StatefulWidget {
   myaccount({Key? key}) : super(key: key);
@@ -10,13 +13,15 @@ class myaccount extends StatefulWidget {
 
 class _myaccountState extends State<myaccount> {
   @override
-  Widget listTile({required IconData icon, required String title}) {
+  Widget listTile(
+      {required IconData icon, required String title, VoidCallback? press}) {
     return Column(
       children: [
         Divider(
           height: 1,
         ),
         ListTile(
+          onTap: press,
           leading: Icon(icon),
           title: Text(title),
           trailing: Icon(Icons.arrow_forward_ios),
@@ -25,6 +30,7 @@ class _myaccountState extends State<myaccount> {
     );
   }
 
+  final auth = FirebaseAuth.instance;
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -107,7 +113,15 @@ class _myaccountState extends State<myaccount> {
                   listTile(
                       icon: Icons.policy_outlined, title: "Privacy policy"),
                   listTile(icon: Icons.add_chart, title: "About"),
-                  listTile(icon: Icons.exit_to_app_outlined, title: "Log out"),
+                  listTile(
+                    icon: Icons.exit_to_app_outlined,
+                    title: "Log out",
+                    press: () {
+                      auth.signOut();
+                      Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (context) => login()));
+                    },
+                  ),
                 ]),
               )
             ],
@@ -116,9 +130,9 @@ class _myaccountState extends State<myaccount> {
             padding: const EdgeInsets.only(top: 40, left: 30),
             child: CircleAvatar(
               radius: 50,
-              backgroundColor: primarycolor,
+              backgroundColor: textcolor,
               child: CircleAvatar(
-                  backgroundImage: NetworkImage(
+                  backgroundImage: AssetImage(
                     "assets/images/kartlogo.png",
                   ),
                   radius: 45,

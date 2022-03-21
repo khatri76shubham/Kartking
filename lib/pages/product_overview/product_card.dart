@@ -22,14 +22,14 @@ class Productcard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image(image: AssetImage(product.image!)),
+            Image(image: AssetImage(product.image)),
             Padding(
               padding: const EdgeInsets.all(6),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    product.title!,
+                    product.title,
                     style: Theme.of(context)
                         .textTheme
                         .subtitle1!
@@ -40,7 +40,7 @@ class Productcard extends StatelessWidget {
                       width: 70,
                       child: Center(
                         child: Text(
-                          product.price!,
+                          product.price,
                           style: Theme.of(context)
                               .textTheme
                               .subtitle1!

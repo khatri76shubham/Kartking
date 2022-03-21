@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kartking/my_account.dart';
 import 'package:kartking/pages/screens/profile_menu.dart';
 
 // ignore: camel_case_types
@@ -28,11 +29,24 @@ class _settingpageState extends State<settingpage> {
             ProfileMenu(
               text: 'My Account',
               icon: ("assets/icons/User Icon.svg"),
-              press: () {},
+              press: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => myaccount()));
+              },
             ),
             ProfileMenu(
               text: 'Theme',
               icon: ("assets/icons/theme.svg"),
+              press: () {},
+            ),
+            ProfileMenu(
+              text: 'Help',
+              icon: ("assets/icons/Question mark.svg"),
+              press: () {},
+            ),
+            ProfileMenu(
+              text: 'Notification',
+              icon: ("assets/icons/Bell.svg"),
               press: () {},
             ),
             ProfileMenu(
