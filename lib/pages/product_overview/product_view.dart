@@ -1,3 +1,6 @@
+import 'package:flutter/services.dart';
+import 'package:toggle_switch/toggle_switch.dart';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:kartking/constant/colors.dart';
@@ -7,44 +10,35 @@ class productview extends StatelessWidget {
   const productview({Key? key, itemno, required this.itemnu}) : super(key: key);
 
   Widget bottombar() {
-    return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-                padding: EdgeInsets.all(8),
-                height: 50,
-                width: 50,
-                decoration: BoxDecoration(
-                    color: primarycolor,
-                    borderRadius: BorderRadius.circular(18)),
-                child: Center(
-                  child: IconButton(
-                    icon: Icon(Icons.shopping_cart),
-                    onPressed: () {},
-                  ),
-                )),
-            SizedBox(
-              width: 10,
-            ),
-            Expanded(
-              child: Container(
-                height: 50,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(18),
-                    color: primarycolor),
-                child: GestureDetector(
-                  onTap: () {},
-                  child: Center(
-                      child: Text('Buy Now',
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold))),
-                ),
+    return Container(
+      color: whitecolor,
+      child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              addtocart(),
+              SizedBox(
+                width: 10,
               ),
-            )
-          ],
-        ));
+              Expanded(
+                child: Container(
+                  height: 50,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(18),
+                      color: primarycolor),
+                  child: GestureDetector(
+                    onTap: () {},
+                    child: Center(
+                        child: Text('Buy Now',
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w600))),
+                  ),
+                ),
+              )
+            ],
+          )),
+    );
   }
 
   @override
@@ -55,6 +49,8 @@ class productview extends StatelessWidget {
         bottomNavigationBar: bottombar(),
         appBar: AppBar(
           backgroundColor: primarycolor,
+          systemOverlayStyle:
+              SystemUiOverlayStyle(statusBarColor: primarycolor),
           elevation: 0,
           actions: [
             IconButton(onPressed: () {}, icon: Icon(Icons.search)),
@@ -124,7 +120,7 @@ class productview extends StatelessWidget {
                               style: TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold)),
                           Text(
-                              "Frozen vegetables are vegetables that have had their temperature reduced and maintained to below their freezing point for the purpose of storage and transportation (often for far longer than their natural shelf life would permit) until they are ready to be eaten. They may be commercially packaged or frozen at home.")
+                              "Frozen vegetables are vegetables that have had their temperature reduced and maintained to below their freezing point for the purpose of storage and transportation (often for far longer than their natural shelf life would permit) until they are ready to be eaten. They may be commercially packaged or frozen at home."),
                         ],
                       ),
                     ),
@@ -175,5 +171,48 @@ class productview extends StatelessWidget {
             ],
           ),
         ));
+  }
+}
+
+class addtocart extends StatefulWidget {
+  const addtocart({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<addtocart> createState() => _addtocartState();
+}
+
+class _addtocartState extends State<addtocart> {
+  bool isAdded = false;
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        isAdded = !isAdded;
+        setState(() {});
+      },
+      child: Container(
+          padding: EdgeInsets.all(8),
+          height: 50,
+          decoration: BoxDecoration(
+              color: isAdded ? Colors.lightGreen : primarycolor,
+              borderRadius: BorderRadius.circular(18)),
+          child: Center(
+              child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                child: isAdded
+                    ? Icon(Icons.done)
+                    : Icon(
+                        Icons.shopping_cart,
+                        size: 20,
+                      ),
+              ),
+              Text(isAdded ? "added to cart" : 'Add to cart')
+            ],
+          ))),
+    );
   }
 }
