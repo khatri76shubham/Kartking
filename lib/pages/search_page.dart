@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kartking/constant/colors.dart';
 
-// ignore: camel_case_types
 class searchpage extends StatefulWidget {
-  const searchpage({Key? key}) : super(key: key);
+  searchpage({Key? key}) : super(key: key);
 
   @override
   State<searchpage> createState() => _searchpageState();
@@ -26,23 +25,23 @@ class _searchpageState extends State<searchpage> {
           children: [
             Container(
               padding: EdgeInsets.all(5),
-              height: 52,
-              margin: EdgeInsets.symmetric(horizontal: 20),
+              height: 60,
+              margin: EdgeInsets.all(20),
               child: TextField(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: BorderSide.none),
+                    borderRadius: BorderRadius.circular(30),
+                  ),
                   fillColor: primarycolor,
                   filled: true,
                   hintText: "search for items and stores",
-                  suffixIcon: Icon(Icons.search),
+                  prefixIcon: Icon(Icons.search),
                 ),
               ),
             ),
             SizedBox(
               height: 10,
-            )
+            ),
           ],
         ));
   }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kartking/constant/colors.dart';
+import 'package:kartking/home/store.dart';
 import 'package:kartking/my_account.dart';
 import 'package:kartking/home/items.dart';
-import 'package:kartking/pages/store_overview/storeview.dart';
 import 'package:kartking/single_store.dart';
 
 // ignore: camel_case_types
@@ -19,102 +19,6 @@ class homepage extends StatelessWidget {
     );
   }
 
-  Widget stores(Size size) {
-    return Expanded(
-      child: SizedBox(
-        height: size.height,
-        width: size.width,
-        child: ListView.builder(
-            physics: ScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: restaurantList.length,
-            itemBuilder: (context, index) {
-              return itemBuilder(size, index, context);
-            }),
-      ),
-    );
-  }
-
-  Widget itemBuilder(Size size, int index, BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 18.0),
-      child: GestureDetector(
-        onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => storeview(storeno: restaurantList[index])));
-        },
-        child: Material(
-          elevation: 3,
-          borderRadius: BorderRadius.circular(18),
-          child: Container(
-            height: size.height / 2.5,
-            width: size.width / 1.1,
-            child: Column(
-              children: [
-                Container(
-                  height: size.height / 4,
-                  width: size.width / 1.1,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(18),
-                      topRight: Radius.circular(18),
-                    ),
-                    image: DecorationImage(
-                        image: NetworkImage(restaurantList[index].imageUrl),
-                        fit: BoxFit.cover),
-                  ),
-                ),
-                Container(
-                  height: size.height / 12,
-                  width: size.width / 1.2,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        restaurantList[index].title,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      Container(
-                        height: size.height / 25,
-                        width: size.width / 7,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.green,
-                        ),
-                        alignment: Alignment.center,
-                        child: Text(
-                          restaurantList[index].rating,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  width: size.width / 1.2,
-                  child: Text(
-                    "${restaurantList[index].locations}   \t\t\t\t\t\t\t\t\t\t\t\t\t\t  ${restaurantList[index].price} for one",
-                    style: TextStyle(
-                      fontSize: 12.9,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -125,7 +29,7 @@ class homepage extends StatelessWidget {
           'Home',
           style: TextStyle(color: Colors.black, fontSize: 17),
         ),
-        backgroundColor: Color(0xff7E89F0),
+        backgroundColor: primarycolor,
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -182,27 +86,19 @@ class homepage extends StatelessWidget {
                 ],
               ),
             ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  Column(
-                    children: [items(), items()],
+            SizedBox(
+              height: 250,
+              child: GridView.builder(
+                  scrollDirection: Axis.horizontal,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 8.0,
+                    crossAxisSpacing: 5.0,
                   ),
-                  Column(
-                    children: [items(), items()],
-                  ),
-                  Column(
-                    children: [items(), items()],
-                  ),
-                  Column(
-                    children: [items(), items()],
-                  ),
-                  Column(
-                    children: [items(), items()],
-                  ),
-                ],
-              ),
+                  itemCount: demo_products.length,
+                  itemBuilder: (context, index) => items(
+                        index: index,
+                      )),
             ),
             divider(),
             Padding(
@@ -222,32 +118,17 @@ class homepage extends StatelessWidget {
                 ],
               ),
             ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  singlestore(
-                      storeimage:
-                          'https://img.etimg.com/thumb/width-1200,height-900,imgsize-122620,resizemode-1,msid-75214721/industry/services/retail/future-group-negotiates-rents-for-its-1700-stores.jpg',
-                      storename: 'store',
-                      onTap: () {}),
-                  singlestore(
-                      storeimage:
-                          'https://img.etimg.com/thumb/width-1200,height-900,imgsize-122620,resizemode-1,msid-75214721/industry/services/retail/future-group-negotiates-rents-for-its-1700-stores.jpg',
-                      storename: 'store',
-                      onTap: () {}),
-                  singlestore(
-                      storeimage:
-                          'https://img.etimg.com/thumb/width-1200,height-900,imgsize-122620,resizemode-1,msid-75214721/industry/services/retail/future-group-negotiates-rents-for-its-1700-stores.jpg',
-                      storename: 'store',
-                      onTap: () {}),
-                  singlestore(
-                      storeimage:
-                          'https://img.etimg.com/thumb/width-1200,height-900,imgsize-122620,resizemode-1,msid-75214721/industry/services/retail/future-group-negotiates-rents-for-its-1700-stores.jpg',
-                      storename: 'store',
-                      onTap: () {})
-                ],
-              ),
+            SizedBox(
+              height: 200,
+              child: GridView.builder(
+                  scrollDirection: Axis.horizontal,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 1,
+                    mainAxisSpacing: 8.0,
+                    crossAxisSpacing: 10.0,
+                  ),
+                  itemCount: demo_products.length - 1,
+                  itemBuilder: (context, index) => singlestore(index: index)),
             ),
             divider(),
             Padding(
@@ -267,36 +148,21 @@ class homepage extends StatelessWidget {
                 ],
               ),
             ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  singlestore(
-                      storeimage:
-                          'https://media.istockphoto.com/photos/all-your-necessities-stored-in-one-place-picture-id1157106624?k=20&m=1157106624&s=612x612&w=0&h=jLXRK4qRL_3QITpschx1Wy2Aj2Vyy47Q1Q_R7hVcPQg=',
-                      storename: 'kirana',
-                      onTap: () {}),
-                  singlestore(
-                      storeimage:
-                          'https://img.etimg.com/thumb/width-1200,height-900,imgsize-122620,resizemode-1,msid-75214721/industry/services/retail/future-group-negotiates-rents-for-its-1700-stores.jpg',
-                      storename: 'store',
-                      onTap: () {}),
-                  singlestore(
-                      storeimage:
-                          'https://img.etimg.com/thumb/width-1200,height-900,imgsize-122620,resizemode-1,msid-75214721/industry/services/retail/future-group-negotiates-rents-for-its-1700-stores.jpg',
-                      storename: 'store',
-                      onTap: () {}),
-                  singlestore(
-                      storeimage:
-                          'https://img.etimg.com/thumb/width-1200,height-900,imgsize-122620,resizemode-1,msid-75214721/industry/services/retail/future-group-negotiates-rents-for-its-1700-stores.jpg',
-                      storename: 'store',
-                      onTap: () {}),
-                ],
-              ),
+            SizedBox(
+              height: 200,
+              child: GridView.builder(
+                  scrollDirection: Axis.horizontal,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 1,
+                    mainAxisSpacing: 8.0,
+                    crossAxisSpacing: 10.0,
+                  ),
+                  itemCount: demo_products.length - 1,
+                  itemBuilder: (context, index) => singlestore(index: index)),
             ),
             divider(),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 5),
+              padding: EdgeInsets.all(5),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: const [

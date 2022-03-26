@@ -10,29 +10,56 @@ class cartpage extends StatefulWidget {
 }
 
 Widget cartitems(index) {
-  return Container(
-    padding: EdgeInsets.all(3),
-    margin: EdgeInsets.all(3),
-    decoration: BoxDecoration(border: Border.all(color: textcolor, width: .5)),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
-                height: 55, child: Image.asset(demo_products[index].image)),
-            Text(demo_products[index].title,
-                style: TextStyle(fontWeight: FontWeight.w700)),
-          ],
-        ),
-        Text(
-          demo_products[index].price,
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-        )
-      ],
+  return Dismissible(
+    key: Key(demo_products[index].title.toString()),
+    direction: DismissDirection.endToStart,
+    background: Container(
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        color: primarycolor,
+      ),
+      child: Row(
+        children: [
+          Spacer(),
+          Icon(
+            Icons.delete,
+            color: textcolor,
+          )
+        ],
+      ),
     ),
+    child: Container(
+      padding: EdgeInsets.all(3),
+      margin: EdgeInsets.all(3),
+      decoration: BoxDecoration(
+          border: Border.all(color: textcolor, width: .5),
+          borderRadius: BorderRadius.circular(12)),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                  height: 55, child: Image.asset(demo_products[index].image)),
+              Text(demo_products[index].title,
+                  style: TextStyle(fontWeight: FontWeight.w700)),
+            ],
+          ),
+          Text(
+            demo_products[index].price,
+            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+          )
+        ],
+      ),
+    ),
+    onDismissed: (direction) {
+      SetState() {}
+
+      ;
+    },
   );
 }
 
@@ -42,7 +69,9 @@ Widget cartshop(shopno) {
     child: Container(
       margin: EdgeInsets.only(top: 10),
       padding: EdgeInsets.all(8),
-      decoration: BoxDecoration(border: Border.all(color: textcolor, width: 1)),
+      decoration: BoxDecoration(
+          border: Border.all(color: textcolor, width: 1),
+          borderRadius: BorderRadius.circular(25)),
       child: Column(
         children: [
           Row(

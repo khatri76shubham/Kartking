@@ -22,11 +22,11 @@ class _homescreenState extends State<homescreen> {
 
   // ignore: non_constant_identifier_names
   final Screen = [
-    const homepage(),
-    const searchpage(),
-    const cartpage(),
-    const chatpage(),
-    const settingpage(),
+    homepage(),
+    searchpage(),
+    cartpage(),
+    chatpage(),
+    settingpage(),
   ];
 
   @override

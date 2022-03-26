@@ -2,31 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:kartking/constant/colors.dart';
 import 'package:kartking/pages/store_overview/storeview.dart';
 
-class singlestore extends StatelessWidget {
-  // final String storeimage;
-  // final String storename;
-  // final VoidCallback onTap;
-  final int index;
-  singlestore({Key? key, required this.index}) : super(key: key);
+Widget stores(Size size) {
+  return ListView.builder(
+      physics: ScrollPhysics(),
+      shrinkWrap: true,
+      itemCount: restaurantList.length,
+      itemBuilder: (context, index) {
+        return itemBuilder(size, index, context);
+      });
+}
 
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      elevation: 8,
-      child: GestureDetector(
-        onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => storeview(storeno: restaurantList[index])));
-        },
+Widget itemBuilder(Size size, int index, BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 18.0),
+    child: GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => storeview(storeno: restaurantList[index])));
+      },
+      child: Material(
+        elevation: 3,
+        borderRadius: BorderRadius.circular(18),
         child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-          ),
+          height: size.height / 2.5,
+          width: size.width / 1.1,
           child: Column(
             children: [
               Container(
-                height: 500 / 4,
-                width: 300 / 1.1,
+                height: size.height / 4,
+                width: size.width / 1.1,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(18),
@@ -38,9 +42,9 @@ class singlestore extends StatelessWidget {
                 ),
               ),
               Container(
-                height: 500 / 7,
-                width: 300 / 1.2,
-                child: Column(
+                height: size.height / 12,
+                width: size.width / 1.2,
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
@@ -52,8 +56,8 @@ class singlestore extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      height: 500 / 25,
-                      width: 300 / 7,
+                      height: size.height / 25,
+                      width: size.width / 7,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.green,
@@ -70,10 +74,20 @@ class singlestore extends StatelessWidget {
                   ],
                 ),
               ),
+              Container(
+                width: size.width / 1.2,
+                child: Text(
+                  "${restaurantList[index].locations}   \t\t\t\t\t\t\t\t\t\t\t\t\t\t  ${restaurantList[index].price} for one",
+                  style: TextStyle(
+                    fontSize: 12.9,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
             ],
           ),
         ),
       ),
-    );
-  }
+    ),
+  );
 }

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kartking/constant/colors.dart';
+import 'package:kartking/location.dart';
 
 import 'mainpage/login.dart';
 
@@ -95,7 +96,10 @@ class _myaccountState extends State<myaccount> {
                               backgroundColor: primarycolor,
                               child: CircleAvatar(
                                 radius: 12,
-                                child: Icon(Icons.edit),
+                                child: Icon(
+                                  Icons.edit,
+                                  color: whitecolor,
+                                ),
                                 backgroundColor: Colors.transparent,
                               ),
                             ),
@@ -105,8 +109,18 @@ class _myaccountState extends State<myaccount> {
                     ],
                   ),
                   listTile(icon: Icons.shop_outlined, title: "My orders"),
-                  listTile(icon: Icons.location_on_outlined, title: "location"),
-                  listTile(icon: Icons.person_outline, title: "Refer A Friend"),
+                  listTile(
+                    icon: Icons.location_on_outlined,
+                    title: "location",
+                    press: () {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => location()));
+                    },
+                  ),
+                  listTile(
+                      icon: Icons.person_outline,
+                      title: "Refer A Friend",
+                      press: () {}),
                   listTile(
                       icon: Icons.file_copy_outlined,
                       title: "Term's & Condition"),

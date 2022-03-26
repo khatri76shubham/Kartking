@@ -45,7 +45,8 @@ dependencies:
   curved_navigation_bar: ^1.0.3
   flutter_svg: ^1.0.3
   toggle_switch: ^1.4.0
-
+  flutter_share: ^2.0.0
+ 
 dev_dependencies:
   flutter_test:
     sdk: flutter
