@@ -1,5 +1,5 @@
 import 'package:flutter/services.dart';
-import 'package:toggle_switch/toggle_switch.dart';
+import 'package:kartking/checkout_page.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +9,7 @@ class productview extends StatelessWidget {
   final Product itemnu;
   const productview({Key? key, itemno, required this.itemnu}) : super(key: key);
 
-  Widget bottombar() {
+  Widget bottombar({required ontap}) {
     return Container(
       color: whitecolor,
       child: Padding(
@@ -28,9 +28,9 @@ class productview extends StatelessWidget {
                       borderRadius: BorderRadius.circular(18),
                       color: primarycolor),
                   child: GestureDetector(
-                    onTap: () {},
+                    onTap: ontap,
                     child: Center(
-                        child: Text('Buy Now',
+                        child: Text('check out',
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.w600))),
                   ),
@@ -46,7 +46,12 @@ class productview extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: primarycolor,
-        bottomNavigationBar: bottombar(),
+        bottomNavigationBar: bottombar(
+          ontap: () {
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => checkout()));
+          },
+        ),
         appBar: AppBar(
           backgroundColor: primarycolor,
           systemOverlayStyle:

@@ -152,7 +152,7 @@ class homepage extends StatelessWidget {
               height: 200,
               child: GridView.builder(
                   scrollDirection: Axis.horizontal,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 1,
                     mainAxisSpacing: 8.0,
                     crossAxisSpacing: 10.0,
@@ -162,7 +162,7 @@ class homepage extends StatelessWidget {
             ),
             divider(),
             Padding(
-              padding: EdgeInsets.all(5),
+              padding: const EdgeInsets.all(5),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: const [
