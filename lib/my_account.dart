@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kartking/constant/colors.dart';
 import 'package:kartking/location.dart';
+import 'package:kartking/user_details.dart';
 
 import 'mainpage/login.dart';
 
@@ -91,16 +92,22 @@ class _myaccountState extends State<myaccount> {
                                 Text('shubhamkhatri767@gmail.com'),
                               ],
                             ),
-                            CircleAvatar(
-                              radius: 15,
-                              backgroundColor: primarycolor,
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => userdetail()));
+                              },
                               child: CircleAvatar(
-                                radius: 12,
-                                child: Icon(
-                                  Icons.edit,
-                                  color: whitecolor,
+                                radius: 15,
+                                backgroundColor: primarycolor,
+                                child: CircleAvatar(
+                                  radius: 12,
+                                  child: Icon(
+                                    Icons.edit,
+                                    color: whitecolor,
+                                  ),
+                                  backgroundColor: Colors.transparent,
                                 ),
-                                backgroundColor: Colors.transparent,
                               ),
                             ),
                           ],
