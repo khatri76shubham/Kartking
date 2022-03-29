@@ -43,6 +43,14 @@ List<Product> demo_products = [
       title: "Carrot",
       image: "assets/images/img_3.png",
       price: '\u{20B9}${60}'),
+  Product(
+      title: "Broccoli",
+      image: "assets/images/img_2.png",
+      price: '\u{20B9}${20}'),
+  Product(
+      title: "Carrot",
+      image: "assets/images/img_3.png",
+      price: '\u{20B9}${60}'),
 ];
 
 class Restaurants {
