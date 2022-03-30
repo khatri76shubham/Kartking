@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kartking/add_delivery_address.dart';
 import 'package:kartking/constant/colors.dart';
 
 class location extends StatefulWidget {
@@ -23,10 +24,15 @@ class _locationState extends State<location> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => Adddeliveryaddress()));
+                },
                 child: Text(
-              "+ Add Address",
-              style: TextStyle(color: Colors.red, fontWeight: FontWeight.w700),
-            )),
+                  "+ Add Address",
+                  style:
+                      TextStyle(color: Colors.red, fontWeight: FontWeight.w700),
+                )),
             Divider(
               color: textcolor,
             ),
