@@ -123,7 +123,7 @@ Widget productseachbox({required user, required ontap}) {
               ),
               Container(
                 height: 350 / 2.5,
-                width: 260 / 1.1,
+                width: 200 / 1.1,
                 decoration: BoxDecoration(
                   color: whitecolor,
                   borderRadius: BorderRadius.only(
@@ -185,72 +185,86 @@ Widget searchbox({required user, required ontap}) {
       child: Material(
         elevation: 3,
         borderRadius: BorderRadius.circular(18),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(18)),
-            color: whitecolor,
-            border: Border.all(color: primarycolor, width: 2),
-          ),
-          height: 350 / 2.5,
-          width: 500 / 1.1,
-          child: Column(
-            children: [
-              Container(
-                height: 350 / 4,
-                width: 500 / 1.1,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(18),
-                    topRight: Radius.circular(18),
-                  ),
-                  image: DecorationImage(
-                      image: NetworkImage(user.imageUrl), fit: BoxFit.cover),
-                ),
-              ),
-              Container(
-                height: 350 / 12,
-                width: 500 / 1.2,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      user.title,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
-                      ),
+        child: Expanded(
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(18)),
+              color: whitecolor,
+              border: Border.all(color: primarycolor, width: 2),
+            ),
+            height: 400 / 2.5,
+            width: 500 / 1.1,
+            child: Column(
+              children: [
+                Container(
+                  height: 350 / 4,
+                  width: 500 / 1.1,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(18),
+                      topRight: Radius.circular(18),
                     ),
-                    Container(
-                      height: 350 / 25,
-                      width: 500 / 7,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.green,
-                      ),
-                      alignment: Alignment.center,
-                      child: Text(
-                        user.rating,
+                    image: DecorationImage(
+                        image: NetworkImage(user.imageUrl), fit: BoxFit.cover),
+                  ),
+                ),
+                Container(
+                  height: 350 / 12,
+                  width: 500 / 1.2,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        user.title,
                         style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                width: 500 / 1.2,
-                child: Text(
-                  "${user.locations}   \t\t\t\t\t\t\t\t\t\t\t\t\t\t  ${user.price} for one",
-                  style: TextStyle(
-                    fontSize: 12.9,
-                    fontWeight: FontWeight.w500,
+                      Container(
+                        height: 350 / 25,
+                        width: 500 / 7,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.green,
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          user.rating,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-            ],
+                Container(
+                  width: 500 / 1.2,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "${user.locations}",
+                        style: TextStyle(
+                          fontSize: 12.9,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      Text(
+                        " ${user.price} for one",
+                        style: TextStyle(
+                          fontSize: 12.9,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

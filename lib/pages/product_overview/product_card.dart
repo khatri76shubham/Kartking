@@ -35,21 +35,24 @@ class Productcard extends StatelessWidget {
                         .subtitle1!
                         .copyWith(fontWeight: FontWeight.w600),
                   ),
-                  Container(
-                      height: 40,
-                      width: 70,
-                      child: Center(
-                        child: Text(
-                          product.price,
-                          style: Theme.of(context)
-                              .textTheme
-                              .subtitle1!
-                              .copyWith(fontWeight: FontWeight.w600),
+                  Expanded(
+                    child: Container(
+                        height: 40,
+                        width: 70,
+                        child: Center(
+                          child: Text(
+                            product.price,
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle1!
+                                .copyWith(fontWeight: FontWeight.w600),
+                          ),
                         ),
-                      ),
-                      decoration: BoxDecoration(
-                          border: Border.all(color: primarycolor, width: 2),
-                          borderRadius: BorderRadius.all(Radius.circular(20)))),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: primarycolor, width: 2),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(20)))),
+                  ),
                 ],
               ),
             )

@@ -58,13 +58,15 @@ class homepage extends StatelessWidget {
           children: [
             Row(
               children: [
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 5),
-                  height: 150,
-                  width: 360,
-                  decoration: BoxDecoration(
-                      color: primarycolor,
-                      borderRadius: BorderRadius.circular(18)),
+                Expanded(
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 5),
+                    height: 150,
+                    width: 360,
+                    decoration: BoxDecoration(
+                        color: primarycolor,
+                        borderRadius: BorderRadius.circular(18)),
+                  ),
                 ),
               ],
             ),
