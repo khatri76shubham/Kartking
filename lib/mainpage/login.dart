@@ -8,6 +8,8 @@ import 'package:kartking/constant/colors.dart';
 import 'package:kartking/mainpage/foregetpassword.dart';
 import 'package:kartking/mainpage/homescreen.dart';
 import 'package:kartking/mainpage/register.dart';
+import 'package:kartking/user_provider.dart';
+import 'package:provider/provider.dart';
 
 // ignore: camel_case_types
 class login extends StatefulWidget {
@@ -19,6 +21,7 @@ class login extends StatefulWidget {
 
 // ignore: camel_case_types
 class _loginState extends State<login> {
+  userprovider? UserProvider;
   _googleSignUp() async {
     try {
       final GoogleSignIn _googleSignIn = GoogleSignIn(
@@ -37,6 +40,12 @@ class _loginState extends State<login> {
 
       final User? user = (await _auth.signInWithCredential(credential)).user;
       //print("signed in " + user.displayName);
+      userprovider.adduserdata(
+          currentuser: user,
+          UserEmail: user!.email,
+          UserImage: user.photoURL,
+          UserMobileno: user.phoneNumber,
+          UserName: user.displayName);
 
       return user;
     } catch (e) {
@@ -49,6 +58,7 @@ class _loginState extends State<login> {
 
   @override
   Widget build(BuildContext context) {
+    UserProvider = Provider.of(context);
     return Scaffold(
       backgroundColor: const Color(0xff7E89F0),
       body: SizedBox(
