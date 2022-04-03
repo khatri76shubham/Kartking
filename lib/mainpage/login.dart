@@ -58,7 +58,7 @@ class _loginState extends State<login> {
 
   @override
   Widget build(BuildContext context) {
-    UserProvider = Provider.of(context);
+    UserProvider = Provider.of<userprovider>(context);
     return Scaffold(
       backgroundColor: const Color(0xff7E89F0),
       body: SizedBox(
