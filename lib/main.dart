@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:kartking/constant/colors.dart';
 import 'package:kartking/mainpage/login.dart';
-import 'package:kartking/user_provider.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
+import 'user_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,8 +18,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<userprovider>(
-        create: (context) => userprovider(),
+    return ChangeNotifierProvider<UserProvider>(
+        create: (context) => UserProvider(),
         child: MaterialApp(
           home: AnimatedSplashScreen(
             duration: 500,

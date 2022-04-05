@@ -34,7 +34,7 @@ class addressprovider with ChangeNotifier {
       Fluttertoast.showToast(msg: 'mobile number is empty');
     } else {
       // await FirebaseFirestore.instance
-      //     .collection("Addadress")
+      //     .collection("Address")
       //     .doc(FirebaseAuth.instance)
       //     .set({});
     }

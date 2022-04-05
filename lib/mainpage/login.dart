@@ -8,8 +8,9 @@ import 'package:kartking/constant/colors.dart';
 import 'package:kartking/mainpage/foregetpassword.dart';
 import 'package:kartking/mainpage/homescreen.dart';
 import 'package:kartking/mainpage/register.dart';
-import 'package:kartking/user_provider.dart';
 import 'package:provider/provider.dart';
+
+import '../user_provider.dart';
 
 // ignore: camel_case_types
 class login extends StatefulWidget {
@@ -21,8 +22,8 @@ class login extends StatefulWidget {
 
 // ignore: camel_case_types
 class _loginState extends State<login> {
-  userprovider? UserProvider;
-  _googleSignUp() async {
+  UserProvider? userProvider;
+  Future _googleSignUp() async {
     try {
       final GoogleSignIn _googleSignIn = GoogleSignIn(
         scopes: ['email'],
@@ -30,27 +31,25 @@ class _loginState extends State<login> {
       final FirebaseAuth _auth = FirebaseAuth.instance;
 
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-      final GoogleSignInAuthentication? googleAuth =
-          await googleUser?.authentication;
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser!.authentication;
 
       final AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth?.accessToken,
-        idToken: googleAuth?.idToken,
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
       );
 
       final User? user = (await _auth.signInWithCredential(credential)).user;
-      //print("signed in " + user.displayName);
-      userprovider.adduserdata(
-          currentuser: user,
-          UserEmail: user!.email,
-          UserImage: user.photoURL,
-          UserMobileno: user.phoneNumber,
-          UserName: user.displayName);
+      // print("signed in " + user.displayName);
+      userProvider!.addUserData(
+        currentUser: user,
+        userEmail: user!.email,
+        userImage: user.photoURL,
+        userName: user.displayName,
+      );
 
       return user;
-    } catch (e) {
-      //print(e.message);
-    }
+    } catch (e) {}
   }
 
   late String _email, _password;
@@ -58,7 +57,7 @@ class _loginState extends State<login> {
 
   @override
   Widget build(BuildContext context) {
-    UserProvider = Provider.of<userprovider>(context);
+    userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
       backgroundColor: const Color(0xff7E89F0),
       body: SizedBox(
@@ -212,3 +211,5 @@ class _loginState extends State<login> {
     );
   }
 }
+
+class userprovider {}

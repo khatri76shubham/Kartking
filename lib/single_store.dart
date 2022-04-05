@@ -3,9 +3,6 @@ import 'package:kartking/constant/colors.dart';
 import 'package:kartking/pages/store_overview/storeview.dart';
 
 class singlestore extends StatelessWidget {
-  // final String storeimage;
-  // final String storename;
-  // final VoidCallback onTap;
   final int index;
   singlestore({Key? key, required this.index}) : super(key: key);
 

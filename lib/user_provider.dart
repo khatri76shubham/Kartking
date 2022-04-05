@@ -2,23 +2,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class userprovider with ChangeNotifier {
-  static void adduserdata(
-      {User? currentuser,
-      String? UserName,
-      String? UserEmail,
-      String? UserMobileno,
-      String? UserImage}) async {
+class UserProvider with ChangeNotifier {
+  void addUserData({
+    User? currentUser,
+    String? userName,
+    String? userImage,
+    String? userEmail,
+  }) async {
     await FirebaseFirestore.instance
-        .collection('userdata')
-        .doc(currentuser!.uid)
+        .collection("usersData")
+        .doc(currentUser!.uid)
         .set(
       {
-        "UserId": currentuser.uid,
-        "UserName": UserName,
-        "UserEmail": UserEmail,
-        "UserMobileno": UserMobileno,
-        "UserImage": UserImage
+        "userName": userName,
+        "userEmail": userEmail,
+        "userImage": userImage,
+        "userUid": currentUser.uid,
       },
     );
   }
