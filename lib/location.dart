@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:kartking/add_delivery_address.dart';
+import 'package:kartking/address_model.dart';
+import 'package:kartking/address_provider.dart';
 import 'package:kartking/constant/colors.dart';
+import 'package:kartking/single_address.dart';
+import 'package:provider/provider.dart';
 
 class location extends StatefulWidget {
   location({Key? key}) : super(key: key);
@@ -12,6 +16,8 @@ class location extends StatefulWidget {
 class _locationState extends State<location> {
   @override
   Widget build(BuildContext context) {
+    addressprovider addressProvider = Provider.of(context);
+    addressProvider.getaddressdata();
     return Scaffold(
       appBar: AppBar(
         title: Text('My address'),
@@ -19,9 +25,7 @@ class _locationState extends State<location> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(12.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
           children: [
             GestureDetector(
                 onTap: () {
@@ -40,54 +44,36 @@ class _locationState extends State<location> {
             SizedBox(
               height: 20,
             ),
-            Container(
-              width: 400,
-              height: 100,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                border: Border.all(color: textcolor, width: 2),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.home),
-                        Text('500 m'), //distance from live location
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text('Home'),
-                        Container(
-                          width: 200,
-                          height: 40,
-                          child: Text(
-                            '4-E-263,J.N.V colony , bikaner, rajasthan,334001',
-                            style: TextStyle(fontWeight: FontWeight.w400),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  CircleAvatar(
-                    backgroundColor: primarycolor,
-                    child: Icon(
-                      Icons.edit,
-                      color: whitecolor,
+            ListTile(
+              title: Text("Deliver To"),
+            ),
+            Divider(
+              height: 1,
+            ),
+            addressProvider.getaddresslist.isEmpty
+                ? Center(
+                    child: Container(
+                      child: Center(
+                        child: Text("No Data"),
+                      ),
                     ),
                   )
-                ],
-              ),
-            )
+                : Column(
+                    children: addressProvider.getaddresslist.map<Widget>((e) {
+                      setState(() {});
+                      return SingleDeliveryItem(
+                        address:
+                            "aera, ${e.area}, street, ${e.street}, landmark ${e.landMark}, pincode ${e.pinCode}",
+                        title: "${e.name}",
+                        number: "${e.mobileNo}",
+                        addressType: e.addressType == "AddressTypes.Home"
+                            ? "Home"
+                            : e.addressType == "AddressTypes.Other"
+                                ? "Other"
+                                : "Work",
+                      );
+                    }).toList(),
+                  )
           ],
         ),
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:kartking/address_provider.dart';
 import 'package:kartking/constant/colors.dart';
 import 'package:kartking/mainpage/login.dart';
 import 'package:page_transition/page_transition.dart';
@@ -18,8 +19,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<UserProvider>(
-        create: (context) => UserProvider(),
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider<UserProvider>(
+              create: (context) => UserProvider()),
+          ChangeNotifierProvider<addressprovider>(
+              create: (context) => addressprovider())
+        ],
         child: MaterialApp(
           home: AnimatedSplashScreen(
             duration: 500,

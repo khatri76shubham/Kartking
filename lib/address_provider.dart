@@ -1,9 +1,15 @@
+import 'dart:ffi';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:kartking/address_model.dart';
+import 'package:kartking/location.dart';
 
 class addressprovider with ChangeNotifier {
+  bool isloading = false;
   TextEditingController name = TextEditingController();
   TextEditingController mobileno = TextEditingController();
   TextEditingController area = TextEditingController();
@@ -13,7 +19,8 @@ class addressprovider with ChangeNotifier {
   TextEditingController state = TextEditingController();
   TextEditingController pincode = TextEditingController();
   TextEditingController setlocation = TextEditingController();
-  Future<void> vaildator() async {
+
+  Future<void> vaildator(context, MapType) async {
     if (name.text.isEmpty) {
       Fluttertoast.showToast(msg: 'please enter your name');
     } else if (mobileno.text.isEmpty) {
@@ -30,13 +37,64 @@ class addressprovider with ChangeNotifier {
       Fluttertoast.showToast(msg: 'state is empty');
     } else if (pincode.text.isEmpty) {
       Fluttertoast.showToast(msg: 'pincode is empty');
-    } else if (setlocation.text.isEmpty) {
-      Fluttertoast.showToast(msg: 'mobile number is empty');
+      //  else if (setlocation.text.isEmpty) {
+      //   Fluttertoast.showToast(msg: 'set location is empty');
     } else {
-      // await FirebaseFirestore.instance
-      //     .collection("Address")
-      //     .doc(FirebaseAuth.instance)
-      //     .set({});
+      isloading = true;
+      notifyListeners();
+      await FirebaseFirestore.instance
+          .collection("Address")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .set({
+        "name": name.text,
+        "mobile no.": mobileno.text,
+        "area": area.text,
+        "street": street.text,
+        "landmark": landmark.text,
+        "city": city.text,
+        "state": state.text,
+        "pincode": pincode.text,
+        "location": location,
+        "addresstype": MapType.toString(),
+      }).then((value) async {
+        isloading = false;
+        notifyListeners();
+        await Fluttertoast.showToast(msg: "Add your address");
+        Navigator.of(context).pop();
+        notifyListeners();
+      });
+      notifyListeners();
     }
+  }
+
+  List<addressmodel> addresslist = [];
+  getaddressdata() async {
+    List<addressmodel> newlist = [];
+    addressmodel addressModel;
+    DocumentSnapshot _db = await FirebaseFirestore.instance
+        .collection("Address")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    if (_db.exists) {
+      addressModel = addressmodel(
+        addressType: _db.get("addresstype"),
+        area: _db.get("area"),
+        city: _db.get("city"),
+        landMark: _db.get("landmark"),
+        mobileNo: _db.get("mobileno"),
+        name: _db.get("name"),
+        pinCode: _db.get("pincode"),
+        state: _db.get("state"),
+        street: _db.get("street"),
+      );
+      newlist.add(addressModel);
+      notifyListeners();
+    }
+    addresslist = newlist;
+    notifyListeners();
+  }
+
+  List<addressmodel> get getaddresslist {
+    return addresslist;
   }
 }

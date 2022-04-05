@@ -2,8 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:kartking/add_address_detail.dart';
+import 'package:kartking/address_provider.dart';
 import 'package:kartking/constant/colors.dart';
 import 'package:kartking/google_map.dart';
+import 'package:provider/provider.dart';
 
 import 'add_address_detail.dart';
 
@@ -19,6 +21,7 @@ class _AdddeliveryaddressState extends State<Adddeliveryaddress> {
 
   @override
   Widget build(BuildContext context) {
+    addressprovider addressProvider = Provider.of(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primarycolor,
@@ -27,7 +30,9 @@ class _AdddeliveryaddressState extends State<Adddeliveryaddress> {
         margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         height: 48,
         child: MaterialButton(
-          onPressed: () {},
+          onPressed: () {
+            addressProvider.vaildator(context, mytype);
+          },
           child: Text(
             'save',
             style: TextStyle(color: textcolor),
@@ -140,48 +145,48 @@ class _AdddeliveryaddressState extends State<Adddeliveryaddress> {
                 child: Column(
                   children: [
                     addressdetail(
-                      controller: TextEditingController(),
+                      controller: addressProvider.name,
                       keboardtype: TextInputType.text,
                       labtext: "Name",
                       max: 20,
                     ),
                     addressdetail(
-                      controller: TextEditingController(),
+                      controller: addressProvider.mobileno,
                       keboardtype: TextInputType.phone,
                       labtext: "Mobile no.",
                       max: 10,
                     ),
                     addressdetail(
-                      controller: TextEditingController(),
+                      controller: addressProvider.area,
                       keboardtype: TextInputType.text,
                       labtext: "Area/society",
                       max: 50,
                     ),
                     addressdetail(
-                      controller: TextEditingController(),
+                      controller: addressProvider.street,
                       keboardtype: TextInputType.text,
                       labtext: "street",
                       max: 50,
                     ),
                     addressdetail(
-                      controller: TextEditingController(),
+                      controller: addressProvider.landmark,
                       keboardtype: TextInputType.text,
                       labtext: "landmark",
                       max: 50,
                     ),
                     addressdetail(
-                      controller: TextEditingController(),
+                      controller: addressProvider.city,
                       keboardtype: TextInputType.text,
                       labtext: "city",
                       max: 20,
                     ),
                     addressdetail(
-                        controller: TextEditingController(),
+                        controller: addressProvider.state,
                         keboardtype: TextInputType.text,
                         labtext: "state",
                         max: 20),
                     addressdetail(
-                      controller: TextEditingController(),
+                      controller: addressProvider.pincode,
                       keboardtype: TextInputType.number,
                       labtext: "pincode",
                       max: 6,
