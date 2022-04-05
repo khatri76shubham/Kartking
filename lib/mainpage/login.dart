@@ -49,7 +49,9 @@ class _loginState extends State<login> {
       );
 
       return user;
-    } catch (e) {}
+    } catch (e) {
+      print(e);
+    }
   }
 
   late String _email, _password;

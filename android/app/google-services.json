@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "918192424391-5i7pduv1lp0hobs34sqvb93jjrj3tda0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kartking",
+            "certificate_hash": "857ce886622e7a44e3be7caa7a4cae346cf699bc"
+          }
+        },
+        {
           "client_id": "918192424391-gci5h548uc5khag93cq8o0h3tv0suohu.apps.googleusercontent.com",
           "client_type": 3
         }
