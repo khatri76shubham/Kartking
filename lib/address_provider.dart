@@ -1,12 +1,8 @@
-import 'dart:ffi';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:kartking/address_model.dart';
-import 'package:kartking/location.dart';
 import 'package:location/location.dart';
 
 class addressprovider with ChangeNotifier {

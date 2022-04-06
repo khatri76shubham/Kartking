@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:kartking/mainpage/login.dart';
 import 'package:kartking/my_account.dart';
 import 'package:kartking/pages/screens/profile_menu.dart';
+import 'package:kartking/user_provider.dart';
 
 // ignore: camel_case_types
 class settingpage extends StatefulWidget {
