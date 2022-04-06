@@ -71,7 +71,10 @@ class _AdddeliveryaddressState extends State<Adddeliveryaddress> {
                   ),
                   height: 47,
                   width: double.infinity,
-                  child: Center(child: Text('Set location')),
+                  child: Center(
+                      child: addressProvider.setlocation == null
+                          ? Text('Set location')
+                          : Text("Done")),
                 ),
               ),
             ),

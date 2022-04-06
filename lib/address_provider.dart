@@ -7,6 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:kartking/address_model.dart';
 import 'package:kartking/location.dart';
+import 'package:location/location.dart';
 
 class addressprovider with ChangeNotifier {
   bool isloading = false;
@@ -18,7 +19,7 @@ class addressprovider with ChangeNotifier {
   TextEditingController city = TextEditingController();
   TextEditingController state = TextEditingController();
   TextEditingController pincode = TextEditingController();
-  var setlocation;
+  LocationData? setlocation;
 
   void vaildator(context, mytype) async {
     if (name.text.isEmpty) {
@@ -54,8 +55,9 @@ class addressprovider with ChangeNotifier {
         "city": city.text,
         "state": state.text,
         "pincode": pincode.text,
-        "location": location,
         "addresstype": mytype.toString(),
+        "longitute": setlocation!.longitude,
+        "latitute": setlocation!.latitude,
       }).then((value) async {
         isloading = false;
         notifyListeners();

@@ -62,8 +62,11 @@ class _googlemapState extends State<googlemap> {
                     child: MaterialButton(
                       onPressed: () async {
                         await _location.getLocation().then((value) {
-                          setState(() {});
+                          setState(() {
+                            addressProvider.setlocation = value;
+                          });
                         });
+                        Navigator.of(context).pop();
                       },
                       color: primarycolor,
                       child: Text('Set Location'),
