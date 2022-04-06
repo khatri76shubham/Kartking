@@ -20,7 +20,7 @@ class addressprovider with ChangeNotifier {
   TextEditingController pincode = TextEditingController();
   TextEditingController setlocation = TextEditingController();
 
-  Future<void> vaildator(context, MapType) async {
+  void vaildator(context, mytype) async {
     if (name.text.isEmpty) {
       Fluttertoast.showToast(msg: 'please enter your name');
     } else if (mobileno.text.isEmpty) {
@@ -37,8 +37,8 @@ class addressprovider with ChangeNotifier {
       Fluttertoast.showToast(msg: 'state is empty');
     } else if (pincode.text.isEmpty) {
       Fluttertoast.showToast(msg: 'pincode is empty');
-      //  else if (setlocation.text.isEmpty) {
-      //   Fluttertoast.showToast(msg: 'set location is empty');
+    } else if (setlocation == null) {
+      Fluttertoast.showToast(msg: 'set location is empty');
     } else {
       isloading = true;
       notifyListeners();
@@ -55,7 +55,7 @@ class addressprovider with ChangeNotifier {
         "state": state.text,
         "pincode": pincode.text,
         "location": location,
-        "addresstype": MapType.toString(),
+        "addresstype": mytype.toString(),
       }).then((value) async {
         isloading = false;
         notifyListeners();
