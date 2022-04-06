@@ -18,7 +18,7 @@ class addressprovider with ChangeNotifier {
   TextEditingController city = TextEditingController();
   TextEditingController state = TextEditingController();
   TextEditingController pincode = TextEditingController();
-  TextEditingController setlocation = TextEditingController();
+  var setlocation;
 
   void vaildator(context, mytype) async {
     if (name.text.isEmpty) {
