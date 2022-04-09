@@ -29,18 +29,22 @@ class _AdddeliveryaddressState extends State<Adddeliveryaddress> {
       bottomNavigationBar: Container(
         margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         height: 48,
-        child: MaterialButton(
-          onPressed: () {
-            addressProvider.vaildator(context, mytype);
-          },
-          child: Text(
-            'save',
-            style: TextStyle(color: textcolor),
-          ),
-          color: primarycolor,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-        ),
+        child: addressProvider.isloading == false
+            ? MaterialButton(
+                onPressed: () {
+                  addressProvider.vaildator(context, mytype);
+                },
+                child: Text(
+                  'save',
+                  style: TextStyle(color: textcolor),
+                ),
+                color: primarycolor,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30)),
+              )
+            : Center(
+                child: CircularProgressIndicator(),
+              ),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20),
@@ -67,7 +71,10 @@ class _AdddeliveryaddressState extends State<Adddeliveryaddress> {
                   ),
                   height: 47,
                   width: double.infinity,
-                  child: Center(child: Text('Set location')),
+                  child: Center(
+                      child: addressProvider.setlocation == null
+                          ? Text('Set location')
+                          : Text("Done")),
                 ),
               ),
             ),

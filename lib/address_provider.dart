@@ -1,12 +1,9 @@
-import 'dart:ffi';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:kartking/address_model.dart';
-import 'package:kartking/location.dart';
+import 'package:location/location.dart';
 
 class addressprovider with ChangeNotifier {
   bool isloading = false;
@@ -18,9 +15,9 @@ class addressprovider with ChangeNotifier {
   TextEditingController city = TextEditingController();
   TextEditingController state = TextEditingController();
   TextEditingController pincode = TextEditingController();
-  TextEditingController setlocation = TextEditingController();
+  LocationData? setlocation;
 
-  Future<void> vaildator(context, MapType) async {
+  void vaildator(context, mytype) async {
     if (name.text.isEmpty) {
       Fluttertoast.showToast(msg: 'please enter your name');
     } else if (mobileno.text.isEmpty) {
@@ -37,8 +34,8 @@ class addressprovider with ChangeNotifier {
       Fluttertoast.showToast(msg: 'state is empty');
     } else if (pincode.text.isEmpty) {
       Fluttertoast.showToast(msg: 'pincode is empty');
-      //  else if (setlocation.text.isEmpty) {
-      //   Fluttertoast.showToast(msg: 'set location is empty');
+    } else if (setlocation == null) {
+      Fluttertoast.showToast(msg: 'set location is empty');
     } else {
       isloading = true;
       notifyListeners();
@@ -54,8 +51,9 @@ class addressprovider with ChangeNotifier {
         "city": city.text,
         "state": state.text,
         "pincode": pincode.text,
-        "location": location,
-        "addresstype": MapType.toString(),
+        "addresstype": mytype.toString(),
+        "longitute": setlocation!.longitude,
+        "latitute": setlocation!.latitude,
       }).then((value) async {
         isloading = false;
         notifyListeners();

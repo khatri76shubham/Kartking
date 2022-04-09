@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:kartking/address_provider.dart';
 import 'package:kartking/constant/colors.dart';
 import 'package:kartking/location.dart';
 import 'package:location/location.dart';
+import 'package:provider/provider.dart';
 
 class googlemap extends StatefulWidget {
   googlemap({Key? key}) : super(key: key);
@@ -31,6 +33,7 @@ class _googlemapState extends State<googlemap> {
 
   @override
   Widget build(BuildContext context) {
+    addressprovider addressProvider = Provider.of(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primarycolor,
@@ -57,7 +60,14 @@ class _googlemapState extends State<googlemap> {
                     margin: EdgeInsets.only(
                         left: 10, right: 60, bottom: 40, top: 40),
                     child: MaterialButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        await _location.getLocation().then((value) {
+                          setState(() {
+                            addressProvider.setlocation = value;
+                          });
+                        });
+                        Navigator.of(context).pop();
+                      },
                       color: primarycolor,
                       child: Text('Set Location'),
                       shape: StadiumBorder(),

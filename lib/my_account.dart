@@ -1,23 +1,20 @@
 import 'dart:io';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kartking/constant/colors.dart';
 import 'package:kartking/location.dart';
 import 'package:kartking/user_details.dart';
-
+import 'package:kartking/user_provider.dart';
 import 'mainpage/login.dart';
 
 class myaccount extends StatefulWidget {
-  myaccount({Key? key}) : super(key: key);
-
+  UserProvider? userProvider;
   @override
   State<myaccount> createState() => _myaccountState();
 }
 
 class _myaccountState extends State<myaccount> {
-  @override
   Widget listTile(
       {required IconData icon, required String title, VoidCallback? press}) {
     return Column(
@@ -46,7 +43,9 @@ class _myaccountState extends State<myaccount> {
   }
 
   final auth = FirebaseAuth.instance;
+  @override
   Widget build(BuildContext context) {
+    var userdata = widget.userProvider?.currentdata;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -93,16 +92,18 @@ class _myaccountState extends State<myaccount> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('shubham',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                        color: textcolor,
-                                      )),
+                                  userdata?.userName != null
+                                      ? Text(userdata!.userName,
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                            color: textcolor,
+                                          ))
+                                      : CircularProgressIndicator(),
                                   SizedBox(
                                     height: 10,
                                   ),
-                                  Text('shubhamkhatri767@gmail.com'),
+                                  Text("welcome@gmail.c"),
                                 ],
                               ),
                               GestureDetector(
@@ -177,11 +178,7 @@ class _myaccountState extends State<myaccount> {
                       ? null
                       : FileImage(File(imageXfile!.path)),
                   child: imageXfile == null
-                      ? Icon(
-                          Icons.add_photo_alternate,
-                          size: 50,
-                          color: Colors.black,
-                        )
+                      ? Image(image: NetworkImage(''))
                       : null,
                 ),
               ),

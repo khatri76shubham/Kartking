@@ -60,15 +60,14 @@ class _locationState extends State<location> {
                   )
                 : Column(
                     children: addressProvider.getaddresslist.map<Widget>((e) {
-                      setState(() {});
                       return SingleDeliveryItem(
                         address:
-                            "aera, ${e.area}, street, ${e.street}, landmark ${e.landMark}, pincode ${e.pinCode}",
+                            "area, ${e.area}, street, ${e.street}, landmark ${e.landMark}, pincode ${e.pinCode}",
                         title: "${e.name}",
                         number: "${e.mobileNo}",
-                        addressType: e.addressType == "AddressTypes.Home"
+                        addressType: e.addressType == "Addresstype.Home"
                             ? "Home"
-                            : e.addressType == "AddressTypes.Other"
+                            : e.addressType == "Addresstypes.Other"
                                 ? "Other"
                                 : "Work",
                       );
