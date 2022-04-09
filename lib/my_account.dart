@@ -45,7 +45,7 @@ class _myaccountState extends State<myaccount> {
   final auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
-    var userdata = widget.userProvider!.currentdata;
+    var userdata = widget.userProvider;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -92,7 +92,7 @@ class _myaccountState extends State<myaccount> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text("welcome",
+                                  Text(userdata!.currentdata!.userName,
                                       style: TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.bold,
