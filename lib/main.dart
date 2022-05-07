@@ -3,6 +3,7 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:kartking/address_provider.dart';
 import 'package:kartking/constant/colors.dart';
 import 'package:kartking/mainpage/login.dart';
+import 'package:kartking/store_provider.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +22,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
+          ChangeNotifierProvider<Storeprovider>(
+              create: (context) => Storeprovider()),
           ChangeNotifierProvider<UserProvider>(
               create: (context) => UserProvider()),
           ChangeNotifierProvider<addressprovider>(

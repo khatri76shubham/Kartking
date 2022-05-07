@@ -1,14 +1,27 @@
+import 'dart:math';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:kartking/constant/colors.dart';
 import 'package:kartking/home/store.dart';
 import 'package:kartking/my_account.dart';
 import 'package:kartking/home/items.dart';
 import 'package:kartking/single_store.dart';
+import 'package:kartking/store_provider.dart';
+import 'package:provider/provider.dart';
+
+import '../pages/store_overview/storeview.dart';
 
 // ignore: camel_case_types
-class homepage extends StatelessWidget {
+class homepage extends StatefulWidget {
   const homepage({Key? key}) : super(key: key);
 
+  @override
+  State<homepage> createState() => _homepageState();
+}
+
+class _homepageState extends State<homepage> {
+  Storeprovider? storeprovider;
   Widget divider() {
     return const Divider(
       color: Colors.grey,
@@ -20,9 +33,17 @@ class homepage extends StatelessWidget {
   }
 
   @override
+  void initState() {
+    Storeprovider storeprovider = Provider.of(context, listen: false);
+    storeprovider.fatchstore();
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
+    storeprovider = Provider.of(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -180,7 +201,108 @@ class homepage extends StatelessWidget {
                 ],
               ),
             ),
-            stores(size),
+            StreamBuilder<QuerySnapshot>(
+              stream:
+                  FirebaseFirestore.instance.collection("store").snapshots(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (!snapshot.hasData) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+
+                return ListView.builder(
+                    physics: ScrollPhysics(),
+                    // physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: snapshot.data?.docs.length ?? 0,
+                    itemBuilder: ((context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 18.0),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) =>
+                                    storeview(storeno: restaurantList[index])));
+                          },
+                          child: Material(
+                            elevation: 3,
+                            borderRadius: BorderRadius.circular(18),
+                            child: Container(
+                              height: size.height / 2.5,
+                              width: size.width / 1.1,
+                              child: Column(
+                                children: [
+                                  Container(
+                                    height: size.height / 4,
+                                    width: size.width / 1.1,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(18),
+                                        topRight: Radius.circular(18),
+                                      ),
+                                      image: DecorationImage(
+                                          image: NetworkImage(snapshot
+                                              .data?.docs[index]["simage"]),
+                                          fit: BoxFit.cover),
+                                    ),
+                                  ),
+                                  Container(
+                                    height: size.height / 12,
+                                    width: size.width / 1.2,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          snapshot.data?.docs[index]["sname"],
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        Container(
+                                          height: size.height / 25,
+                                          width: size.width / 7,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            color: Colors.green,
+                                          ),
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            restaurantList[index].rating,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    width: size.width / 1.2,
+                                    child: Text(
+                                      "${restaurantList[index].locations}   \t\t\t\t\t\t\t\t\t\t\t\t\t\t  ${restaurantList[index].price} for one",
+                                      style: TextStyle(
+                                        fontSize: 12.9,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    }));
+              },
+            ),
           ],
         ),
       ),
