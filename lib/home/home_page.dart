@@ -21,7 +21,6 @@ class homepage extends StatefulWidget {
 }
 
 class _homepageState extends State<homepage> {
-  Storeprovider? storeprovider;
   Widget divider() {
     return const Divider(
       color: Colors.grey,
@@ -33,17 +32,9 @@ class _homepageState extends State<homepage> {
   }
 
   @override
-  void initState() {
-    Storeprovider storeprovider = Provider.of(context, listen: false);
-    storeprovider.fatchstore();
-    // TODO: implement initState
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    storeprovider = Provider.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -274,7 +265,8 @@ class _homepageState extends State<homepage> {
                                           ),
                                           alignment: Alignment.center,
                                           child: Text(
-                                            restaurantList[index].rating,
+                                            snapshot.data?.docs[index]
+                                                ['srating'],
                                             style: TextStyle(
                                               color: Colors.white,
                                               fontWeight: FontWeight.bold,
@@ -287,7 +279,7 @@ class _homepageState extends State<homepage> {
                                   Container(
                                     width: size.width / 1.2,
                                     child: Text(
-                                      "${restaurantList[index].locations}   \t\t\t\t\t\t\t\t\t\t\t\t\t\t  ${restaurantList[index].price} for one",
+                                      "${snapshot.data?.docs[index]["slocation"]}   \t\t\t\t\t\t\t\t\t\t\t\t\t\t ",
                                       style: TextStyle(
                                         fontSize: 12.9,
                                         fontWeight: FontWeight.w500,

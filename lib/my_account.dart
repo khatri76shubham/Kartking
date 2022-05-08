@@ -36,15 +36,15 @@ class _myaccountState extends State<myaccount> {
     );
   }
 
-  XFile? imageXfile;
-  final ImagePicker _Picker = ImagePicker();
-  Future<void> _getImage() async {
-    imageXfile = await _Picker.pickImage(source: ImageSource.gallery);
+  // XFile? imageXfile;
+  // final ImagePicker _Picker = ImagePicker();
+  // Future<void> _getImage() async {
+  //   imageXfile = await _Picker.pickImage(source: ImageSource.gallery);
 
-    setState(() {
-      imageXfile;
-    });
-  }
+  //   setState(() {
+  //     imageXfile;
+  //   });
+  // }
 
   @override
   void initState() {
@@ -118,6 +118,8 @@ class _myaccountState extends State<myaccount> {
                                             fontWeight: FontWeight.bold,
                                             color: textcolor,
                                           )),
+                                    if (value.currentdata?.userName == null)
+                                      Text('welcome'),
                                     SizedBox(
                                       height: 10,
                                     ),
@@ -130,6 +132,9 @@ class _myaccountState extends State<myaccount> {
                                             fontWeight: FontWeight.bold,
                                             color: textcolor,
                                           )),
+                                    if (value.currentdata?.userName == null)
+                                      const Text(
+                                          '-------------------------------')
                                   ],
                                 ),
                                 GestureDetector(
@@ -195,17 +200,13 @@ class _myaccountState extends State<myaccount> {
               child: CircleAvatar(
                 backgroundColor: whitecolor,
                 radius: 48,
-                child: GestureDetector(
-                    onTap: () {
-                      _getImage();
-                    },
-                    child: CircleAvatar(
-                      radius: 43,
-                      backgroundColor: Colors.white,
-                      backgroundImage: NetworkImage(
-                          value.currentdata?.userImage.toString() ??
-                              "assets/images/Kartlogo.png"),
-                    )),
+                child: CircleAvatar(
+                  radius: 43,
+                  backgroundColor: Colors.white,
+                  backgroundImage: NetworkImage(value.currentdata?.userImage
+                          .toString() ??
+                      "https://firebasestorage.googleapis.com/v0/b/kartking-4f072.appspot.com/o/kartlogo.png?alt=media&token=db5857a3-cfe9-4fa7-81d9-2919d0a79d2c"),
+                ),
               ),
             ),
           ],

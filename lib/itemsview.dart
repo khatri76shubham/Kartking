@@ -24,7 +24,6 @@ class itemsview extends StatelessWidget {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
               )),
             ),
-            stores(size)
           ],
         ));
   }
