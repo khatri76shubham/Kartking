@@ -176,18 +176,21 @@ class _homepageState extends State<homepage> {
             ),
             divider(),
             Padding(
-              padding: const EdgeInsets.all(5),
+              padding: EdgeInsets.all(5),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
+                children: [
                   Text(
                     'Stores',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  Text(
-                    'view all',
-                    style: TextStyle(
-                        color: Colors.blueGrey, fontWeight: FontWeight.bold),
+                  GestureDetector(
+                    onTap: () {},
+                    child: Text(
+                      'view all',
+                      style: TextStyle(
+                          color: Colors.blueGrey, fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ],
               ),
@@ -215,8 +218,8 @@ class _homepageState extends State<homepage> {
                         child: GestureDetector(
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) =>
-                                    storeview(storeno: restaurantList[index])));
+                                builder: (context) => storeview(
+                                    Index: snapshot.data?.docs[index])));
                           },
                           child: Material(
                             elevation: 3,

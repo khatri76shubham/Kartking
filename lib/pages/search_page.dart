@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:kartking/constant/colors.dart';
 import 'package:kartking/pages/product_overview/product_view.dart';
@@ -31,63 +32,73 @@ class _searchpageState extends State<searchpage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 4,
-        iconTheme: const IconThemeData(color: Colors.black),
-        title: Container(
-          padding: EdgeInsets.all(5),
-          height: 60,
-          margin: EdgeInsets.all(20),
-          child: TextField(
-              cursorColor: textcolor,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide.none),
-                fillColor: primarycolor,
-                filled: true,
-                hintText: "search for items and stores",
-                prefixIcon: Icon(
-                  Icons.search,
-                  color: textcolor,
+        appBar: AppBar(
+          elevation: 4,
+          iconTheme: const IconThemeData(color: Colors.black),
+          title: Container(
+            padding: EdgeInsets.all(5),
+            height: 60,
+            margin: EdgeInsets.all(20),
+            child: TextField(
+                cursorColor: textcolor,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30),
+                      borderSide: BorderSide.none),
+                  fillColor: primarycolor,
+                  filled: true,
+                  hintText: "search for items and stores",
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: textcolor,
+                  ),
                 ),
-              ),
-              onChanged: (value) => onsearch(value)),
-        ),
-        backgroundColor: primarycolor,
-      ),
-      body: ListView(
-        children: [
-          ListView.builder(
-            physics: ScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: _searched.length,
-            itemBuilder: (context, index) {
-              return searchbox(
-                user: _searched[index],
-                ontap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) =>
-                          storeview(storeno: restaurantList[index])));
-                },
-              );
-            },
+                onChanged: (value) => onsearch(value)),
           ),
-          ListView.builder(
-              physics: ScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: _productsearch.length,
-              itemBuilder: (context, index) => productseachbox(
-                    user: _productsearch[index],
-                    ontap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) =>
-                              productview(itemnu: demo_products[index])));
-                    },
-                  )),
-        ],
-      ),
-    );
+          backgroundColor: primarycolor,
+        ),
+        body: StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance.collection("store").snapshots(),
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (!snapshot.hasData) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return ListView(
+              children: [
+                ListView.builder(
+                  physics: ScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: _searched.length,
+                  itemBuilder: (context, index) {
+                    return searchbox(
+                      user: _searched[index],
+                      ontap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) =>
+                                storeview(Index: snapshot.data?.docs[index])));
+                      },
+                    );
+                  },
+                ),
+                ListView.builder(
+                    physics: ScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: _productsearch.length,
+                    itemBuilder: (context, index) => productseachbox(
+                          user: _productsearch[index],
+                          ontap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) =>
+                                    productview(itemnu: demo_products[index])));
+                          },
+                        )),
+              ],
+            );
+          },
+        ));
   }
 }
 

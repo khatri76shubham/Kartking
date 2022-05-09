@@ -12,8 +12,8 @@ class singlestore extends StatelessWidget {
       elevation: 8,
       child: GestureDetector(
         onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => storeview(storeno: restaurantList[index])));
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => storeview()));
         },
         child: Container(
           decoration: BoxDecoration(
