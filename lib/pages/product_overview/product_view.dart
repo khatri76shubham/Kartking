@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:kartking/constant/colors.dart';
 
 class productview extends StatelessWidget {
-  final Product itemnu;
+  final itemnu;
   const productview({Key? key, itemno, required this.itemnu}) : super(key: key);
 
   Widget bottombar({required ontap}) {

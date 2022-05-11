@@ -3,7 +3,7 @@ import 'package:kartking/constant/colors.dart';
 import 'package:kartking/home/store.dart';
 
 class itemsview extends StatelessWidget {
-  final Product image;
+  final image;
   itemsview({Key? key, required this.image}) : super(key: key);
 
   @override

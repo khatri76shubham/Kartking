@@ -5,7 +5,7 @@ class Productcard extends StatelessWidget {
   const Productcard({Key? key, required this.product, required this.press})
       : super(key: key);
 
-  final Product product;
+  final product;
 
   final VoidCallback press;
   @override
@@ -22,18 +22,20 @@ class Productcard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image(image: AssetImage(product.image)),
+            Image(image: NetworkImage(product['iimage'])),
             Padding(
               padding: const EdgeInsets.all(6),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    product.title,
-                    style: Theme.of(context)
-                        .textTheme
-                        .subtitle1!
-                        .copyWith(fontWeight: FontWeight.w600),
+                  Expanded(
+                    child: Text(
+                      product['iname'],
+                      style: Theme.of(context)
+                          .textTheme
+                          .subtitle1!
+                          .copyWith(fontWeight: FontWeight.w600),
+                    ),
                   ),
                   Expanded(
                     child: Container(
@@ -41,7 +43,7 @@ class Productcard extends StatelessWidget {
                         width: 70,
                         child: Center(
                           child: Text(
-                            product.price,
+                            product['iprice'],
                             style: Theme.of(context)
                                 .textTheme
                                 .subtitle1!

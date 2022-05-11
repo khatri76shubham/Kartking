@@ -21,14 +21,10 @@ Widget checkoutcart(index) {
               height: 35,
               width: 50,
               child: Image(
-                image: AssetImage(demo_products[index].image),
+                image: AssetImage(''),
                 fit: BoxFit.cover,
               )),
-          Container(
-              color: whitecolor,
-              width: 100,
-              height: 20,
-              child: Text(demo_products[index].title)),
+          Container(color: whitecolor, width: 100, height: 20, child: Text('')),
         ],
       ),
       Container(
@@ -56,11 +52,7 @@ Widget checkoutcart(index) {
           ],
         ),
       ),
-      Container(
-          width: 40,
-          height: 20,
-          color: whitecolor,
-          child: Text(demo_products[index].price))
+      Container(width: 40, height: 20, color: whitecolor, child: Text('100'))
     ],
   );
 }
@@ -215,7 +207,7 @@ class _checkoutState extends State<checkout> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(restaurantList[0].title,
+                          Text('restaurantList[0].title',
                               style: TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.w700)),
                           SizedBox(height: 5),
@@ -228,8 +220,8 @@ class _checkoutState extends State<checkout> {
                                 bottomRight: Radius.circular(20),
                               ),
                               image: DecorationImage(
-                                  image:
-                                      NetworkImage(restaurantList[0].imageUrl),
+                                  image: NetworkImage(
+                                      'restaurantList[0].imageUrl'),
                                   fit: BoxFit.cover),
                             ),
                           ),
@@ -281,7 +273,7 @@ class _checkoutState extends State<checkout> {
                     ListView.builder(
                         physics: const ScrollPhysics(),
                         shrinkWrap: true,
-                        itemCount: demo_products.length,
+                        itemCount: 1,
                         itemBuilder: (context, index) => checkoutcart(index)),
                   ],
                 ),

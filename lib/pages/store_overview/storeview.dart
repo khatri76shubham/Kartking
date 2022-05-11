@@ -10,6 +10,7 @@ class storeview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String storename = Index['sname'];
     return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -23,7 +24,11 @@ class storeview extends StatelessWidget {
           ],
         ),
         body: StreamBuilder<QuerySnapshot>(
-          stream: FirebaseFirestore.instance.collection("store").snapshots(),
+          stream: FirebaseFirestore.instance
+              .collection("store")
+              .doc("$storename")
+              .collection('items')
+              .snapshots(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (!snapshot.hasData) {
@@ -169,13 +174,13 @@ class storeview extends StatelessWidget {
                           mainAxisSpacing: 8.0,
                           crossAxisSpacing: 8.0,
                         ),
-                        itemCount: demo_products.length,
+                        itemCount: snapshot.data?.docs.length ?? 0,
                         itemBuilder: (context, index) => Productcard(
-                              product: demo_products[index],
+                              product: snapshot.data?.docs[index],
                               press: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => productview(
-                                        itemnu: demo_products[index])));
+                                // Navigator.of(context).push(MaterialPageRoute(
+                                //     builder: (context) => productview(
+                                //         itemnu: demo_products[index])));
                               },
                             )),
                   ),
