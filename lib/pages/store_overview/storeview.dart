@@ -81,11 +81,11 @@ class storeview extends StatelessWidget {
                                   Row(
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
-                                      Icon(Icons.star, color: Colors.red),
-                                      Icon(Icons.star, color: Colors.red),
-                                      Icon(Icons.star, color: Colors.red),
-                                      Icon(Icons.star, color: Colors.red),
-                                      Icon(Icons.star, color: Colors.red),
+                                      // Icon(Icons.star, color: Colors.red),
+                                      // Icon(Icons.star, color: Colors.red),
+                                      // Icon(Icons.star, color: Colors.red),
+                                      // Icon(Icons.star, color: Colors.red),
+                                      // Icon(Icons.star, color: Colors.red),
                                       Text(
                                         "Reviews",
                                         style: TextStyle(
@@ -178,9 +178,9 @@ class storeview extends StatelessWidget {
                         itemBuilder: (context, index) => Productcard(
                               product: snapshot.data?.docs[index],
                               press: () {
-                                // Navigator.of(context).push(MaterialPageRoute(
-                                //     builder: (context) => productview(
-                                //         itemnu: demo_products[index])));
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => productview(
+                                        itemnu: snapshot.data?.docs[index])));
                               },
                             )),
                   ),
