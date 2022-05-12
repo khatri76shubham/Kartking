@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:kartking/constant/colors.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:kartking/pages/store_overview/storeview.dart';
 
 class singlestore extends StatelessWidget {
@@ -60,21 +60,37 @@ class singlestore extends StatelessWidget {
                               fontWeight: FontWeight.w500,
                             ),
                           ),
-                          Container(
-                            height: 500 / 25,
-                            width: 300 / 7,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.green,
-                            ),
-                            alignment: Alignment.center,
-                            child: Text(
-                              snapshot.data?.docs[index]["srating"],
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Container(
+                                height: 500 / 25,
+                                width: 300 / 7,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.green,
+                                ),
+                                alignment: Alignment.center,
+                                child: Text(
+                                  snapshot.data?.docs[index]["srating"],
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
-                            ),
+                              RatingBarIndicator(
+                                rating: double.parse(
+                                    snapshot.data?.docs[index]["srating"]),
+                                itemBuilder: (context, index) => Icon(
+                                  Icons.star,
+                                  color: Colors.red,
+                                ),
+                                itemCount: 5,
+                                itemSize: 20.0,
+                                direction: Axis.horizontal,
+                              ),
+                            ],
                           ),
                         ],
                       ),

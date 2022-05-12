@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:kartking/constant/colors.dart';
 import 'package:kartking/pages/product_overview/product_card.dart';
 import 'package:kartking/pages/product_overview/product_view.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class storeview extends StatelessWidget {
   final Index;
@@ -81,11 +82,16 @@ class storeview extends StatelessWidget {
                                   Row(
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
-                                      // Icon(Icons.star, color: Colors.red),
-                                      // Icon(Icons.star, color: Colors.red),
-                                      // Icon(Icons.star, color: Colors.red),
-                                      // Icon(Icons.star, color: Colors.red),
-                                      // Icon(Icons.star, color: Colors.red),
+                                      RatingBarIndicator(
+                                        rating: double.parse(Index['srating']),
+                                        itemBuilder: (context, index) => Icon(
+                                          Icons.star,
+                                          color: Colors.red,
+                                        ),
+                                        itemCount: 5,
+                                        itemSize: 40.0,
+                                        direction: Axis.horizontal,
+                                      ),
                                       Text(
                                         "Reviews",
                                         style: TextStyle(

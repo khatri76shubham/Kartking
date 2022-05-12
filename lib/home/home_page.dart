@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:kartking/constant/colors.dart';
 import 'package:kartking/home/store.dart';
 import 'package:kartking/my_account.dart';
@@ -287,15 +288,30 @@ class _homepageState extends State<homepage> {
                                           ],
                                         ),
                                       ),
-                                      Container(
-                                        width: size.width / 1.2,
-                                        child: Text(
-                                          "${snapshot.data?.docs[index]["slocation"]}   \t\t\t\t\t\t\t\t\t\t\t\t\t\t ",
-                                          style: TextStyle(
-                                            fontSize: 12.9,
-                                            fontWeight: FontWeight.w500,
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              "${snapshot.data?.docs[index]["slocation"]}",
+                                              style: TextStyle(
+                                                fontSize: 12.9,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
                                           ),
-                                        ),
+                                          RatingBarIndicator(
+                                            rating: double.parse(snapshot
+                                                .data?.docs[index]['srating']),
+                                            itemBuilder: (context, index) =>
+                                                Icon(
+                                              Icons.star,
+                                              color: Colors.red,
+                                            ),
+                                            itemCount: 5,
+                                            itemSize: 25.0,
+                                            direction: Axis.horizontal,
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
