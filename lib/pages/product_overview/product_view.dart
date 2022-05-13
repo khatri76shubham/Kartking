@@ -1,12 +1,12 @@
 import 'package:flutter/services.dart';
 import 'package:kartking/checkout_page.dart';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:kartking/constant/colors.dart';
 
 class productview extends StatelessWidget {
-  final Product itemnu;
+  final itemnu;
+
   const productview({Key? key, itemno, required this.itemnu}) : super(key: key);
 
   Widget bottombar({required ontap}) {
@@ -136,7 +136,7 @@ class productview extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            itemnu.title,
+                            itemnu['iname'],
                             style: TextStyle(
                                 color: whitecolor,
                                 fontWeight: FontWeight.bold,
@@ -148,7 +148,7 @@ class productview extends StatelessWidget {
                                   text: TextSpan(children: [
                                 TextSpan(text: "Price\n"),
                                 TextSpan(
-                                  text: itemnu.price,
+                                  text: itemnu['iprice'],
                                   style: Theme.of(context)
                                       .textTheme
                                       .headline4!
@@ -158,15 +158,12 @@ class productview extends StatelessWidget {
                                 )
                               ])),
                               Expanded(
-                                  child: Image.asset(
-                                itemnu.image,
+                                  child: Image.network(
+                                itemnu['iimage'],
                                 fit: BoxFit.fill,
                               )),
                             ],
                           ),
-                          Row(
-                            children: [Container()],
-                          )
                         ],
                       ),
                     )

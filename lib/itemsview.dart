@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kartking/constant/colors.dart';
-import 'package:kartking/home/store.dart';
 
 class itemsview extends StatelessWidget {
-  final Product image;
+  final image;
   itemsview({Key? key, required this.image}) : super(key: key);
 
   @override
@@ -20,11 +19,10 @@ class itemsview extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Center(
                   child: Text(
-                'All Shops deliver ' + image.title,
+                'All Shops deliver ' + image['iname'],
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
               )),
             ),
-            stores(size)
           ],
         ));
   }
