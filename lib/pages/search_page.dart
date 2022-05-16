@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:kartking/constant/colors.dart';
+import 'package:kartking/pages/product_overview/product_view.dart';
 import 'package:kartking/pages/store_overview/storeview.dart';
 
 class searchpage extends StatefulWidget {
@@ -14,14 +15,164 @@ class _searchpageState extends State<searchpage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () {
+      body: ListView(
+        children: [
+          GestureDetector(
+            onTap: () {
               showSearch(context: context, delegate: productsearch());
             },
-            icon: Icon(Icons.search),
-          )
+            child: Container(
+              width: 400,
+              height: 55,
+              child: Center(child: Text("search here")),
+              margin: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                  color: primarycolor, borderRadius: BorderRadius.circular(20)),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 6),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+                Text(
+                  'stores',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  'view all',
+                  style: TextStyle(
+                      color: Colors.blueGrey, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+          ),
+          StreamBuilder<QuerySnapshot>(
+              stream:
+                  FirebaseFirestore.instance.collection("store").snapshots(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (!snapshot.hasData) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                return ListView.builder(
+                    physics: ScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: 4,
+                    itemBuilder: ((context, index) {
+                      return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 8.0, horizontal: 10.0),
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => storeview(
+                                      Index: snapshot.data?.docs[index])));
+                            },
+                            child: Container(
+                              width: 30,
+                              height: 50,
+                              child: Center(
+                                  child: Text(
+                                snapshot.data?.docs[index]['sname'],
+                                style: TextStyle(
+                                    color: textcolor,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold),
+                              )),
+                              decoration: BoxDecoration(
+                                  color: whitecolor,
+                                  image: DecorationImage(
+                                    image: NetworkImage(
+                                        snapshot.data?.docs[index]['simage']),
+                                    fit: BoxFit.cover,
+                                    colorFilter: new ColorFilter.mode(
+                                        Colors.black.withOpacity(0.7),
+                                        BlendMode.dstIn),
+                                  ),
+                                  border:
+                                      Border.all(color: primarycolor, width: 3),
+                                  borderRadius: BorderRadius.circular(20)),
+                            ),
+                          ));
+                    }));
+              }),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 6),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+                Text(
+                  'Items',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  'view all',
+                  style: TextStyle(
+                      color: Colors.blueGrey, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+          ),
+          StreamBuilder<QuerySnapshot>(
+              stream: FirebaseFirestore.instance
+                  .collection("store")
+                  .doc("Gajanand Bhandar")
+                  .collection("items")
+                  .snapshots(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (!snapshot.hasData) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                return ListView.builder(
+                    physics: ScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: 3,
+                    itemBuilder: ((context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 10.0),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => productview(
+                                    itemnu: snapshot.data?.docs[index])));
+                          },
+                          child: Container(
+                            width: 30,
+                            height: 50,
+                            child: Center(
+                                child: Text(
+                              snapshot.data?.docs[index]['iname'],
+                              style: TextStyle(
+                                  color: textcolor,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold),
+                            )),
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: NetworkImage(
+                                      snapshot.data?.docs[index]['iimage']),
+                                  fit: BoxFit.cover,
+                                  colorFilter: new ColorFilter.mode(
+                                      Colors.black.withOpacity(0.7),
+                                      BlendMode.dstIn),
+                                ),
+                                color: whitecolor,
+                                border:
+                                    Border.all(color: primarycolor, width: 3),
+                                borderRadius: BorderRadius.circular(20)),
+                          ),
+                        ),
+                      );
+                    }));
+              })
         ],
       ),
     );
@@ -29,7 +180,7 @@ class _searchpageState extends State<searchpage> {
 }
 
 class productsearch extends SearchDelegate {
-  CollectionReference _firebasefirestore =
+  final CollectionReference _firebasefirestore =
       FirebaseFirestore.instance.collection("store");
   @override
   List<Widget>? buildActions(BuildContext context) {
@@ -73,7 +224,7 @@ class productsearch extends SearchDelegate {
                 .isEmpty) {
               return Center(
                   child: Text(
-                "No Searched Store Found",
+                "No Search Query Found",
                 style: TextStyle(fontSize: 25),
               ));
             }

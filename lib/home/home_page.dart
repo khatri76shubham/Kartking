@@ -1,15 +1,11 @@
 import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:kartking/constant/colors.dart';
-import 'package:kartking/home/store.dart';
 import 'package:kartking/my_account.dart';
 import 'package:kartking/home/items.dart';
 import 'package:kartking/single_store.dart';
-import 'package:provider/provider.dart';
-
 import '../pages/store_overview/storeview.dart';
 
 // ignore: camel_case_types
@@ -216,7 +212,6 @@ class _homepageState extends State<homepage> {
                     ),
                     ListView.builder(
                         physics: ScrollPhysics(),
-                        // physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: snapshot.data?.docs.length ?? 0,
                         itemBuilder: ((context, index) {
