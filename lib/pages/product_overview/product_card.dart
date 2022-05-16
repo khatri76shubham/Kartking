@@ -22,7 +22,7 @@ class Productcard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image(image: NetworkImage(product['iimage'])),
+            Expanded(child: Image(image: NetworkImage(product['iimage']))),
             Padding(
               padding: const EdgeInsets.all(6),
               child: Row(

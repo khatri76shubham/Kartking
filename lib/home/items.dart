@@ -13,7 +13,7 @@ class items extends StatelessWidget {
     return StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
             .collection("store")
-            .doc(" $index['sname']")
+            .doc("Gajanand Bhandar")
             .collection("items")
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
