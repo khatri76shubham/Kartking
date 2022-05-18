@@ -8,55 +8,54 @@ import 'package:kartking/pages/count.dart';
 class productview extends StatelessWidget {
   final itemnu;
 
-  const productview({Key? key, itemno, required this.itemnu}) : super(key: key);
+  final sid;
 
-  Widget bottombar({required ontap}) {
-    return Container(
-      color: whitecolor,
-      child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              count(
-                cartname: itemnu['iname'],
-                cartid: itemnu['iid'],
-                cartimage: itemnu['iimage'],
-                cartprice: itemnu['iprice'],
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Expanded(
-                child: Container(
-                  height: 50,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(18),
-                      color: primarycolor),
-                  child: GestureDetector(
-                    onTap: ontap,
-                    child: Center(
-                        child: Text('check out',
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w600))),
-                  ),
-                ),
-              )
-            ],
-          )),
-    );
-  }
+  productview({Key? key, itemno, required this.itemnu, this.sid})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: primarycolor,
-        bottomNavigationBar: bottombar(
-          ontap: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => checkout()));
-          },
+        bottomNavigationBar: Container(
+          color: whitecolor,
+          child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  count(
+                    storeid: sid['sname'], //storeid
+                    cartname: itemnu['iname'],
+                    cartid: itemnu['iid'],
+                    cartimage: itemnu['iimage'],
+                    cartprice: itemnu['iprice'],
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                    child: Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(18),
+                          color: primarycolor),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => checkout()));
+                        },
+                        child: Center(
+                            child: Text('check out',
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600))),
+                      ),
+                    ),
+                  )
+                ],
+              )),
         ),
         appBar: AppBar(
           backgroundColor: primarycolor,

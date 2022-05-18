@@ -186,7 +186,9 @@ class storeview extends StatelessWidget {
                               press: () {
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => productview(
-                                        itemnu: snapshot.data?.docs[index])));
+                                          sid: Index,
+                                          itemnu: snapshot.data?.docs[index],
+                                        )));
                               },
                             )),
                   ),

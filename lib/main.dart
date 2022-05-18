@@ -27,7 +27,9 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider<addressprovider>(
               create: (context) => addressprovider()),
           ChangeNotifierProvider<CartProvider>(
-              create: (context) => CartProvider())
+              create: (context) => CartProvider()),
+          ChangeNotifierProvider<YourCartProvider>(
+              create: (context) => YourCartProvider())
         ],
         child: MaterialApp(
           home: AnimatedSplashScreen(

@@ -2,6 +2,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+class YourCartProvider with ChangeNotifier {
+  void yourcartdata({
+    String? storeid,
+  }) async {
+    await FirebaseFirestore.instance
+        .collection("cartdata")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection("yourcartdata")
+        .doc(storeid)
+        .set(
+      {"storeid": storeid},
+    );
+  }
+}
+
 class CartProvider with ChangeNotifier {
   void addcartData({
     String? cartname,
@@ -9,14 +24,18 @@ class CartProvider with ChangeNotifier {
     String? cartid,
     String? cartprice,
     String? cartquantity,
+    String? storeid,
   }) async {
     await FirebaseFirestore.instance
         .collection("cartdata")
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .collection("yourcartdata")
+        .doc(storeid)
+        .collection("storedata")
         .doc(cartid)
         .set(
       {
+        "storeid": storeid,
         "cartname": cartname,
         "cartid": cartid,
         "cartimage": cartimage,
@@ -25,27 +44,4 @@ class CartProvider with ChangeNotifier {
       },
     );
   }
-
-  // UserModel? currentdata;
-  // void getuserdata() async {
-  //   UserModel userModel;
-  //   var value = await FirebaseFirestore.instance
-  //       .collection("usersData")
-  //       .doc(FirebaseAuth.instance.currentUser!.uid)
-  //       .get();
-  //   if (value.exists) {
-  //     userModel = UserModel(
-  //       userEmail: value.get("userEmail"),
-  //       userImage: value.get("userImage"),
-  //       userName: value.get("userName"),
-  //       userUid: value.get("userUid"),
-  //     );
-  //     currentdata = userModel;
-  //     notifyListeners();
-  //   }
-  // }
-
-  // UserModel? get currentuserdata {
-  //   return currentdata;
-  // }
 }

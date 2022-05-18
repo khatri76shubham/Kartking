@@ -4,11 +4,18 @@ class CartModel {
   String cartimage;
   String cartprice;
   String cartquantity;
+  String storeid;
   CartModel({
     required this.cartid,
+    required this.storeid,
     required this.cartimage,
     required this.cartname,
     required this.cartprice,
     required this.cartquantity,
   });
+}
+
+class Yourcartmodel {
+  String storeid;
+  Yourcartmodel({required this.storeid});
 }
