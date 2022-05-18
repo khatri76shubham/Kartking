@@ -107,8 +107,6 @@ class _myaccountState extends State<myaccount> {
                                             fontWeight: FontWeight.bold,
                                             color: textcolor,
                                           )),
-                                    if (value.currentdata?.userName == null)
-                                      Text('welcome'),
                                     SizedBox(
                                       height: 10,
                                     ),
@@ -121,9 +119,6 @@ class _myaccountState extends State<myaccount> {
                                             fontWeight: FontWeight.bold,
                                             color: textcolor,
                                           )),
-                                    if (value.currentdata?.userName == null)
-                                      const Text(
-                                          '-------------------------------')
                                   ],
                                 ),
                                 GestureDetector(
