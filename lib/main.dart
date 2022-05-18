@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:kartking/address_provider.dart';
+import 'package:kartking/cart_provider.dart';
 import 'package:kartking/constant/colors.dart';
 import 'package:kartking/mainpage/login.dart';
 import 'package:page_transition/page_transition.dart';
@@ -24,7 +25,9 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider<UserProvider>(
               create: (context) => UserProvider()),
           ChangeNotifierProvider<addressprovider>(
-              create: (context) => addressprovider())
+              create: (context) => addressprovider()),
+          ChangeNotifierProvider<CartProvider>(
+              create: (context) => CartProvider())
         ],
         child: MaterialApp(
           home: AnimatedSplashScreen(

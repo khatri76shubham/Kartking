@@ -18,7 +18,12 @@ class productview extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              addtocart(),
+              count(
+                cartname: itemnu['iname'],
+                cartid: itemnu['iid'],
+                cartimage: itemnu['iimage'],
+                cartprice: itemnu['iprice'],
+              ),
               SizedBox(
                 width: 10,
               ),
@@ -94,7 +99,6 @@ class productview extends StatelessWidget {
                               children: [
                                 Text('Quantity',
                                     style: TextStyle(color: textcolor)),
-                                count(),
                               ],
                             ),
                             RichText(
@@ -160,48 +164,5 @@ class productview extends StatelessWidget {
             )
           ],
         ));
-  }
-}
-
-class addtocart extends StatefulWidget {
-  const addtocart({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  State<addtocart> createState() => _addtocartState();
-}
-
-class _addtocartState extends State<addtocart> {
-  bool isAdded = false;
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        isAdded = !isAdded;
-        setState(() {});
-      },
-      child: Container(
-          padding: EdgeInsets.all(8),
-          height: 50,
-          decoration: BoxDecoration(
-              color: isAdded ? Colors.lightGreen : primarycolor,
-              borderRadius: BorderRadius.circular(18)),
-          child: Center(
-              child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Container(
-                child: isAdded
-                    ? Icon(Icons.done)
-                    : Icon(
-                        Icons.shopping_cart,
-                        size: 20,
-                      ),
-              ),
-              Text(isAdded ? "added to cart" : 'Add to cart')
-            ],
-          ))),
-    );
   }
 }

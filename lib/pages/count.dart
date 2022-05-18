@@ -1,8 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:kartking/cart_provider.dart';
 import 'package:kartking/constant/colors.dart';
+import 'package:provider/provider.dart';
 
 class count extends StatefulWidget {
-  count({Key? key}) : super(key: key);
+  String? cartid;
+  String? cartname;
+  String? cartimage;
+  String? cartprice;
+  count({
+    Key? key,
+    this.cartid,
+    this.cartimage,
+    this.cartname,
+    this.cartprice,
+  }) : super(key: key);
 
   @override
   State<count> createState() => _countState();
@@ -13,12 +25,14 @@ class _countState extends State<count> {
   bool istrue = false;
   @override
   Widget build(BuildContext context) {
+    CartProvider cartprovider = Provider.of(context);
     return Container(
-        height: 40,
-        width: 80,
+        padding: EdgeInsets.all(8),
+        height: 50,
+        width: 150,
         decoration: BoxDecoration(
-            border: Border.all(color: textcolor),
-            borderRadius: BorderRadius.circular(8)),
+            color: istrue ? Colors.lightGreen : primarycolor,
+            borderRadius: BorderRadius.circular(18)),
         child: istrue == true
             ? Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -48,6 +62,12 @@ class _countState extends State<count> {
                       setState(() {
                         count++;
                       });
+                      cartprovider.addcartData(
+                          cartid: widget.cartid,
+                          cartimage: widget.cartimage,
+                          cartname: widget.cartname,
+                          cartprice: widget.cartprice,
+                          cartquantity: '$count');
                     },
                     child: Icon(
                       Icons.add,
@@ -64,9 +84,18 @@ class _countState extends State<count> {
                       istrue = true;
                     });
                   },
-                  child: Text(
-                    'add',
-                    style: TextStyle(color: primarycolor),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Icon(
+                        Icons.shopping_cart,
+                        size: 20,
+                      ),
+                      Text(
+                        'add to cart',
+                        style: TextStyle(color: textcolor),
+                      ),
+                    ],
                   ),
                 ),
               ));
