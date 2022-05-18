@@ -100,10 +100,7 @@ class productview extends StatelessWidget {
                             RichText(
                               text: TextSpan(children: [
                                 TextSpan(
-                                    text: "weight\n",
-                                    style: TextStyle(color: textcolor)),
-                                TextSpan(
-                                    text: "12kg",
+                                    text: itemnu['iquantity'],
                                     style: Theme.of(context)
                                         .textTheme
                                         .headline5!
