@@ -1,6 +1,6 @@
 class addressmodel {
   String? name;
-  String? mobileNo;
+  String? mobileno;
   String? area;
   String? street;
   String? landMark;
@@ -14,7 +14,7 @@ class addressmodel {
     this.area,
     this.city,
     this.landMark,
-    this.mobileNo,
+    this.mobileno,
     this.name,
     this.pinCode,
     this.state,

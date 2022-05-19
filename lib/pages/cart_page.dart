@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:kartking/checkout_page.dart';
 import 'package:kartking/constant/colors.dart';
 
 // ignore: camel_case_types
@@ -27,6 +28,10 @@ class _cartpageState extends State<cartpage> {
             );
           }
           return Scaffold(
+            appBar: AppBar(
+              backgroundColor: primarycolor,
+              title: Text('Your cart'),
+            ),
             body: ListView.builder(
                 physics: ScrollPhysics(),
                 shrinkWrap: true,
@@ -146,13 +151,24 @@ class _cartpageState extends State<cartpage> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                     children: [
-                                      Text(
-                                        "Buy Now",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 20),
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      checkout(
+                                                        index: snapshot
+                                                            .data?.docs[index],
+                                                      )));
+                                        },
+                                        child: Text(
+                                          "Buy Now",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 20),
+                                        ),
                                       ),
-                                      Text('Total')
+                                      Text('total')
                                     ],
                                   ),
                                   decoration: BoxDecoration(

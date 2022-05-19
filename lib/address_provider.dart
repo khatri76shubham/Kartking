@@ -42,9 +42,11 @@ class addressprovider with ChangeNotifier {
       await FirebaseFirestore.instance
           .collection("Address")
           .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection('moredata')
+          .doc(pincode.text)
           .set({
         "name": name.text,
-        "mobile no.": mobileno.text,
+        "mobileno": mobileno.text,
         "area": area.text,
         "street": street.text,
         "landmark": landmark.text,
@@ -72,6 +74,8 @@ class addressprovider with ChangeNotifier {
     DocumentSnapshot _db = await FirebaseFirestore.instance
         .collection("Address")
         .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection("moredata")
+        .doc()
         .get();
     if (_db.exists) {
       addressModel = addressmodel(
@@ -79,7 +83,7 @@ class addressprovider with ChangeNotifier {
         area: _db.get("area"),
         city: _db.get("city"),
         landMark: _db.get("landmark"),
-        mobileNo: _db.get("mobileno"),
+        mobileno: _db.get("mobileno"),
         name: _db.get("name"),
         pinCode: _db.get("pincode"),
         state: _db.get("state"),

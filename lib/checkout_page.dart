@@ -4,164 +4,115 @@ import 'package:kartking/home/items.dart';
 import 'package:kartking/location.dart';
 
 class checkout extends StatefulWidget {
-  checkout({Key? key}) : super(key: key);
+  final index;
+  checkout({Key? key, this.index}) : super(key: key);
 
   @override
   State<checkout> createState() => _checkoutState();
-}
-
-Widget checkoutcart(index) {
-  return Row(
-    crossAxisAlignment: CrossAxisAlignment.center,
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      Row(
-        children: [
-          SizedBox(
-              height: 35,
-              width: 50,
-              child: Image(
-                image: AssetImage(''),
-                fit: BoxFit.cover,
-              )),
-          Container(color: whitecolor, width: 100, height: 20, child: Text('')),
-        ],
-      ),
-      Container(
-        width: 85,
-        height: 30,
-        decoration: BoxDecoration(
-            border: Border.all(color: primarycolor, width: 2),
-            borderRadius: BorderRadius.all(Radius.circular(20))),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Container(
-              child: Icon(Icons.remove),
-            ),
-            Container(
-              height: double.infinity,
-              width: 20,
-              child: Center(
-                child: Text('1'),
-              ),
-            ),
-            Container(
-              child: Icon(Icons.add),
-            )
-          ],
-        ),
-      ),
-      Container(width: 40, height: 20, color: whitecolor, child: Text('100'))
-    ],
-  );
-}
-
-Widget bottombar({ontap}) {
-  return Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: Container(
-      width: 200,
-      height: 150,
-      color: Colors.transparent,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: 75,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20.0),
-              color: whitecolor,
-              boxShadow: [
-                BoxShadow(
-                  color: primarycolor,
-                  offset: Offset(1.0, 3.0), //(x,y)
-                  blurRadius: 3.0,
-                ),
-              ],
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Deliverable address :-',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 17),
-                      ),
-                      Text('Home'),
-                    ],
-                  ),
-                  Text(
-                    '4-E-263,J.N.V colony , bikaner, rajasthan,334001',
-                    style: TextStyle(fontWeight: FontWeight.w400),
-                  ),
-                  GestureDetector(
-                    onTap: ontap,
-                    child: Text('change address',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 15,
-                            color: Colors.red)),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Divider(
-            color: textcolor,
-          ),
-          Container(
-            height: 50,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('hello'),
-                Container(
-                  height: 50,
-                  width: 200,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: primarycolor,
-                    boxShadow: [
-                      BoxShadow(
-                        color: textcolor,
-                        offset: Offset(1.0, 3.0), //(x,y)
-                        blurRadius: 4.0,
-                      ),
-                    ],
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Pay Now',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-        ],
-      ),
-    ),
-  );
 }
 
 class _checkoutState extends State<checkout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: bottombar(ontap: () {
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => location()));
-      }),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          width: 200,
+          height: 150,
+          color: Colors.transparent,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: 75,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.0),
+                  color: whitecolor,
+                  boxShadow: [
+                    BoxShadow(
+                      color: primarycolor,
+                      offset: Offset(1.0, 3.0), //(x,y)
+                      blurRadius: 3.0,
+                    ),
+                  ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Deliverable address :-',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 17),
+                          ),
+                          Text('Home'),
+                        ],
+                      ),
+                      Text(
+                        '4-E-263,J.N.V colony , bikaner, rajasthan,334001',
+                        style: TextStyle(fontWeight: FontWeight.w400),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => location()));
+                        },
+                        child: Text('change address',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15,
+                                color: Colors.red)),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Divider(
+                color: textcolor,
+              ),
+              Container(
+                height: 50,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('hello'),
+                    Container(
+                      height: 50,
+                      width: 200,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: primarycolor,
+                        boxShadow: [
+                          BoxShadow(
+                            color: textcolor,
+                            offset: Offset(1.0, 3.0), //(x,y)
+                            blurRadius: 4.0,
+                          ),
+                        ],
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Pay Now',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+      // bottomNavigationBar: bottombar(),
       appBar: AppBar(
         backgroundColor: primarycolor,
       ),
@@ -207,7 +158,7 @@ class _checkoutState extends State<checkout> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('restaurantList[0].title',
+                          Text('',
                               style: TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.w700)),
                           SizedBox(height: 5),
@@ -271,10 +222,67 @@ class _checkoutState extends State<checkout> {
                     ),
                     const Divider(),
                     ListView.builder(
-                        physics: const ScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: 1,
-                        itemBuilder: (context, index) => checkoutcart(index)),
+                      physics: ScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: 1,
+                      itemBuilder: ((context, index) {
+                        return Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                SizedBox(
+                                    height: 35,
+                                    width: 50,
+                                    child: Image(
+                                      image: AssetImage(''),
+                                      fit: BoxFit.cover,
+                                    )),
+                                Container(
+                                    color: whitecolor,
+                                    width: 100,
+                                    height: 20,
+                                    child: Text('')),
+                              ],
+                            ),
+                            Container(
+                              width: 85,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                  border:
+                                      Border.all(color: primarycolor, width: 2),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20))),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Container(
+                                    child: Icon(Icons.remove),
+                                  ),
+                                  Container(
+                                    height: double.infinity,
+                                    width: 20,
+                                    child: Center(
+                                      child: Text('1'),
+                                    ),
+                                  ),
+                                  Container(
+                                    child: Icon(Icons.add),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Container(
+                                width: 40,
+                                height: 20,
+                                color: whitecolor,
+                                child: Text('100'))
+                          ],
+                        );
+                      }),
+                    ),
                   ],
                 ),
               ),

@@ -1,13 +1,11 @@
 import 'package:flutter/services.dart';
-import 'package:kartking/checkout_page.dart';
-
 import 'package:flutter/material.dart';
 import 'package:kartking/constant/colors.dart';
+import 'package:kartking/pages/cart_page.dart';
 import 'package:kartking/pages/count.dart';
 
 class productview extends StatelessWidget {
   final itemnu;
-
   final sid;
 
   productview({Key? key, itemno, required this.itemnu, this.sid})
@@ -44,10 +42,10 @@ class productview extends StatelessWidget {
                       child: GestureDetector(
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => checkout()));
+                              builder: (context) => cartpage()));
                         },
                         child: Center(
-                            child: Text('check out',
+                            child: Text('View Cart',
                                 style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w600))),
