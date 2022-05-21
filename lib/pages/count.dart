@@ -9,15 +9,17 @@ class count extends StatefulWidget {
   String? cartimage;
   String? cartprice;
   String? storeid;
+  String? storeimage;
 
-  count({
-    Key? key,
-    this.cartid,
-    this.storeid,
-    this.cartimage,
-    this.cartname,
-    this.cartprice,
-  }) : super(key: key);
+  count(
+      {Key? key,
+      this.cartid,
+      this.storeid,
+      this.cartimage,
+      this.cartname,
+      this.cartprice,
+      this.storeimage})
+      : super(key: key);
 
   @override
   State<count> createState() => _countState();
@@ -66,7 +68,9 @@ class _countState extends State<count> {
                       setState(() {
                         count++;
                       });
-                      yourCartProvider.yourcartdata(storeid: widget.storeid);
+                      yourCartProvider.yourcartdata(
+                          storeid: widget.storeid,
+                          storeimage: widget.storeimage);
                       cartprovider.addcartData(
                           storeid: widget.storeid,
                           cartid: widget.cartid,

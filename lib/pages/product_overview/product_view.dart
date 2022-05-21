@@ -29,6 +29,7 @@ class productview extends StatelessWidget {
                     cartid: itemnu['iid'],
                     cartimage: itemnu['iimage'],
                     cartprice: itemnu['iprice'],
+                    storeimage: sid['simage'],
                   ),
                   SizedBox(
                     width: 10,

@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:kartking/address_model.dart';
 import 'package:location/location.dart';
 
 class addressprovider with ChangeNotifier {
@@ -65,38 +64,5 @@ class addressprovider with ChangeNotifier {
       });
       notifyListeners();
     }
-  }
-
-  List<addressmodel> addresslist = [];
-  getaddressdata() async {
-    List<addressmodel> newlist = [];
-    addressmodel addressModel;
-    DocumentSnapshot _db = await FirebaseFirestore.instance
-        .collection("Address")
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .collection("moredata")
-        .doc()
-        .get();
-    if (_db.exists) {
-      addressModel = addressmodel(
-        addressType: _db.get("addresstype"),
-        area: _db.get("area"),
-        city: _db.get("city"),
-        landMark: _db.get("landmark"),
-        mobileno: _db.get("mobileno"),
-        name: _db.get("name"),
-        pinCode: _db.get("pincode"),
-        state: _db.get("state"),
-        street: _db.get("street"),
-      );
-      newlist.add(addressModel);
-      notifyListeners();
-    }
-    addresslist = newlist;
-    notifyListeners();
-  }
-
-  List<addressmodel> get getaddresslist {
-    return addresslist;
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:kartking/constant/colors.dart';
@@ -15,50 +17,53 @@ class _searchpageState extends State<searchpage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        children: [
-          GestureDetector(
-            onTap: () {
-              showSearch(context: context, delegate: productsearch());
-            },
-            child: Container(
-              width: 400,
-              height: 55,
-              child: Center(child: Text("search here")),
-              margin: const EdgeInsets.all(10),
-              padding: const EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                  color: primarycolor, borderRadius: BorderRadius.circular(20)),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 6),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Text(
-                  'stores',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+      body: StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance.collection("store").snapshots(),
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (!snapshot.hasData) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            final sidindex = snapshot.data?.docs;
+            return ListView(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    showSearch(context: context, delegate: productsearch());
+                  },
+                  child: Container(
+                    width: 400,
+                    height: 55,
+                    child: Center(child: Text("search here")),
+                    margin: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                        color: primarycolor,
+                        borderRadius: BorderRadius.circular(20)),
+                  ),
                 ),
-                Text(
-                  'view all',
-                  style: TextStyle(
-                      color: Colors.blueGrey, fontWeight: FontWeight.bold),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 4, horizontal: 6),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: const [
+                      Text(
+                        'stores',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        'view all',
+                        style: TextStyle(
+                            color: Colors.blueGrey,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
                 ),
-              ],
-            ),
-          ),
-          StreamBuilder<QuerySnapshot>(
-              stream:
-                  FirebaseFirestore.instance.collection("store").snapshots(),
-              builder: (BuildContext context,
-                  AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (!snapshot.hasData) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                return ListView.builder(
+                ListView.builder(
                     physics: ScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: 4,
@@ -98,83 +103,86 @@ class _searchpageState extends State<searchpage> {
                                   borderRadius: BorderRadius.circular(20)),
                             ),
                           ));
-                    }));
-              }),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 6),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Text(
-                  'Items',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                    })),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 4, horizontal: 6),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: const [
+                      Text(
+                        'Items',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        'view all',
+                        style: TextStyle(
+                            color: Colors.blueGrey,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
                 ),
-                Text(
-                  'view all',
-                  style: TextStyle(
-                      color: Colors.blueGrey, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-          ),
-          StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance
-                  .collection("store")
-                  .doc("Gajanand Bhandar")
-                  .collection("items")
-                  .snapshots(),
-              builder: (BuildContext context,
-                  AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (!snapshot.hasData) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                return ListView.builder(
+                ListView.builder(
                     physics: ScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: 3,
+                    itemCount: 5,
                     itemBuilder: ((context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 8.0, horizontal: 10.0),
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => productview(
-                                    itemnu: snapshot.data?.docs[index])));
-                          },
-                          child: Container(
-                            width: 30,
-                            height: 50,
-                            child: Center(
-                                child: Text(
-                              snapshot.data?.docs[index]['iname'],
-                              style: TextStyle(
-                                  color: textcolor,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold),
-                            )),
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: NetworkImage(
-                                      snapshot.data?.docs[index]['iimage']),
-                                  fit: BoxFit.cover,
-                                  colorFilter: new ColorFilter.mode(
-                                      Colors.black.withOpacity(0.7),
-                                      BlendMode.dstIn),
+                      return StreamBuilder<QuerySnapshot>(
+                          stream: FirebaseFirestore.instance
+                              .collection("store")
+                              .doc(sidindex?[index]['sname'])
+                              .collection("items")
+                              .snapshots(),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<QuerySnapshot> snapshot) {
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 8.0, horizontal: 10.0),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => productview(
+                                          sid: sidindex?[index],
+                                          itemnu: snapshot.data?.docs[index])));
+                                },
+                                child: Container(
+                                  width: 30,
+                                  height: 50,
+                                  child: Center(
+                                      child: Text(
+                                    snapshot.data?.docs[index]['iname'],
+                                    style: TextStyle(
+                                        color: textcolor,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
+                                  )),
+                                  decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: NetworkImage(snapshot
+                                            .data?.docs[index]['iimage']),
+                                        fit: BoxFit.cover,
+                                        colorFilter: new ColorFilter.mode(
+                                            Colors.black.withOpacity(0.7),
+                                            BlendMode.dstIn),
+                                      ),
+                                      color: whitecolor,
+                                      border: Border.all(
+                                          color: primarycolor, width: 3),
+                                      borderRadius: BorderRadius.circular(20)),
                                 ),
-                                color: whitecolor,
-                                border:
-                                    Border.all(color: primarycolor, width: 3),
-                                borderRadius: BorderRadius.circular(20)),
-                          ),
-                        ),
-                      );
-                    }));
-              })
-        ],
-      ),
+                              ),
+                            );
+                          });
+                    }))
+              ],
+            );
+          }),
     );
   }
 }

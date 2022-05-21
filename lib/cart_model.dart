@@ -17,5 +17,6 @@ class CartModel {
 
 class Yourcartmodel {
   String storeid;
-  Yourcartmodel({required this.storeid});
+  String storeimage;
+  Yourcartmodel({required this.storeid, required this.storeimage});
 }

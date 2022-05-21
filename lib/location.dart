@@ -70,8 +70,11 @@ class _locationState extends State<location> {
                       itemBuilder: ((context, index) {
                         return SingleDeliveryItem(
                           address: snapshot.data?.docs[index]['area'] +
+                              ', ' +
                               snapshot.data?.docs[index]['street'] +
+                              ', ' +
                               snapshot.data?.docs[index]['landmark'] +
+                              ', ' +
                               snapshot.data?.docs[index]['pincode'],
                           title: snapshot.data?.docs[index]['name'],
                           number: snapshot.data?.docs[index]['mobileno'],

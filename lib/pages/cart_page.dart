@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_signin_button/button_list.dart';
+import 'package:flutter_signin_button/button_view.dart';
 import 'package:kartking/checkout_page.dart';
 import 'package:kartking/constant/colors.dart';
+import 'package:kartking/mainpage/login.dart';
 
 // ignore: camel_case_types
 class cartpage extends StatefulWidget {
@@ -18,13 +21,41 @@ class _cartpageState extends State<cartpage> {
     return StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
             .collection("cartdata")
-            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .doc(FirebaseAuth.instance.currentUser?.uid)
             .collection("yourcartdata")
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
-            return Center(
-              child: CircularProgressIndicator(),
+            return Scaffold(
+              appBar: AppBar(
+                backgroundColor: primarycolor,
+                title: Text('Your cart'),
+              ),
+              body: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Watch your cart! please login'),
+                    SizedBox(
+                      height: 50,
+                      width: 350,
+                      child: SignInButton(
+                        Buttons.Google,
+                        text: 'Sign in with Google',
+                        onPressed: () {
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (context) => login(),
+                            ),
+                          );
+                        },
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30)),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             );
           }
           return Scaffold(
@@ -84,7 +115,7 @@ class _cartpageState extends State<cartpage> {
                                 builder: (BuildContext context,
                                     AsyncSnapshot<QuerySnapshot> snapshot) {
                                   if (!snapshot.hasData) {
-                                    return Center(
+                                    return const Center(
                                       child: CircularProgressIndicator(),
                                     );
                                   }
@@ -95,8 +126,8 @@ class _cartpageState extends State<cartpage> {
                                           snapshot.data?.docs.length ?? 0,
                                       itemBuilder: ((context, index) {
                                         return Container(
-                                          padding: EdgeInsets.all(3),
-                                          margin: EdgeInsets.all(3),
+                                          padding: const EdgeInsets.all(3),
+                                          margin: const EdgeInsets.all(3),
                                           decoration: BoxDecoration(
                                               border: Border.all(
                                                   color: textcolor, width: .5),
@@ -121,7 +152,7 @@ class _cartpageState extends State<cartpage> {
                                                   Text(
                                                       snapshot.data?.docs[index]
                                                           ['cartname'],
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                           fontWeight:
                                                               FontWeight.w700)),
                                                 ],
@@ -129,7 +160,7 @@ class _cartpageState extends State<cartpage> {
                                               Text(
                                                 snapshot.data?.docs[index]
                                                     ['cartprice'],
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     fontSize: 15,
                                                     fontWeight:
                                                         FontWeight.bold),
@@ -143,40 +174,38 @@ class _cartpageState extends State<cartpage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                Container(
-                                  margin: EdgeInsets.only(top: 8),
-                                  height: 50,
-                                  width: 200,
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      GestureDetector(
-                                        onTap: () {
-                                          Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      checkout(
-                                                        index: snapshot
-                                                            .data?.docs[index],
-                                                      )));
-                                        },
-                                        child: Text(
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) => Checkout(
+                                                Index: snapshot
+                                                    .data?.docs[index])));
+                                  },
+                                  child: Container(
+                                    margin: EdgeInsets.only(top: 8),
+                                    height: 50,
+                                    width: 200,
+                                    decoration: BoxDecoration(
+                                        color: primarycolor,
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(25)),
+                                        border: Border.all(
+                                            color: textcolor, width: 1.5)),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: const [
+                                        Text(
                                           "Buy Now",
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 20),
                                         ),
-                                      ),
-                                      Text('total')
-                                    ],
+                                        Text('total')
+                                      ],
+                                    ),
                                   ),
-                                  decoration: BoxDecoration(
-                                      color: primarycolor,
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(25)),
-                                      border: Border.all(
-                                          color: textcolor, width: 1.5)),
                                 )
                               ],
                             )

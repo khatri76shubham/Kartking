@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 class YourCartProvider with ChangeNotifier {
   void yourcartdata({
     String? storeid,
+    String? storeimage,
   }) async {
     await FirebaseFirestore.instance
         .collection("cartdata")
@@ -12,7 +13,7 @@ class YourCartProvider with ChangeNotifier {
         .collection("yourcartdata")
         .doc(storeid)
         .set(
-      {"storeid": storeid},
+      {"storeid": storeid, "storeimage": storeimage},
     );
   }
 }
