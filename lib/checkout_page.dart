@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kartking/constant/colors.dart';
 import 'package:kartking/location.dart';
-import 'package:kartking/pages/count.dart';
 import 'package:kartking/pages/store_overview/storeview.dart';
 
 class Checkout extends StatelessWidget {
