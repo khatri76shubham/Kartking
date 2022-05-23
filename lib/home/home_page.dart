@@ -155,7 +155,7 @@ class _homepageState extends State<homepage> {
                           ),
                           itemCount: snapshot.data?.docs.length ?? 0,
                           itemBuilder: (context, index) =>
-                              singlestore(index: index)),
+                              Singlestore(index: index)),
                     ),
                     divider(),
                     StreamBuilder<QuerySnapshot>(
