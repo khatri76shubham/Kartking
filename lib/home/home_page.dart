@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:kartking/constant/colors.dart';
+import 'package:kartking/favorite_store.dart';
 import 'package:kartking/my_account.dart';
 import 'package:kartking/home/items.dart';
 import 'package:kartking/single_store.dart';
@@ -156,39 +158,62 @@ class _homepageState extends State<homepage> {
                               singlestore(index: index)),
                     ),
                     divider(),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Text(
-                            'favorite store',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            'view all',
-                            style: TextStyle(
-                                color: Colors.blueGrey,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 200,
-                      child: GridView.builder(
-                          scrollDirection: Axis.horizontal,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 1,
-                            mainAxisSpacing: 8.0,
-                            crossAxisSpacing: 10.0,
-                          ),
-                          itemCount: snapshot.data?.docs.length ?? 0,
-                          itemBuilder: (context, index) =>
-                              singlestore(index: index)),
-                    ),
-                    divider(),
+                    StreamBuilder<QuerySnapshot>(
+                        stream: FirebaseFirestore.instance
+                            .collection("favoritedata")
+                            .doc(FirebaseAuth.instance.currentUser?.uid)
+                            .collection("favoritestore")
+                            .snapshots(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<QuerySnapshot> snapshot) {
+                          if (!snapshot.hasData) {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          }
+                          if (snapshot.data!.docs.isEmpty) {
+                            return const Center();
+                          }
+                          return Column(
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 5),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: const [
+                                    Text(
+                                      'favorite store',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Text(
+                                      'view all',
+                                      style: TextStyle(
+                                          color: Colors.blueGrey,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: 200,
+                                child: GridView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    gridDelegate:
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 1,
+                                      mainAxisSpacing: 8.0,
+                                      crossAxisSpacing: 10.0,
+                                    ),
+                                    itemCount: snapshot.data?.docs.length,
+                                    itemBuilder: (context, index) =>
+                                        Favoritestore(index: index)),
+                              ),
+                              divider(),
+                            ],
+                          );
+                        }),
                     Padding(
                       padding: EdgeInsets.all(5),
                       child: Row(

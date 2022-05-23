@@ -1,21 +1,27 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:kartking/constant/colors.dart';
+import 'package:kartking/favorite.dart';
 import 'package:kartking/pages/product_overview/product_card.dart';
 import 'package:kartking/pages/product_overview/product_view.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-class storeview extends StatelessWidget {
+class storeview extends StatefulWidget {
   final Index;
   storeview({Key? key, this.Index}) : super(key: key);
 
   @override
+  State<storeview> createState() => _storeviewState();
+}
+
+class _storeviewState extends State<storeview> {
+  @override
   Widget build(BuildContext context) {
-    String storename = Index['sname'];
+    String storename = widget.Index['sname'];
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            Index['sname'],
+            widget.Index['sname'],
             style: TextStyle(color: textcolor),
           ),
           backgroundColor: primarycolor,
@@ -46,7 +52,7 @@ class storeview extends StatelessWidget {
                       padding: EdgeInsets.all(15),
                       decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: NetworkImage(Index['simage']),
+                            image: NetworkImage(widget.Index['simage']),
                             fit: BoxFit.cover,
                             colorFilter: new ColorFilter.mode(
                                 Colors.black.withOpacity(0.7), BlendMode.dstIn),
@@ -69,22 +75,24 @@ class storeview extends StatelessWidget {
                                     height: 20,
                                   ),
                                   Text(
-                                    Index['sname'],
+                                    widget.Index['sname'],
                                     style: TextStyle(
                                       color: textcolor,
                                       fontWeight: FontWeight.w600,
                                       fontSize: 20,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 10,
                                   ),
                                   Row(
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
                                       RatingBarIndicator(
-                                        rating: double.parse(Index['srating']),
-                                        itemBuilder: (context, index) => Icon(
+                                        rating: double.parse(
+                                            widget.Index['srating']),
+                                        itemBuilder: (context, index) =>
+                                            const Icon(
                                           Icons.star,
                                           color: Colors.red,
                                         ),
@@ -103,28 +111,18 @@ class storeview extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              Container(
-                                height: 50,
-                                width: 50,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: whitecolor,
-                                ),
-                                child: Center(
-                                  child: Icon(
-                                    Icons.favorite,
-                                    color: Colors.red,
-                                    size: 30,
-                                  ),
-                                ),
-                              ),
+                              Favorite(
+                                  simage: widget.Index['simage'],
+                                  slocation: widget.Index['slocation'],
+                                  srating: widget.Index['srating'],
+                                  sname: widget.Index['sname'])
                             ],
                           ),
                           SizedBox(
                             height: 15,
                           ),
                           Text(
-                            Index['slocation'],
+                            widget.Index['slocation'],
                             style: TextStyle(
                                 color: textcolor,
                                 fontSize: 14,
@@ -186,7 +184,7 @@ class storeview extends StatelessWidget {
                               press: () {
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => productview(
-                                          sid: Index,
+                                          sid: widget.Index,
                                           itemnu: snapshot.data?.docs[index],
                                         )));
                               },

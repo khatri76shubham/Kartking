@@ -3,6 +3,7 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:kartking/address_provider.dart';
 import 'package:kartking/cart_provider.dart';
 import 'package:kartking/constant/colors.dart';
+import 'package:kartking/favorite_provider.dart';
 import 'package:kartking/mainpage/login.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -29,7 +30,9 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider<CartProvider>(
               create: (context) => CartProvider()),
           ChangeNotifierProvider<YourCartProvider>(
-              create: (context) => YourCartProvider())
+              create: (context) => YourCartProvider()),
+          ChangeNotifierProvider<FavoriteProvider>(
+              create: (context) => FavoriteProvider()),
         ],
         child: MaterialApp(
           home: AnimatedSplashScreen(
