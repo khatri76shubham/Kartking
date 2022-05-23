@@ -26,16 +26,21 @@ class _cartpageState extends State<cartpage> {
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (snapshot.data!.docs.isEmpty) {
             return Scaffold(
               appBar: AppBar(
                 backgroundColor: primarycolor,
-                title: Text('Your cart'),
+                title: const Text('Your cart'),
               ),
               body: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Watch your cart! please login'),
+                    const Text('Watch your cart! please login'),
                     SizedBox(
                       height: 50,
                       width: 350,
@@ -45,7 +50,7 @@ class _cartpageState extends State<cartpage> {
                         onPressed: () {
                           Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
-                              builder: (context) => login(),
+                              builder: (context) => const login(),
                             ),
                           );
                         },
@@ -61,10 +66,10 @@ class _cartpageState extends State<cartpage> {
           return Scaffold(
             appBar: AppBar(
               backgroundColor: primarycolor,
-              title: Text('Your cart'),
+              title: const Text('Your cart'),
             ),
             body: ListView.builder(
-                physics: ScrollPhysics(),
+                physics: const ScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: snapshot.data?.docs.length ?? 0,
                 itemBuilder: ((context, index) {
@@ -72,8 +77,8 @@ class _cartpageState extends State<cartpage> {
                     padding: const EdgeInsets.all(8.0),
                     child: Expanded(
                       child: Container(
-                        margin: EdgeInsets.only(top: 10),
-                        padding: EdgeInsets.all(8),
+                        margin: const EdgeInsets.only(top: 10),
+                        padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
                             border: Border.all(color: textcolor, width: 1),
                             borderRadius: BorderRadius.circular(25)),
@@ -157,6 +162,8 @@ class _cartpageState extends State<cartpage> {
                                                               FontWeight.w700)),
                                                 ],
                                               ),
+                                              Text(snapshot.data?.docs[index]
+                                                  ['cartquantity']),
                                               Text(
                                                 snapshot.data?.docs[index]
                                                     ['cartprice'],
