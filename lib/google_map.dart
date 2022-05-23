@@ -2,18 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:kartking/address_provider.dart';
 import 'package:kartking/constant/colors.dart';
-import 'package:kartking/location.dart';
 import 'package:location/location.dart';
 import 'package:provider/provider.dart';
 
-class googlemap extends StatefulWidget {
-  googlemap({Key? key}) : super(key: key);
+class Googlemap extends StatefulWidget {
+  Googlemap({Key? key}) : super(key: key);
 
   @override
-  State<googlemap> createState() => _googlemapState();
+  State<Googlemap> createState() => _GooglemapState();
 }
 
-class _googlemapState extends State<googlemap> {
+class _GooglemapState extends State<Googlemap> {
   LatLng _latLng = LatLng(20.5937, 78.9629);
   GoogleMapController? controller;
   Location _location = Location();
