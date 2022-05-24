@@ -72,6 +72,7 @@ class _countState extends State<count> {
                           storeid: widget.storeid,
                           storeimage: widget.storeimage);
                       cartprovider.addcartData(
+                          storeimage: widget.storeimage,
                           storeid: widget.storeid,
                           cartid: widget.cartid,
                           cartimage: widget.cartimage,

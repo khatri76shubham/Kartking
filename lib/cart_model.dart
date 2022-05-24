@@ -5,9 +5,11 @@ class CartModel {
   String cartprice;
   String cartquantity;
   String storeid;
+  String storeimage;
   CartModel({
     required this.cartid,
     required this.storeid,
+    required this.storeimage,
     required this.cartimage,
     required this.cartname,
     required this.cartprice,

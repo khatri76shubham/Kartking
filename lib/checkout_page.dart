@@ -7,7 +7,8 @@ import 'package:kartking/pages/store_overview/storeview.dart';
 
 class Checkout extends StatelessWidget {
   final Index;
-  const Checkout({Key? key, this.Index}) : super(key: key);
+  int itemtotal;
+  Checkout({Key? key, this.Index, required this.itemtotal}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -128,6 +129,7 @@ class Checkout extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             }
+            var discountprice = itemtotal - 50;
             return Padding(
               padding: const EdgeInsets.all(5.0),
               child: ListView(
@@ -277,8 +279,13 @@ class Checkout extends StatelessWidget {
                                       width: 40,
                                       height: 20,
                                       color: whitecolor,
-                                      child: Text(snapshot.data?.docs[index]
-                                          ['cartprice']))
+                                      child: Text(
+                                        totalPrice(
+                                            snapshot.data?.docs[index]
+                                                ['cartquantity'],
+                                            snapshot.data?.docs[index]
+                                                ['cartprice']),
+                                      ))
                                 ],
                               );
                             }),
@@ -333,7 +340,7 @@ class Checkout extends StatelessWidget {
                                       fontSize: 15),
                                 ),
                                 Text(
-                                  '1000',
+                                  '$itemtotal',
                                   style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 15),
@@ -373,7 +380,7 @@ class Checkout extends StatelessWidget {
                                       fontSize: 22),
                                 ),
                                 Text(
-                                  '950',
+                                  '$discountprice',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 22),

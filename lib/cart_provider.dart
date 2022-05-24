@@ -26,6 +26,7 @@ class CartProvider with ChangeNotifier {
     String? cartprice,
     String? cartquantity,
     String? storeid,
+    String? storeimage,
   }) async {
     await FirebaseFirestore.instance
         .collection("cartdata")
@@ -37,6 +38,7 @@ class CartProvider with ChangeNotifier {
         .set(
       {
         "storeid": storeid,
+        "storeimage": storeimage,
         "cartname": cartname,
         "cartid": cartid,
         "cartimage": cartimage,
