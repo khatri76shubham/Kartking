@@ -6,16 +6,115 @@ import 'package:kartking/location.dart';
 import 'package:kartking/pages/store_overview/storeview.dart';
 import 'package:kartking/single_address.dart';
 
-class Checkout extends StatelessWidget {
+class Checkout extends StatefulWidget {
   final Index;
 
   Checkout({Key? key, this.Index}) : super(key: key);
 
   @override
+  State<Checkout> createState() => _CheckoutState();
+}
+
+class _CheckoutState extends State<Checkout> {
+  String? addressindex;
+  @override
   Widget build(BuildContext context) {
-    var storeid = Index['storeid'];
+    var storeid = widget.Index['storeid'];
     return Scaffold(
-      bottomNavigationBar: bottomBar(),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          width: 200,
+          height: 150,
+          color: Colors.transparent,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: 75,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.0),
+                  color: whitecolor,
+                  boxShadow: [
+                    BoxShadow(
+                      color: primarycolor,
+                      offset: Offset(1.0, 3.0), //(x,y)
+                      blurRadius: 3.0,
+                    ),
+                  ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Deliverable address :-',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 17),
+                            ),
+                            Text('Home'),
+                          ],
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            _deliverableaddress(context);
+                          },
+                          child: Text('change address',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 15,
+                                  color: Colors.red)),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Divider(
+                color: textcolor,
+              ),
+              Container(
+                height: 50,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('hello'),
+                    Container(
+                      height: 50,
+                      width: 200,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: primarycolor,
+                        boxShadow: [
+                          BoxShadow(
+                            color: textcolor,
+                            offset: Offset(1.0, 3.0), //(x,y)
+                            blurRadius: 4.0,
+                          ),
+                        ],
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Pay Now',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
       appBar: AppBar(
         backgroundColor: primarycolor,
       ),
@@ -78,7 +177,7 @@ class Checkout extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(Index['storeid'],
+                                Text(widget.Index['storeid'],
                                     style: TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.w700)),
@@ -92,8 +191,8 @@ class Checkout extends StatelessWidget {
                                       bottomRight: Radius.circular(20),
                                     ),
                                     image: DecorationImage(
-                                        image:
-                                            NetworkImage(Index['storeimage']),
+                                        image: NetworkImage(
+                                            widget.Index['storeimage']),
                                         fit: BoxFit.cover),
                                   ),
                                 ),
@@ -337,7 +436,7 @@ class Checkout extends StatelessWidget {
   }
 }
 
-void _deliverableaddress(context) {
+void _deliverableaddress(context, final addressindex) {
   showModalBottomSheet(
       context: context,
       builder: (BuildContext bc) {
@@ -380,7 +479,13 @@ void _deliverableaddress(context) {
                       itemCount: snapshot.data?.docs.length ?? 0,
                       itemBuilder: ((context, index) {
                         return GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            // Navigator.of(context).push(MaterialPageRoute(
+                            //     builder: (context) => bottomBar(
+                            //           addressindex: snapshot.data?.docs[index],
+                            //         )));
+                            var addressindex = snapshot.data?.docs[index];
+                          },
                           child: SingleDeliveryItem(
                             address: snapshot.data?.docs[index]['area'] +
                                 ', ' +
@@ -408,107 +513,19 @@ void _deliverableaddress(context) {
       });
 }
 
-class bottomBar extends StatelessWidget {
-  final addressindex;
-  bottomBar({Key? key, this.addressindex}) : super(key: key);
+// class bottomBar extends StatefulWidget {
+//   final addressindex;
+//   bottomBar({Key? key, this.addressindex}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    print('$addressindex');
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        width: 200,
-        height: 150,
-        color: Colors.transparent,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              height: 75,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20.0),
-                color: whitecolor,
-                boxShadow: [
-                  BoxShadow(
-                    color: primarycolor,
-                    offset: Offset(1.0, 3.0), //(x,y)
-                    blurRadius: 3.0,
-                  ),
-                ],
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Deliverable address :-',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 17),
-                          ),
-                          Text('Home'),
-                        ],
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          _deliverableaddress(context);
-                        },
-                        child: Text('change address',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 15,
-                                color: Colors.red)),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Divider(
-              color: textcolor,
-            ),
-            Container(
-              height: 50,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('hello'),
-                  Container(
-                    height: 50,
-                    width: 200,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: primarycolor,
-                      boxShadow: [
-                        BoxShadow(
-                          color: textcolor,
-                          offset: Offset(1.0, 3.0), //(x,y)
-                          blurRadius: 4.0,
-                        ),
-                      ],
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Pay Now',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-    // });
-  }
-}
+//   @override
+//   State<bottomBar> createState() => _bottomBarState();
+// }
+
+// class _bottomBarState extends State<bottomBar> {
+//   @override
+//   Widget build(BuildContext context) {
+//     print('${widget.addressindex}');
+//     return 
+//     // });
+//   }
+// }
