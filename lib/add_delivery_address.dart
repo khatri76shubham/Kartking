@@ -55,7 +55,7 @@ class _AdddeliveryaddressState extends State<Adddeliveryaddress> {
               child: InkWell(
                 onTap: () {
                   Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => googlemap()));
+                      MaterialPageRoute(builder: (context) => Googlemap()));
                 },
                 child: Container(
                   decoration: BoxDecoration(

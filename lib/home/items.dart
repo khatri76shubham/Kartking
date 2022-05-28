@@ -1,19 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:kartking/constant/colors.dart';
 import 'package:kartking/itemsview.dart';
 
 class items extends StatelessWidget {
   final int index;
 
-  const items({Key? key, required this.index}) : super(key: key);
+  String storename;
+
+  items({Key? key, required this.index, required this.storename})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
             .collection("store")
-            .doc(" $index['sname']")
+            .doc(storename)
             .collection("items")
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {

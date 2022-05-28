@@ -1,19 +1,24 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:kartking/pages/store_overview/storeview.dart';
 
-class Singlestore extends StatelessWidget {
+class Favoritestore extends StatelessWidget {
   final int index;
-  const Singlestore({Key? key, required this.index}) : super(key: key);
+  Favoritestore({Key? key, required this.index}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection("store").snapshots(),
+        stream: FirebaseFirestore.instance
+            .collection("favoritedata")
+            .doc(FirebaseAuth.instance.currentUser?.uid)
+            .collection("favoritestore")
+            .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
-            return const Center(
+            return Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -36,7 +41,7 @@ class Singlestore extends StatelessWidget {
                       height: 500 / 4,
                       width: 300 / 1.1,
                       decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.only(
+                        borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(18),
                           topRight: Radius.circular(18),
                         ),
@@ -46,7 +51,7 @@ class Singlestore extends StatelessWidget {
                             fit: BoxFit.cover),
                       ),
                     ),
-                    SizedBox(
+                    Container(
                       height: 500 / 7,
                       width: 300 / 1.2,
                       child: Column(
@@ -54,7 +59,7 @@ class Singlestore extends StatelessWidget {
                         children: [
                           Text(
                             snapshot.data?.docs[index]["sname"],
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: Colors.black,
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
@@ -73,7 +78,7 @@ class Singlestore extends StatelessWidget {
                                 alignment: Alignment.center,
                                 child: Text(
                                   snapshot.data?.docs[index]["srating"],
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -82,7 +87,7 @@ class Singlestore extends StatelessWidget {
                               RatingBarIndicator(
                                 rating: double.parse(
                                     snapshot.data?.docs[index]["srating"]),
-                                itemBuilder: (context, index) => const Icon(
+                                itemBuilder: (context, index) => Icon(
                                   Icons.star,
                                   color: Colors.red,
                                 ),

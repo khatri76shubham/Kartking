@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:kartking/constant/colors.dart';
 import 'package:kartking/pages/cart_page.dart';
-import 'package:kartking/pages/chat_page.dart';
 import 'package:kartking/home/home_page.dart';
 import 'package:kartking/pages/search_page.dart';
 import 'package:kartking/pages/setting_page.dart';
@@ -25,7 +24,6 @@ class _homescreenState extends State<homescreen> {
     homepage(),
     searchpage(),
     cartpage(),
-    chatpage(),
     settingpage(),
   ];
 
@@ -46,7 +44,6 @@ class _homescreenState extends State<homescreen> {
             Icon(Icons.home),
             Icon(Icons.search),
             Icon(Icons.shopping_cart),
-            Icon(Icons.chat),
             Icon(Icons.settings)
           ],
         ),

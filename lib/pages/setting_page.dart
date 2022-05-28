@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:kartking/constant/colors.dart';
 import 'package:kartking/mainpage/login.dart';
 import 'package:kartking/my_account.dart';
 import 'package:kartking/pages/screens/profile_menu.dart';
+import 'package:kartking/theme.dart';
 import 'package:kartking/user_provider.dart';
+import 'package:provider/provider.dart';
 
 // ignore: camel_case_types
 class settingpage extends StatefulWidget {
@@ -39,7 +43,9 @@ class _settingpageState extends State<settingpage> {
             ProfileMenu(
               text: 'Theme',
               icon: ("assets/icons/theme.svg"),
-              press: () {},
+              press: () {
+                currentTheme.toggleTheme();
+              },
             ),
             ProfileMenu(
               text: 'Help',
