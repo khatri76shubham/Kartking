@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:kartking/add_delivery_address.dart';
 import 'package:kartking/address_model.dart';
 import 'package:kartking/address_provider.dart';
+import 'package:kartking/checkout_page.dart';
 import 'package:kartking/constant/colors.dart';
 import 'package:kartking/single_address.dart';
 import 'package:provider/provider.dart';
@@ -63,31 +64,41 @@ class _locationState extends State<location> {
                       child: CircularProgressIndicator(),
                     );
                   }
+                  if (snapshot.data!.docs.isEmpty) {
+                    return Center(
+                      child: Text('No data Please add address'),
+                    );
+                  }
                   return ListView.builder(
                       physics: ScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: snapshot.data?.docs.length ?? 0,
                       itemBuilder: ((context, index) {
-                        return SingleDeliveryItem(
-                          address: snapshot.data?.docs[index]['area'] +
-                              ', ' +
-                              snapshot.data?.docs[index]['street'] +
-                              ', ' +
-                              snapshot.data?.docs[index]['landmark'] +
-                              ', ' +
-                              snapshot.data?.docs[index]['pincode'],
-                          title: snapshot.data?.docs[index]['name'],
-                          number: snapshot.data?.docs[index]['mobileno'],
-                          addressType: snapshot.data?.docs[index]
-                                      ['addresstype'] ==
-                                  "Addresstype.Home"
-                              ? "Home"
-                              : snapshot.data?.docs[index]['addresstype'] ==
-                                      "Addresstypes.Other"
-                                  ? "Other"
-                                  : "Work",
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => Checkout()));
+                          },
+                          child: SingleDeliveryItem(
+                            address: snapshot.data?.docs[index]['area'] +
+                                ', ' +
+                                snapshot.data?.docs[index]['street'] +
+                                ', ' +
+                                snapshot.data?.docs[index]['landmark'] +
+                                ', ' +
+                                snapshot.data?.docs[index]['pincode'],
+                            title: snapshot.data?.docs[index]['name'],
+                            number: snapshot.data?.docs[index]['mobileno'],
+                            addressType: snapshot.data?.docs[index]
+                                        ['addresstype'] ==
+                                    "Addresstype.Home"
+                                ? "Home"
+                                : snapshot.data?.docs[index]['addresstype'] ==
+                                        "Addresstypes.Other"
+                                    ? "Other"
+                                    : "Work",
+                          ),
                         );
-                        ;
                       }));
                 })
           ],

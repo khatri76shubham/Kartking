@@ -5,6 +5,7 @@ import 'package:kartking/cart_provider.dart';
 import 'package:kartking/constant/colors.dart';
 import 'package:kartking/favorite_provider.dart';
 import 'package:kartking/mainpage/login.dart';
+import 'package:kartking/theme.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
@@ -16,8 +17,22 @@ void main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    currentTheme.addListener(() {
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +50,9 @@ class MyApp extends StatelessWidget {
               create: (context) => FavoriteProvider()),
         ],
         child: MaterialApp(
+          theme: CustomTheme.lightTheme,
+          darkTheme: CustomTheme.darkTheme,
+          themeMode: currentTheme.currentTheme,
           home: AnimatedSplashScreen(
             duration: 500,
             splash: Column(

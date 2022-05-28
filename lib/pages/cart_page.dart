@@ -84,7 +84,6 @@ class _cartpageState extends State<cartpage> {
                 shrinkWrap: true,
                 itemCount: snapshot.data?.docs.length ?? 0,
                 itemBuilder: ((context, index) {
-                  int tPrice = 0;
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Expanded(
@@ -106,8 +105,34 @@ class _cartpageState extends State<cartpage> {
                                       fontSize: 20),
                                 ),
                                 SizedBox(
-                                  child: Icon(
-                                    Icons.delete,
+                                  child: IconButton(
+                                    key: Key(
+                                        snapshot.data?.docs[index]['storeid']),
+                                    icon: Icon(Icons.delete),
+                                    onPressed: () {
+                                      FirebaseFirestore.instance
+                                          .collection("cartdata")
+                                          .doc(FirebaseAuth
+                                              .instance.currentUser?.uid)
+                                          .collection("yourcartdata")
+                                          .doc(snapshot.data?.docs[index]
+                                              ['storeid'])
+                                          .delete();
+                                      FirebaseFirestore.instance
+                                          .collection("cartdata")
+                                          .doc(FirebaseAuth
+                                              .instance.currentUser?.uid)
+                                          .collection("yourcartdata")
+                                          .doc(snapshot.data?.docs[index]
+                                              ['storeid'])
+                                          .collection('storedata')
+                                          .get()
+                                          .then((QuerySnapshot querySnapshot) {
+                                        querySnapshot.docs.forEach((doc) {
+                                          doc.reference.delete();
+                                        });
+                                      });
+                                    },
                                     color: textcolor,
                                   ),
                                 ),
@@ -131,6 +156,7 @@ class _cartpageState extends State<cartpage> {
                                     .snapshots(),
                                 builder: (BuildContext context,
                                     AsyncSnapshot<QuerySnapshot> snapshot) {
+                                  var tPrice = 0;
                                   if (!snapshot.hasData) {
                                     return const Center(
                                       child: CircularProgressIndicator(),
@@ -156,62 +182,82 @@ class _cartpageState extends State<cartpage> {
 
                                         return Column(
                                           children: [
-                                            Container(
-                                              padding: const EdgeInsets.all(3),
-                                              margin: const EdgeInsets.all(3),
-                                              decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      color: textcolor,
-                                                      width: .5),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          12)),
-                                              child: Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Row(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      SizedBox(
-                                                          height: 55,
-                                                          child: Image.network(
-                                                              snapshot.data
-                                                                          ?.docs[
-                                                                      index][
-                                                                  'cartimage'])),
-                                                      Text(
+                                            Dismissible(
+                                              key: Key(snapshot.data
+                                                  ?.docs[index]['cartname']),
+                                              onDismissed: (direction) {
+                                                FirebaseFirestore.instance
+                                                    .collection("cartdata")
+                                                    .doc(FirebaseAuth.instance
+                                                        .currentUser!.uid)
+                                                    .collection("yourcartdata")
+                                                    .doc(snapshot
+                                                            .data?.docs[index]
+                                                        ['storeid'])
+                                                    .collection("storedata")
+                                                    .doc(snapshot.data
+                                                        ?.docs[index]['cartid'])
+                                                    .delete();
+                                              },
+                                              child: Container(
+                                                padding:
+                                                    const EdgeInsets.all(3),
+                                                margin: const EdgeInsets.all(3),
+                                                decoration: BoxDecoration(
+                                                    border: Border.all(
+                                                        color: textcolor,
+                                                        width: .5),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12)),
+                                                child: Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Row(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        SizedBox(
+                                                            height: 55,
+                                                            child: Image.network(
+                                                                snapshot.data
+                                                                            ?.docs[
+                                                                        index][
+                                                                    'cartimage'])),
+                                                        Text(
+                                                            snapshot.data?.docs[
+                                                                    index]
+                                                                ['cartname'],
+                                                            style: const TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w700)),
+                                                      ],
+                                                    ),
+                                                    Text('x' +
+                                                        snapshot.data
+                                                                ?.docs[index]
+                                                            ['cartquantity']),
+                                                    Text(
+                                                      totalPrice(
                                                           snapshot.data
                                                                   ?.docs[index]
-                                                              ['cartname'],
-                                                          style: const TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w700)),
-                                                    ],
-                                                  ),
-                                                  Text('x' +
-                                                      snapshot.data?.docs[index]
-                                                          ['cartquantity']),
-                                                  Text(
-                                                    totalPrice(
-                                                        snapshot.data
-                                                                ?.docs[index]
-                                                            ['cartquantity'],
-                                                        snapshot.data
-                                                                ?.docs[index]
-                                                            ['cartprice']),
-                                                    style: const TextStyle(
-                                                        fontSize: 15,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  )
-                                                ],
+                                                              ['cartquantity'],
+                                                          snapshot.data
+                                                                  ?.docs[index]
+                                                              ['cartprice']),
+                                                      style: const TextStyle(
+                                                          fontSize: 15,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    )
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                             if (snapshot.data?.docs.length ==
@@ -226,13 +272,13 @@ class _cartpageState extends State<cartpage> {
                                                     onTap: () {
                                                       Navigator.of(context).push(
                                                           MaterialPageRoute(
-                                                              builder: (context) => Checkout(
-                                                                  Index: snapshot
-                                                                          .data
-                                                                          ?.docs[
-                                                                      index],
-                                                                  itemtotal:
-                                                                      tPrice)));
+                                                              builder:
+                                                                  (context) =>
+                                                                      Checkout(
+                                                                        Index: snapshot
+                                                                            .data
+                                                                            ?.docs[index],
+                                                                      )));
                                                     },
                                                     child: Container(
                                                       margin: EdgeInsets.only(

@@ -39,9 +39,6 @@ class _myaccountState extends State<myaccount> {
   void initState() {
     context.read<UserProvider>().getuserdata();
 
-    // log(widget.userData!.userEmail);
-
-    // TODO: implement initState
     super.initState();
   }
 
@@ -50,7 +47,6 @@ class _myaccountState extends State<myaccount> {
   Widget build(BuildContext context) {
     var userdata = widget.userProvider?.currentdata;
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: primarycolor,
         elevation: 0.0,
@@ -77,7 +73,6 @@ class _myaccountState extends State<myaccount> {
                     width: double.infinity,
                     padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                     decoration: BoxDecoration(
-                      color: whitecolor,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(30),
                         topRight: Radius.circular(30),
