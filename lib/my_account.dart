@@ -86,56 +86,27 @@ class _myaccountState extends State<myaccount> {
                             width: 250,
                             height: 80,
                             padding: EdgeInsets.only(left: 20),
-                            child: Row(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    // Text("welcome"),
-                                    if (value.currentdata?.userName != null)
-                                      Text(
-                                          value.currentdata!.userName
-                                              .toString(),
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold,
-                                            color: textcolor,
-                                          )),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    if (value.currentdata?.userEmail != null)
-                                      Text(
-                                          value.currentdata!.userEmail
-                                              .toString(),
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold,
-                                            color: textcolor,
-                                          )),
-                                  ],
+                                if (value.currentdata?.userName != null)
+                                  Text(value.currentdata!.userName.toString(),
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                        color: textcolor,
+                                      )),
+                                SizedBox(
+                                  height: 10,
                                 ),
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                userdetail()));
-                                  },
-                                  child: CircleAvatar(
-                                    radius: 15,
-                                    backgroundColor: primarycolor,
-                                    child: CircleAvatar(
-                                      radius: 12,
-                                      child: Icon(
-                                        Icons.edit,
-                                        color: whitecolor,
-                                      ),
-                                      backgroundColor: Colors.transparent,
-                                    ),
-                                  ),
-                                ),
+                                if (value.currentdata?.userEmail != null)
+                                  Text(value.currentdata!.userEmail.toString(),
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                        color: textcolor,
+                                      )),
                               ],
                             ),
                           )

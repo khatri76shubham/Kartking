@@ -82,7 +82,7 @@ class _CheckoutState extends State<Checkout> {
                         if (addressindex == null) ...{
                           GestureDetector(
                             onTap: () => deliverableaddress(context),
-                            child: Text('Select address',
+                            child: const Text('Select address',
                                 style: TextStyle(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 15,
@@ -91,7 +91,7 @@ class _CheckoutState extends State<Checkout> {
                         } else ...{
                           GestureDetector(
                             onTap: () => deliverableaddress(context),
-                            child: Text('change address',
+                            child: const Text('change address',
                                 style: TextStyle(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 15,
@@ -111,7 +111,7 @@ class _CheckoutState extends State<Checkout> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('hello'),
+                    Text(''),
                     Container(
                       height: 50,
                       width: 200,
@@ -324,7 +324,7 @@ class _CheckoutState extends State<Checkout> {
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(20.0),
                                       color: Colors.white,
-                                      boxShadow: [
+                                      boxShadow: const [
                                         BoxShadow(
                                           color: Colors.grey,
                                           offset: Offset(0.0, 1.0), //(x,y)
@@ -341,7 +341,7 @@ class _CheckoutState extends State<Checkout> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Text(
+                                              const Text(
                                                 'Item total',
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.w600,
@@ -349,7 +349,7 @@ class _CheckoutState extends State<Checkout> {
                                               ),
                                               Text(
                                                 '$tPrice',
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     fontWeight: FontWeight.w600,
                                                     fontSize: 15),
                                               )
@@ -361,7 +361,7 @@ class _CheckoutState extends State<Checkout> {
                                           child: Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
-                                            children: [
+                                            children: const [
                                               Text(
                                                 'Discount',
                                                 style: TextStyle(
@@ -383,7 +383,7 @@ class _CheckoutState extends State<Checkout> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Text(
+                                              const Text(
                                                 'Grand total',
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
@@ -391,7 +391,7 @@ class _CheckoutState extends State<Checkout> {
                                               ),
                                               Text(
                                                 '$discountprice',
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 22),
                                               )
@@ -416,7 +416,7 @@ class _CheckoutState extends State<Checkout> {
                       builder: (BuildContext context,
                           AsyncSnapshot<QuerySnapshot> snapshot) {
                         if (!snapshot.hasData) {
-                          return Center(
+                          return const Center(
                             child: CircularProgressIndicator(),
                           );
                         }
@@ -468,7 +468,7 @@ class _CheckoutState extends State<Checkout> {
           return Container(
             decoration: BoxDecoration(
                 color: whitecolor,
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(28),
                     topRight: Radius.circular(28))),
             child: StreamBuilder<QuerySnapshot>(
