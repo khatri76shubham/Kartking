@@ -12,6 +12,7 @@ class CustomTheme with ChangeNotifier {
 
   static ThemeData get lightTheme {
     return ThemeData(
+      canvasColor: Colors.transparent,
       primaryColor: const Color(0xff7E89F0),
       backgroundColor: Colors.white,
       scaffoldBackgroundColor: Colors.white,
@@ -20,6 +21,7 @@ class CustomTheme with ChangeNotifier {
 
   static ThemeData get darkTheme {
     return ThemeData(
+      canvasColor: Colors.transparent,
       primaryColor: const Color(0xff7E89F0),
       backgroundColor: Colors.grey,
       scaffoldBackgroundColor: Colors.grey,

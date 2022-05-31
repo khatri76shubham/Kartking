@@ -8,7 +8,6 @@ import 'package:kartking/single_address.dart';
 
 class Checkout extends StatefulWidget {
   final Index;
-
   Checkout({Key? key, this.Index}) : super(key: key);
 
   @override
@@ -16,7 +15,7 @@ class Checkout extends StatefulWidget {
 }
 
 class _CheckoutState extends State<Checkout> {
-  String? addressindex;
+  var addressindex;
   @override
   Widget build(BuildContext context) {
     var storeid = widget.Index['storeid'];
@@ -25,14 +24,14 @@ class _CheckoutState extends State<Checkout> {
         padding: const EdgeInsets.all(8.0),
         child: Container(
           width: 200,
-          height: 150,
+          height: 200,
           color: Colors.transparent,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                height: 75,
+                height: 120,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.0),
                   color: whitecolor,
@@ -51,27 +50,54 @@ class _CheckoutState extends State<Checkout> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Deliverable address :-',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 17),
-                            ),
-                            Text('Home'),
-                          ],
+                        Text(
+                          'Deliverable address :-',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 17),
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            _deliverableaddress(context);
-                          },
-                          child: Text('change address',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 15,
-                                  color: Colors.red)),
-                        ),
+                        if (addressindex == null) ...{
+                          ListTile(
+                            title: Text(
+                                'No data is avilable please selcet address'),
+                          )
+                        } else
+                          SingleDeliveryItem(
+                            address: addressindex['area'] +
+                                ', ' +
+                                addressindex['street'] +
+                                ', ' +
+                                addressindex['landmark'] +
+                                ', ' +
+                                addressindex['pincode'],
+                            title: addressindex['name'],
+                            number: addressindex['mobileno'],
+                            addressType: addressindex['addresstype'] ==
+                                    "Addresstype.Home"
+                                ? "Home"
+                                : addressindex['addresstype'] ==
+                                        "Addresstypes.Other"
+                                    ? "Other"
+                                    : "Work",
+                          ),
+                        if (addressindex == null) ...{
+                          GestureDetector(
+                            onTap: () => deliverableaddress(context),
+                            child: Text('Select address',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 15,
+                                    color: Colors.red)),
+                          ),
+                        } else ...{
+                          GestureDetector(
+                            onTap: () => deliverableaddress(context),
+                            child: Text('change address',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 15,
+                                    color: Colors.red)),
+                          ),
+                        }
                       ],
                     ),
                   ),
@@ -209,7 +235,7 @@ class _CheckoutState extends State<Checkout> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Row(
-                            children: [
+                            children: const [
                               SizedBox(
                                 width: 60,
                               ),
@@ -217,7 +243,7 @@ class _CheckoutState extends State<Checkout> {
                             ],
                           ),
                           Row(
-                            children: [
+                            children: const [
                               SizedBox(
                                 width: 60,
                               ),
@@ -225,7 +251,7 @@ class _CheckoutState extends State<Checkout> {
                             ],
                           ),
                           Row(
-                            children: [
+                            children: const [
                               Text('prices'),
                               SizedBox(
                                 width: 10,
@@ -235,7 +261,7 @@ class _CheckoutState extends State<Checkout> {
                         ],
                       ),
                       ListView.builder(
-                        physics: ScrollPhysics(),
+                        physics: const ScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: snapshot.data?.docs.length ?? 0,
                         itemBuilder: ((context, index) {
@@ -434,98 +460,97 @@ class _CheckoutState extends State<Checkout> {
           }),
     );
   }
-}
 
-void _deliverableaddress(context, final addressindex) {
-  showModalBottomSheet(
-      context: context,
-      builder: (BuildContext bc) {
-        return StreamBuilder<QuerySnapshot>(
-            stream: FirebaseFirestore.instance
-                .collection("Address")
-                .doc(FirebaseAuth.instance.currentUser!.uid)
-                .collection("moredata")
-                .snapshots(),
-            builder:
-                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-              if (!snapshot.hasData) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              if (snapshot.data!.docs.isEmpty) {
-                return Center(
-                  child: Row(
+  void deliverableaddress(context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+            decoration: BoxDecoration(
+                color: whitecolor,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(28),
+                    topRight: Radius.circular(28))),
+            child: StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection("Address")
+                    .doc(FirebaseAuth.instance.currentUser!.uid)
+                    .collection("moredata")
+                    .snapshots(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  if (snapshot.data!.docs.isEmpty) {
+                    return Center(
+                      child: Row(
+                        children: [
+                          const Text('No data Please add address'),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => location()));
+                            },
+                            child: Text('Click here'),
+                          )
+                        ],
+                      ),
+                    );
+                  }
+
+                  return Column(
                     children: [
-                      Text('No data Please add address'),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => location()));
-                        },
-                        child: Text('Click here'),
-                      )
+                      const Divider(),
+                      const Text(
+                        "Select deliverable address",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      const Divider(),
+                      ListView.builder(
+                          physics: ScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: snapshot.data?.docs.length ?? 0,
+                          itemBuilder: ((context, index) {
+                            return GestureDetector(
+                              onTap: () {
+                                _selecteditem(snapshot.data?.docs[index]);
+                              },
+                              child: SingleDeliveryItem(
+                                address: snapshot.data?.docs[index]['area'] +
+                                    ', ' +
+                                    snapshot.data?.docs[index]['street'] +
+                                    ', ' +
+                                    snapshot.data?.docs[index]['landmark'] +
+                                    ', ' +
+                                    snapshot.data?.docs[index]['pincode'],
+                                title: snapshot.data?.docs[index]['name'],
+                                number: snapshot.data?.docs[index]['mobileno'],
+                                addressType: snapshot.data?.docs[index]
+                                            ['addresstype'] ==
+                                        "Addresstype.Home"
+                                    ? "Home"
+                                    : snapshot.data?.docs[index]
+                                                ['addresstype'] ==
+                                            "Addresstypes.Other"
+                                        ? "Other"
+                                        : "Work",
+                              ),
+                            );
+                          })),
                     ],
-                  ),
-                );
-              }
+                  );
+                }),
+          );
+        });
+  }
 
-              return Column(
-                children: [
-                  Text("Select deliverable address"),
-                  ListView.builder(
-                      physics: ScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: snapshot.data?.docs.length ?? 0,
-                      itemBuilder: ((context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            // Navigator.of(context).push(MaterialPageRoute(
-                            //     builder: (context) => bottomBar(
-                            //           addressindex: snapshot.data?.docs[index],
-                            //         )));
-                            var addressindex = snapshot.data?.docs[index];
-                          },
-                          child: SingleDeliveryItem(
-                            address: snapshot.data?.docs[index]['area'] +
-                                ', ' +
-                                snapshot.data?.docs[index]['street'] +
-                                ', ' +
-                                snapshot.data?.docs[index]['landmark'] +
-                                ', ' +
-                                snapshot.data?.docs[index]['pincode'],
-                            title: snapshot.data?.docs[index]['name'],
-                            number: snapshot.data?.docs[index]['mobileno'],
-                            addressType: snapshot.data?.docs[index]
-                                        ['addresstype'] ==
-                                    "Addresstype.Home"
-                                ? "Home"
-                                : snapshot.data?.docs[index]['addresstype'] ==
-                                        "Addresstypes.Other"
-                                    ? "Other"
-                                    : "Work",
-                          ),
-                        );
-                      })),
-                ],
-              );
-            });
-      });
+  _selecteditem(final s) {
+    Navigator.pop(context);
+    setState(() {
+      addressindex = s;
+    });
+  }
 }
-
-// class bottomBar extends StatefulWidget {
-//   final addressindex;
-//   bottomBar({Key? key, this.addressindex}) : super(key: key);
-
-//   @override
-//   State<bottomBar> createState() => _bottomBarState();
-// }
-
-// class _bottomBarState extends State<bottomBar> {
-//   @override
-//   Widget build(BuildContext context) {
-//     print('${widget.addressindex}');
-//     return 
-//     // });
-//   }
-// }

@@ -55,9 +55,6 @@ class SingleDeliveryItem extends StatelessWidget {
             ],
           ),
         ),
-        Divider(
-          height: 35,
-        ),
       ],
     );
   }

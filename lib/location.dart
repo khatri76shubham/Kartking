@@ -75,10 +75,7 @@ class _locationState extends State<location> {
                       itemCount: snapshot.data?.docs.length ?? 0,
                       itemBuilder: ((context, index) {
                         return GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => Checkout()));
-                          },
+                          onTap: () {},
                           child: SingleDeliveryItem(
                             address: snapshot.data?.docs[index]['area'] +
                                 ', ' +
