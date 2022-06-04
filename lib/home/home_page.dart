@@ -121,7 +121,7 @@ class _homepageState extends State<homepage> {
                           itemCount: snapshot.data?.docs.length ?? 0,
                           itemBuilder: (context, index) => items(
                                 index: index,
-                                storename: snapshot.data?.docs[index]["sname"],
+                                storename: snapshot.data?.docs[index],
                               )),
                     ),
                     divider(),

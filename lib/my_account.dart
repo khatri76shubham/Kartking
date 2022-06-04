@@ -1,10 +1,7 @@
-import 'dart:developer';
-import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kartking/constant/colors.dart';
 import 'package:kartking/location.dart';
-import 'package:kartking/user_details.dart';
 import 'package:kartking/user_provider.dart';
 import 'package:kartking/usermodel.dart';
 import 'package:provider/provider.dart';
@@ -45,7 +42,6 @@ class _myaccountState extends State<myaccount> {
   final auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
-    var userdata = widget.userProvider?.currentdata;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primarycolor,
