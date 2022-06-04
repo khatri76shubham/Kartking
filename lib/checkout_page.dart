@@ -5,6 +5,7 @@ import 'package:kartking/constant/colors.dart';
 import 'package:kartking/location.dart';
 import 'package:kartking/pages/store_overview/storeview.dart';
 import 'package:kartking/single_address.dart';
+import 'package:kartking/theme.dart';
 
 class Checkout extends StatefulWidget {
   final Index;
@@ -111,7 +112,20 @@ class _CheckoutState extends State<Checkout> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(''),
+                    Row(
+                      children: [
+                        Text(
+                          'Total Price -> ',
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          '',
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
                     Container(
                       height: 50,
                       width: 200,
@@ -192,7 +206,7 @@ class _CheckoutState extends State<Checkout> {
                             width: 400,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
-                              boxShadow: [
+                              boxShadow: const [
                                 BoxShadow(
                                   color: Colors.grey,
                                   offset: Offset(0.0, 1.0), //(x,y)
@@ -204,15 +218,15 @@ class _CheckoutState extends State<Checkout> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(widget.Index['storeid'],
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.w700)),
-                                SizedBox(height: 5),
+                                const SizedBox(height: 5),
                                 Container(
                                   height: 100,
                                   width: 400,
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.only(
+                                    borderRadius: const BorderRadius.only(
                                       bottomLeft: Radius.circular(20),
                                       bottomRight: Radius.circular(20),
                                     ),
@@ -394,7 +408,7 @@ class _CheckoutState extends State<Checkout> {
                                                 style: const TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 22),
-                                              )
+                                              ),
                                             ],
                                           ),
                                         )
@@ -447,13 +461,9 @@ class _CheckoutState extends State<Checkout> {
                                                 color: Colors.red),
                                           ),
                                         )
-                                      : Container(
-                                          color: textcolor,
-                                          height: 0,
-                                        ));
+                                      : null);
                             }));
                       }),
-                  Divider(),
                 ],
               ),
             );

@@ -126,7 +126,7 @@ class _searchpageState extends State<searchpage> {
                 ListView.builder(
                     physics: ScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: 5,
+                    itemCount: 4,
                     itemBuilder: ((context, index) {
                       return StreamBuilder<QuerySnapshot>(
                           stream: FirebaseFirestore.instance
@@ -188,8 +188,10 @@ class _searchpageState extends State<searchpage> {
 }
 
 class productsearch extends SearchDelegate {
-  final CollectionReference _firebasefirestore =
-      FirebaseFirestore.instance.collection("store");
+  final CollectionReference _firebasefirestore = FirebaseFirestore.instance
+      .collection("store")
+      .doc('Bajrang Departmental Store')
+      .collection("items");
   @override
   List<Widget>? buildActions(BuildContext context) {
     // TODO: implement buildActions
@@ -198,7 +200,7 @@ class productsearch extends SearchDelegate {
           onPressed: () {
             query = "";
           },
-          icon: Icon(Icons.close))
+          icon: const Icon(Icons.close))
     ];
   }
 
@@ -225,7 +227,7 @@ class productsearch extends SearchDelegate {
           } else {
             if (snapshot.data!.docs
                 .where((QueryDocumentSnapshot<Object?> element) =>
-                    element['sname']
+                    element['iname']
                         .toString()
                         .toLowerCase()
                         .contains(query.toLowerCase()))
@@ -240,7 +242,7 @@ class productsearch extends SearchDelegate {
               children: [
                 ...snapshot.data!.docs
                     .where((QueryDocumentSnapshot<Object?> element) =>
-                        element['sname']
+                        element['iname']
                             .toString()
                             .toLowerCase()
                             .contains(query.toLowerCase()))
@@ -248,7 +250,9 @@ class productsearch extends SearchDelegate {
                   return GestureDetector(
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => storeview(Index: data)));
+                          builder: (context) => productview(
+                                itemnu: data,
+                              )));
                     },
                     child: Material(
                       elevation: 3,
@@ -262,70 +266,55 @@ class productsearch extends SearchDelegate {
                           ),
                           height: 400 / 2.5,
                           width: 500 / 1.1,
-                          child: Column(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Container(
-                                height: 350 / 4,
-                                width: 500 / 1.1,
+                                height: 400 / 2.5,
+                                width: 500 / 4,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(18),
                                     topRight: Radius.circular(18),
                                   ),
                                   image: DecorationImage(
-                                      image: NetworkImage(data['simage']),
+                                      image: NetworkImage(data['iimage']),
                                       fit: BoxFit.cover),
                                 ),
                               ),
-                              Container(
-                                height: 350 / 12,
-                                width: 500 / 1.2,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      data['sname'],
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w500,
-                                      ),
+                              Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Text(
+                                    data['iname'],
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w500,
                                     ),
-                                    Container(
-                                      height: 350 / 25,
-                                      width: 500 / 7,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: Colors.green,
-                                      ),
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        data['srating'],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'price ->',
                                         style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w500,
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                width: 500 / 1.2,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "${data['slocation']}",
-                                      style: TextStyle(
-                                        fontSize: 12.9,
-                                        fontWeight: FontWeight.w500,
+                                      Text(
+                                        data['iprice'],
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w500,
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
+                                    ],
+                                  ),
+                                ],
                               ),
                             ],
                           ),
