@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:kartking/itemsview.dart';
 import 'package:kartking/pages/product_overview/product_view.dart';
 
 class items extends StatelessWidget {
