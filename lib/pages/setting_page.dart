@@ -4,8 +4,8 @@ import 'package:kartking/constant/colors.dart';
 import 'package:kartking/mainpage/login.dart';
 import 'package:kartking/my_account.dart';
 import 'package:kartking/pages/screens/profile_menu.dart';
-import 'package:kartking/theme.dart';
-import 'package:kartking/user_provider.dart';
+import 'package:kartking/constant/theme.dart';
+import 'package:kartking/provider/user_provider.dart';
 import 'package:provider/provider.dart';
 
 // ignore: camel_case_types

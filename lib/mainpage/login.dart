@@ -10,7 +10,7 @@ import 'package:kartking/mainpage/homescreen.dart';
 import 'package:kartking/mainpage/register.dart';
 import 'package:provider/provider.dart';
 
-import '../user_provider.dart';
+import '../provider/user_provider.dart';
 
 // ignore: camel_case_types
 class login extends StatefulWidget {

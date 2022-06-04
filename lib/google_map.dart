@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:kartking/address_provider.dart';
+import 'package:kartking/provider/address_provider.dart';
 import 'package:kartking/constant/colors.dart';
 import 'package:location/location.dart';
 import 'package:provider/provider.dart';

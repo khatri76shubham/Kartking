@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kartking/constant/colors.dart';
 import 'package:kartking/location.dart';
-import 'package:kartking/user_provider.dart';
-import 'package:kartking/usermodel.dart';
+import 'package:kartking/provider/user_provider.dart';
+import 'package:kartking/model/user_model.dart';
 import 'package:provider/provider.dart';
 import 'mainpage/login.dart';
 

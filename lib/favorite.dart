@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:kartking/favorite_provider.dart';
+import 'package:kartking/provider/favorite_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'constant/colors.dart';

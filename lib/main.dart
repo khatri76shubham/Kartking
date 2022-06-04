@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:kartking/address_provider.dart';
-import 'package:kartking/cart_provider.dart';
+import 'package:kartking/provider/address_provider.dart';
+import 'package:kartking/provider/cart_provider.dart';
 import 'package:kartking/constant/colors.dart';
-import 'package:kartking/favorite_provider.dart';
+import 'package:kartking/provider/favorite_provider.dart';
 import 'package:kartking/mainpage/login.dart';
-import 'package:kartking/theme.dart';
+import 'package:kartking/constant/theme.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
-import 'user_provider.dart';
+import 'provider/user_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

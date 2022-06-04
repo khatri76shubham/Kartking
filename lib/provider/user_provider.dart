@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:kartking/usermodel.dart';
+import 'package:kartking/model/user_model.dart';
 
 class UserProvider with ChangeNotifier {
   void addUserData({

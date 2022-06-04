@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:kartking/add_address_detail.dart';
-import 'package:kartking/address_provider.dart';
+import 'package:kartking/provider/address_provider.dart';
 import 'package:kartking/constant/colors.dart';
 import 'package:kartking/google_map.dart';
 import 'package:provider/provider.dart';

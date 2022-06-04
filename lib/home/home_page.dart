@@ -3,10 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:kartking/constant/colors.dart';
-import 'package:kartking/favorite_store.dart';
+import 'package:kartking/home/favorite_store.dart';
 import 'package:kartking/my_account.dart';
 import 'package:kartking/home/items.dart';
-import 'package:kartking/single_store.dart';
+import 'package:kartking/home/single_store.dart';
 import '../pages/store_overview/storeview.dart';
 
 // ignore: camel_case_types

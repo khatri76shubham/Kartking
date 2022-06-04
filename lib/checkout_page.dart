@@ -5,7 +5,7 @@ import 'package:kartking/constant/colors.dart';
 import 'package:kartking/location.dart';
 import 'package:kartking/pages/store_overview/storeview.dart';
 import 'package:kartking/single_address.dart';
-import 'package:kartking/theme.dart';
+import 'package:kartking/constant/theme.dart';
 
 class Checkout extends StatefulWidget {
   final Index;

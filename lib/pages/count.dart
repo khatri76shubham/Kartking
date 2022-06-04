@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kartking/cart_provider.dart';
+import 'package:kartking/provider/cart_provider.dart';
 import 'package:kartking/constant/colors.dart';
 import 'package:provider/provider.dart';
 
