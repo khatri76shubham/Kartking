@@ -6,6 +6,7 @@ import 'package:kartking/constant/colors.dart';
 import 'package:kartking/provider/favorite_provider.dart';
 import 'package:kartking/mainpage/login.dart';
 import 'package:kartking/constant/theme.dart';
+import 'package:kartking/provider/my_order_provider.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
@@ -48,6 +49,8 @@ class _MyAppState extends State<MyApp> {
               create: (context) => YourCartProvider()),
           ChangeNotifierProvider<FavoriteProvider>(
               create: (context) => FavoriteProvider()),
+          ChangeNotifierProvider<MyorderProvider>(
+              create: (context) => MyorderProvider()),
         ],
         child: MaterialApp(
           theme: CustomTheme.lightTheme,

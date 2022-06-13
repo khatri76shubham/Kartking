@@ -1,11 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:kartking/constant/colors.dart';
 import 'package:kartking/location.dart';
+import 'package:kartking/my_account.dart';
 import 'package:kartking/pages/store_overview/storeview.dart';
+import 'package:kartking/provider/my_order_provider.dart';
 import 'package:kartking/single_address.dart';
 import 'package:kartking/constant/theme.dart';
+import 'package:provider/provider.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class Checkout extends StatefulWidget {
   final Index;
@@ -18,6 +25,76 @@ class Checkout extends StatefulWidget {
 class _CheckoutState extends State<Checkout> {
   var addressindex;
   int? price;
+
+  late Razorpay _razorpay;
+  @override
+  void initState() {
+    // ignore: todo
+    // TODO: implement initState
+    super.initState();
+    initializeRazorpay();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _razorpay.clear();
+  }
+
+  void launchRazorpay() {
+    var amount = price! * 100;
+    var options = {
+      'key': 'rzp_test_GvHyXEBxTkh3w6',
+      'amount': amount,
+      'name': 'Kart King',
+      'description': widget.Index['storeid'],
+      'prefill': {'contact': '', 'email': ''}
+    };
+    try {
+      _razorpay.open(options);
+    } catch (e) {
+      if (kDebugMode) {
+        print("Error: $e");
+      }
+    }
+  }
+
+  void initializeRazorpay() {
+    _razorpay = Razorpay();
+    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+  }
+
+  void _handlePaymentSuccess(PaymentSuccessResponse response) async {
+    MyorderProvider myorderProvider = Provider.of(context, listen: false);
+    myorderProvider.addorderData(
+      paymentstatus: "done",
+      storeid: widget.Index['storeid'],
+      storeimage: widget.Index['storeimage'],
+    );
+    if (kDebugMode) {
+      print('Payment Sucessfull');
+      Fluttertoast.showToast(msg: 'Payment Sucessfull');
+      Navigator.pop(context);
+    }
+  }
+
+  void _handlePaymentError(PaymentFailureResponse response) {
+    if (kDebugMode) {
+      print('Payment error');
+      Fluttertoast.showToast(msg: 'Payment error');
+    }
+  }
+
+  void _handleExternalWallet(ExternalWalletResponse response) {
+    if (kDebugMode) {
+      print('External wallet');
+      Fluttertoast.showToast(msg: 'Payment Failed');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var storeid = widget.Index['storeid'];
@@ -127,25 +204,35 @@ class _CheckoutState extends State<Checkout> {
                         ),
                       ],
                     ),
-                    Container(
-                      height: 50,
-                      width: 200,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: primarycolor,
-                        boxShadow: [
-                          BoxShadow(
-                            color: textcolor,
-                            offset: Offset(1.0, 3.0), //(x,y)
-                            blurRadius: 4.0,
+                    GestureDetector(
+                      onTap: () {
+                        if (addressindex == null) {
+                          Fluttertoast.showToast(
+                              msg: 'Please Select Deliverable address');
+                        } else {
+                          launchRazorpay();
+                        }
+                      },
+                      child: Container(
+                        height: 50,
+                        width: 200,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: primarycolor,
+                          boxShadow: [
+                            BoxShadow(
+                              color: textcolor,
+                              offset: const Offset(1.0, 3.0), //(x,y)
+                              blurRadius: 4.0,
+                            ),
+                          ],
+                        ),
+                        child: Center(
+                          child: const Text(
+                            'Pay Now',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),
                           ),
-                        ],
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Pay Now',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20),
                         ),
                       ),
                     )
