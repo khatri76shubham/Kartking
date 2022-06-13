@@ -17,6 +17,7 @@ class Checkout extends StatefulWidget {
 
 class _CheckoutState extends State<Checkout> {
   var addressindex;
+  int? price;
   @override
   Widget build(BuildContext context) {
     var storeid = widget.Index['storeid'];
@@ -120,7 +121,7 @@ class _CheckoutState extends State<Checkout> {
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          '',
+                          '$price',
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
@@ -284,6 +285,9 @@ class _CheckoutState extends State<Checkout> {
                                 int.parse(totalPrice(
                                     snapshot.data!.docs[index]['cartquantity'],
                                     snapshot.data!.docs[index]['cartprice']));
+                            price = tPrice - 50;
+                            WidgetsBinding.instance
+                                .addPostFrameCallback((_) => setState(() {}));
                           } else {
                             tPrice = 0;
                           }

@@ -40,8 +40,8 @@ class _MyAppState extends State<MyApp> {
         providers: [
           ChangeNotifierProvider<UserProvider>(
               create: (context) => UserProvider()),
-          ChangeNotifierProvider<addressprovider>(
-              create: (context) => addressprovider()),
+          ChangeNotifierProvider<Addressprovider>(
+              create: (context) => Addressprovider()),
           ChangeNotifierProvider<CartProvider>(
               create: (context) => CartProvider()),
           ChangeNotifierProvider<YourCartProvider>(

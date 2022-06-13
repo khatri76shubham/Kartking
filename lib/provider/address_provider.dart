@@ -4,7 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:location/location.dart';
 
-class addressprovider with ChangeNotifier {
+class Addressprovider with ChangeNotifier {
   bool isloading = false;
   TextEditingController name = TextEditingController();
   TextEditingController mobileno = TextEditingController();

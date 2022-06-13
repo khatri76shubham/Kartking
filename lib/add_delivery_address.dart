@@ -21,7 +21,7 @@ class _AdddeliveryaddressState extends State<Adddeliveryaddress> {
 
   @override
   Widget build(BuildContext context) {
-    addressprovider addressProvider = Provider.of(context);
+    Addressprovider addressProvider = Provider.of(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primarycolor,
