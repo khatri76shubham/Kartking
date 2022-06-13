@@ -160,36 +160,34 @@ class _storeviewState extends State<storeview> {
                     ),
                   ],
                 ),
-                Expanded(
-                  child: Container(
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
                     ),
-                    child: GridView.builder(
-                        physics: ScrollPhysics(),
-                        shrinkWrap: true,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 0.75,
-                          mainAxisSpacing: 8.0,
-                          crossAxisSpacing: 8.0,
-                        ),
-                        itemCount: snapshot.data?.docs.length ?? 0,
-                        itemBuilder: (context, index) => Productcard(
-                              product: snapshot.data?.docs[index],
-                              press: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => productview(
-                                          sid: widget.Index,
-                                          itemnu: snapshot.data?.docs[index],
-                                        )));
-                              },
-                            )),
                   ),
+                  child: GridView.builder(
+                      physics: ScrollPhysics(),
+                      shrinkWrap: true,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 0.75,
+                        mainAxisSpacing: 8.0,
+                        crossAxisSpacing: 8.0,
+                      ),
+                      itemCount: snapshot.data?.docs.length ?? 0,
+                      itemBuilder: (context, index) => Productcard(
+                            product: snapshot.data?.docs[index],
+                            press: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => productview(
+                                        sid: widget.Index,
+                                        itemnu: snapshot.data?.docs[index],
+                                      )));
+                            },
+                          )),
                 )
               ],
             );

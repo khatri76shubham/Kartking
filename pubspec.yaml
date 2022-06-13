@@ -28,6 +28,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   animated_splash_screen: ^1.1.0
+  carousel_slider: ^4.1.1
   cloud_firestore: ^3.1.10
   cross_file: ^0.3.2
   cupertino_icons: ^1.0.2

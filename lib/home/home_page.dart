@@ -76,18 +76,7 @@ class _homepageState extends State<homepage> {
                 child: ListView(
                   children: [
                     Row(
-                      children: [
-                        Expanded(
-                          child: Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 5),
-                            height: 150,
-                            width: 360,
-                            decoration: BoxDecoration(
-                                color: primarycolor,
-                                borderRadius: BorderRadius.circular(18)),
-                          ),
-                        ),
-                      ],
+                      children: [],
                     ),
                     divider(),
                     Padding(
@@ -118,7 +107,7 @@ class _homepageState extends State<homepage> {
                             mainAxisSpacing: 8.0,
                             crossAxisSpacing: 5.0,
                           ),
-                          itemCount: snapshot.data?.docs.length ?? 0,
+                          itemCount: 6,
                           itemBuilder: (context, index) => items(
                                 index: index,
                                 storename: snapshot.data?.docs[index],
