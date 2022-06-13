@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kartking/constant/colors.dart';
 import 'package:kartking/location.dart';
+import 'package:kartking/my_order.dart';
 import 'package:kartking/provider/user_provider.dart';
 import 'package:kartking/model/user_model.dart';
 import 'package:provider/provider.dart';
@@ -108,7 +109,13 @@ class _myaccountState extends State<myaccount> {
                           )
                         ],
                       ),
-                      listTile(icon: Icons.shop_outlined, title: "My orders"),
+                      listTile(
+                          icon: Icons.shop_outlined,
+                          title: "My orders",
+                          press: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => Myorders()));
+                          }),
                       listTile(
                         icon: Icons.location_on_outlined,
                         title: "location",
