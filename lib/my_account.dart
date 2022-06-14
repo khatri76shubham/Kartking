@@ -171,15 +171,27 @@ class _myaccountState extends State<myaccount> {
               child: CircleAvatar(
                 backgroundColor: whitecolor,
                 radius: 48,
-                child: CircleAvatar(
+                child: const CircleAvatar(
                   radius: 43,
                   backgroundColor: Colors.white,
-                  backgroundImage: NetworkImage(value.currentdata?.userImage
-                          .toString() ??
-                      "https://firebasestorage.googleapis.com/v0/b/kartking-4f072.appspot.com/o/kartlogo.png?alt=media&token=db5857a3-cfe9-4fa7-81d9-2919d0a79d2c"),
+                  backgroundImage: AssetImage("assets/images/kartlogo.png"),
                 ),
               ),
             ),
+            if (value.currentdata?.userImage != null)
+              Padding(
+                padding: const EdgeInsets.only(top: 40, left: 30),
+                child: CircleAvatar(
+                  backgroundColor: whitecolor,
+                  radius: 48,
+                  child: CircleAvatar(
+                    radius: 43,
+                    backgroundColor: Colors.white,
+                    backgroundImage: NetworkImage(
+                        '${value.currentdata?.userImage.toString()}'),
+                  ),
+                ),
+              ),
           ],
         );
       }),

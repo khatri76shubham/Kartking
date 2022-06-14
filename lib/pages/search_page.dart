@@ -188,10 +188,8 @@ class _searchpageState extends State<searchpage> {
 }
 
 class productsearch extends SearchDelegate {
-  final CollectionReference _firebasefirestore = FirebaseFirestore.instance
-      .collection("store")
-      .doc('Bajrang Departmental Store')
-      .collection("items");
+  final CollectionReference _firebasefirestore =
+      FirebaseFirestore.instance.collection("store").doc().collection("items");
   @override
   List<Widget>? buildActions(BuildContext context) {
     // TODO: implement buildActions

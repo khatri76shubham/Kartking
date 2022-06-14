@@ -16,8 +16,7 @@ class settingpage extends StatefulWidget {
 // ignore: camel_case_types
 class _settingpageState extends State<settingpage> {
   void launchwhatsapp({required message, required number}) async {
-    final Uri url =
-        Uri.parse("whatsapp://send?phone=wa.me$number&text=$message");
+    final Uri url = Uri.parse("https://wa.me/$number");
 
     await canLaunchUrl(url)
         ? launchUrl(url)
@@ -57,7 +56,7 @@ class _settingpageState extends State<settingpage> {
               text: 'Help',
               icon: ("assets/icons/Question mark.svg"),
               press: () {
-                launchwhatsapp(message: "Hello", number: "9602526622");
+                launchwhatsapp(message: "Hello", number: "+919602526622");
               },
             ),
             ProfileMenu(
