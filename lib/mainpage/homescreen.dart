@@ -5,6 +5,9 @@ import 'package:kartking/pages/cart_page.dart';
 import 'package:kartking/home/home_page.dart';
 import 'package:kartking/pages/search_page.dart';
 import 'package:kartking/pages/setting_page.dart';
+import 'package:provider/provider.dart';
+
+import '../provider/user_provider.dart';
 
 // ignore: camel_case_types
 class homescreen extends StatefulWidget {

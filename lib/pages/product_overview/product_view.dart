@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:kartking/constant/colors.dart';
@@ -61,14 +62,8 @@ class productview extends StatelessWidget {
           systemOverlayStyle:
               SystemUiOverlayStyle(statusBarColor: primarycolor),
           elevation: 0,
-          actions: [
-            IconButton(onPressed: () {}, icon: Icon(Icons.search)),
-            IconButton(onPressed: () {}, icon: Icon(Icons.shopping_cart)),
-          ],
         ),
         body: ListView(
-          physics: ScrollPhysics(),
-          shrinkWrap: true,
           children: [
             Stack(
               children: [
@@ -112,11 +107,13 @@ class productview extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Text("About Product \n",
+                      Divider(
+                        color: textcolor,
+                      ),
+                      Text("other Product \n",
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold)),
-                      Text(
-                          "Frozen vegetables are vegetables that have had their temperature reduced and maintained to below their freezing point for the purpose of storage and transportation (often for far longer than their natural shelf life would permit) until they are ready to be eaten. They may be commercially packaged or frozen at home."),
+                      otherproduct(),
                     ],
                   ),
                 ),
@@ -162,5 +159,59 @@ class productview extends StatelessWidget {
             )
           ],
         ));
+  }
+
+  Widget otherproduct() {
+    var store = sid['sname'];
+    return SizedBox(
+      width: 380,
+      height: 150,
+      child: StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance
+              .collection("store")
+              .doc('$store')
+              .collection('items')
+              .snapshots(),
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (!snapshot.hasData) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return ListView.builder(
+                shrinkWrap: true,
+                physics: ScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                itemCount: snapshot.data?.docs.length,
+                itemBuilder: (context, index) {
+                  // if (snapshot.data?.docs[index]['iname'] != itemnu['iname']) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 350 / 3,
+                        width: 200 / 1.3,
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(18),
+                            topRight: Radius.circular(18),
+                          ),
+                          image: DecorationImage(
+                              image: NetworkImage(
+                                  snapshot.data?.docs[index]["iimage"]),
+                              fit: BoxFit.cover),
+                        ),
+                      ),
+                      Text(snapshot.data?.docs[index]["iname"]),
+                    ],
+                  );
+                  // } else {
+                  //   return const SizedBox.shrink();
+                  // }
+                });
+          }),
+    );
   }
 }
