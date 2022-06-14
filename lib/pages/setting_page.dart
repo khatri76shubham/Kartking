@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:kartking/constant/colors.dart';
-import 'package:kartking/mainpage/login.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kartking/my_account.dart';
 import 'package:kartking/pages/screens/profile_menu.dart';
 import 'package:kartking/constant/theme.dart';
-import 'package:kartking/provider/user_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // ignore: camel_case_types
 class settingpage extends StatefulWidget {
@@ -18,6 +15,15 @@ class settingpage extends StatefulWidget {
 
 // ignore: camel_case_types
 class _settingpageState extends State<settingpage> {
+  void launchwhatsapp({required message, required number}) async {
+    final Uri url =
+        Uri.parse("whatsapp://send?phone=wa.me$number&text=$message");
+
+    await canLaunchUrl(url)
+        ? launchUrl(url)
+        : Fluttertoast.showToast(msg: 'Can\'t open whatsapp ');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +56,9 @@ class _settingpageState extends State<settingpage> {
             ProfileMenu(
               text: 'Help',
               icon: ("assets/icons/Question mark.svg"),
-              press: () {},
+              press: () {
+                launchwhatsapp(message: "Hello", number: "9602526622");
+              },
             ),
             ProfileMenu(
               text: 'Notification',
