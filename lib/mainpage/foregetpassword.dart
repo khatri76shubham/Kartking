@@ -33,68 +33,67 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: primarycolor,
         body: Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            "Forgot Password",
-            style: TextStyle(
-                color: Colors.black,
-                letterSpacing: .5,
-                fontSize: 30,
-                fontWeight: FontWeight.bold),
-          ),
-          SizedBox(
-            height: 15,
-          ),
-          TextField(
-              controller: email,
-              cursorColor: Colors.black,
-              decoration: InputDecoration(
-                filled: true,
-                border: OutlineInputBorder(borderSide: BorderSide.none),
-                hintText: "Enter Email",
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              )),
-          SizedBox(
-            height: 15,
-          ),
-          GestureDetector(
-            onTap: () {
-              forgotPassword();
-              email.clear();
-            },
-            child: Container(
-              alignment: Alignment.center,
-              width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.all(15),
-              decoration: BoxDecoration(
-                color: primarycolor,
-                //borderRadius: BorderRadius.circular(10)
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Forgot Password",
+                style: TextStyle(
+                    color: Colors.black,
+                    letterSpacing: .5,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold),
               ),
-              child: _isLoading
-                  ? Center(
-                      child: CircularProgressIndicator(
-                        color: Colors.white,
-                      ),
-                    )
-                  : Text(
-                      "Forget Password",
-                      style: TextStyle(
-                          color: Colors.white,
-                          letterSpacing: .5,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold),
+              SizedBox(
+                height: 15,
+              ),
+              TextField(
+                  controller: email,
+                  cursorColor: Colors.black,
+                  decoration: InputDecoration(
+                    filled: true,
+                    border: OutlineInputBorder(borderSide: BorderSide.none),
+                    hintText: "Enter Email",
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
                     ),
-            ),
+                  )),
+              SizedBox(
+                height: 15,
+              ),
+              GestureDetector(
+                onTap: () {
+                  forgotPassword();
+                  email.clear();
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.all(15),
+                  decoration: BoxDecoration(
+                      color: whitecolor,
+                      borderRadius: BorderRadius.circular(30)),
+                  child: _isLoading
+                      ? Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                          ),
+                        )
+                      : Text(
+                          "Forget Password",
+                          style: TextStyle(
+                              color: textcolor,
+                              letterSpacing: .5,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
-    ));
+        ));
   }
 }

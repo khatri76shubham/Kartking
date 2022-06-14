@@ -42,14 +42,6 @@ class _RegisterState extends State<Register> {
     super.dispose();
   }
 
-  // Uint8List? _image;
-  // selectImage() async {
-  //   Uint8List im = await AuthController().pickImage(ImageSource.gallery);
-  //   setState(() {
-  //     _image = im;
-  //   });
-  // }
-
   signUpUser() async {
     setState(() {
       _isLoading = true;
@@ -70,6 +62,7 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: primarycolor,
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
@@ -81,26 +74,12 @@ class _RegisterState extends State<Register> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
-                      height: 180,
+                      height: 110,
                       child: Image.asset(
                         "assets/images/kartlogo.png",
                         fit: BoxFit.contain,
                       )),
-                  // TextField(
-                  //     controller: fullName,
-                  //     cursorColor: Colors.black,
-                  //     decoration: InputDecoration(
-                  //       filled: true,
-                  //       border: OutlineInputBorder(borderSide: BorderSide.none),
-                  //       hintText: "Enter Fullname",
-                  //       focusedBorder: OutlineInputBorder(
-                  //         borderSide: BorderSide(
-                  //           color: Colors.black54,
-                  //           width: 1,
-                  //         ),
-                  //         borderRadius: BorderRadius.circular(10.0),
-                  //       ),
-                  //     )),
+                  Divider(),
                   TextFormField(
                       autofocus: false,
                       controller: fullName,
@@ -132,18 +111,6 @@ class _RegisterState extends State<Register> {
                   SizedBox(
                     height: 20,
                   ),
-                  // TextField(
-                  //     controller: userName,
-                  //     cursorColor: Colors.black,
-                  //     decoration: InputDecoration(
-                  //       filled: true,
-                  //       border: OutlineInputBorder(borderSide: BorderSide.none),
-                  //       hintText: "Enter Username",
-                  //       focusedBorder: OutlineInputBorder(
-                  //         borderSide: BorderSide.none,
-                  //         borderRadius: BorderRadius.circular(10.0),
-                  //       ),
-                  //     )),
                   TextFormField(
                       autofocus: false,
                       controller: userName,
@@ -171,18 +138,6 @@ class _RegisterState extends State<Register> {
                   SizedBox(
                     height: 20,
                   ),
-                  // TextField(
-                  //     controller: email,
-                  //     cursorColor: Colors.black,
-                  //     decoration: InputDecoration(
-                  //       filled: true,
-                  //       border: OutlineInputBorder(borderSide: BorderSide.none),
-                  //       hintText: "Enter Email",
-                  //       focusedBorder: OutlineInputBorder(
-                  //         borderSide: BorderSide.none,
-                  //         borderRadius: BorderRadius.circular(10.0),
-                  //       ),
-                  //     )),
                   TextFormField(
                       autofocus: false,
                       controller: email,
@@ -214,19 +169,6 @@ class _RegisterState extends State<Register> {
                   SizedBox(
                     height: 20,
                   ),
-                  // TextField(
-                  //     obscureText: true,
-                  //     controller: password,
-                  //     cursorColor: Colors.black,
-                  //     decoration: InputDecoration(
-                  //       filled: true,
-                  //       border: OutlineInputBorder(borderSide: BorderSide.none),
-                  //       hintText: "Enter Password",
-                  //       focusedBorder: OutlineInputBorder(
-                  //         borderSide: BorderSide.none,
-                  //         borderRadius: BorderRadius.circular(10.0),
-                  //       ),
-                  //     )),
                   TextFormField(
                       obscureText: isObscure,
                       autofocus: false,
@@ -308,47 +250,10 @@ class _RegisterState extends State<Register> {
                   SizedBox(
                     height: 20,
                   ),
-                  // GestureDetector(
-                  //   onTap: () async {
-                  //     await signUpUser();
-                  //     fullName.clear();
-                  //     email.clear();
-                  //     userName.clear();
-                  //     password.clear();
-                  //   },
-                  //   child: Container(
-                  //     alignment: Alignment.center,
-                  //     width: MediaQuery.of(context).size.width,
-                  //     padding: EdgeInsets.all(15),
-                  //     decoration: BoxDecoration(
-                  //         color: buttonColor,
-                  //         borderRadius: BorderRadius.circular(10)),
-                  //     child: _isLoading
-                  //         ? Center(
-                  //             child: CircularProgressIndicator(
-                  //               color: Colors.white,
-                  //             ),
-                  //           )
-                  //         : Text(
-                  //             "Register",
-                  //             // style: TextStyle(
-                  //             //     color: Colors.white,
-                  //             //     fontWeight: FontWeight.bold,
-                  //             //     fontSize: 24),
-                  //             style: GoogleFonts.dancingScript(
-                  //               textStyle: TextStyle(
-                  //                   color: Colors.white,
-                  //                   letterSpacing: .5,
-                  //                   fontSize: 24,
-                  //                   fontWeight: FontWeight.bold),
-                  //             ),
-                  //           ),
-                  //   ),
-                  // ),
                   Material(
                     elevation: 5,
                     borderRadius: BorderRadius.circular(30),
-                    color: primarycolor,
+                    color: whitecolor,
                     child: MaterialButton(
                         padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
                         minWidth: MediaQuery.of(context).size.width,
@@ -360,7 +265,7 @@ class _RegisterState extends State<Register> {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 20,
-                              color: Colors.white,
+                              color: textcolor,
                               fontWeight: FontWeight.bold),
                         )),
                   ),

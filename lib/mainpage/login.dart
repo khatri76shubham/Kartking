@@ -55,7 +55,7 @@ class _loginState extends State<login> {
     userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
       body: Container(
-        color: Colors.white,
+        color: primarycolor,
         child: Padding(
           padding: const EdgeInsets.all(36.0),
           child: Form(
@@ -65,26 +65,12 @@ class _loginState extends State<login> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                    height: 120,
+                    height: 110,
                     child: Image.asset(
                       "assets/images/kartlogo.png",
                       fit: BoxFit.contain,
                     )),
-                // TextField(
-                //     controller: email,
-                //     cursorColor: Colors.black,
-                //     decoration: InputDecoration(
-                //       filled: true,
-                //       border: OutlineInputBorder(borderSide: BorderSide.none),
-                //       hintText: "Enter Email",
-                //       focusedBorder: OutlineInputBorder(
-                //         borderSide: BorderSide(
-                //           color: Colors.black54,
-                //           width: 1,
-                //         ),
-                //         borderRadius: BorderRadius.circular(10.0),
-                //       ),
-                //     )),
+                Divider(),
                 TextFormField(
                     autofocus: false,
                     controller: email,
@@ -116,19 +102,6 @@ class _loginState extends State<login> {
                 SizedBox(
                   height: 20,
                 ),
-                // TextField(
-                //     obscureText: true,
-                //     controller: password,
-                //     cursorColor: Colors.black,
-                //     decoration: InputDecoration(
-                //       filled: true,
-                //       border: OutlineInputBorder(borderSide: BorderSide.none),
-                //       hintText: "Enter Password",
-                //       focusedBorder: OutlineInputBorder(
-                //         borderSide: BorderSide.none,
-                //         borderRadius: BorderRadius.circular(10.0),
-                //       ),
-                //     )),
                 TextFormField(
                   obscureText: isObscure,
                   autofocus: false,
@@ -153,7 +126,6 @@ class _loginState extends State<login> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    // suffixIcon: Icon(Icons.visibility_off),
                     suffixIcon: InkWell(
                       onTap: () {
                         setState(() {
@@ -168,52 +140,14 @@ class _loginState extends State<login> {
                 SizedBox(
                   height: 20,
                 ),
-                // GestureDetector(
-                //   onTap: () async {
-                //     await loginUser();
-                //     email.clear();
-                //     password.clear();
-                //   },
-                //   child: Container(
-                //     alignment: Alignment.center,
-                //     width: MediaQuery.of(context).size.width,
-                //     padding: EdgeInsets.all(15),
-                //     decoration: BoxDecoration(
-                //         color: buttonColor,
-                //         borderRadius: BorderRadius.circular(10)),
-                //     child: _isLoading
-                //         ? Center(
-                //             child: CircularProgressIndicator(
-                //               color: Colors.white,
-                //             ),
-                //           )
-                //         : Text(
-                //             "Login",
-                //             // style: TextStyle(
-                //             //     color: Colors.white,
-                //             //     fontWeight: FontWeight.bold,
-                //             //     fontSize: 24),
-                //             style: GoogleFonts.dancingScript(
-                //               textStyle: TextStyle(
-                //                   color: Colors.white,
-                //                   letterSpacing: .5,
-                //                   fontSize: 24,
-                //                   fontWeight: FontWeight.bold),
-                //             ),
-                //           ),
-                //   ),
-                // ),
                 Material(
                   elevation: 5,
                   borderRadius: BorderRadius.circular(30),
-                  color: primarycolor,
+                  color: whitecolor,
                   child: MaterialButton(
                       padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
                       minWidth: MediaQuery.of(context).size.width,
                       onPressed: () async {
-                        // final SharedPreferences sharedPreferences =
-                        //     await SharedPreferences.getInstance();
-                        // sharedPreferences.setString("email", emailController.text);
                         signIn(email.text, password.text);
                       },
                       child: Text(
@@ -221,13 +155,11 @@ class _loginState extends State<login> {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: 20,
-                            color: Colors.white,
+                            color: textcolor,
                             fontWeight: FontWeight.bold),
                       )),
                 ),
-                SizedBox(
-                  height: 10,
-                ),
+                SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -262,17 +194,29 @@ class _loginState extends State<login> {
                 SizedBox(
                   height: 15,
                 ),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => ForgotPasswordScreen()));
-                  },
-                  child: Text(
-                    "Forget Password ?",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                  ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => ForgotPasswordScreen()));
+                      },
+                      child: Text(
+                        "Forget Password ?",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
+                      ),
+                    ),
+                  ],
+                ),
+                Divider(
+                  color: textcolor,
+                ),
+                SizedBox(
+                  height: 15,
                 ),
                 SizedBox(
                   height: 50,
