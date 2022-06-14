@@ -23,8 +23,8 @@ class CustomTheme with ChangeNotifier {
     return ThemeData(
       canvasColor: Colors.transparent,
       primaryColor: const Color(0xff7E89F0),
-      backgroundColor: Colors.grey,
-      scaffoldBackgroundColor: Colors.grey,
+      backgroundColor: Colors.yellow,
+      scaffoldBackgroundColor: Colors.yellow,
     );
   }
 }

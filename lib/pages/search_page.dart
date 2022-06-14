@@ -254,10 +254,11 @@ class productsearch extends SearchDelegate {
                                 itemnu: data,
                               )));
                     },
-                    child: Material(
-                      elevation: 3,
-                      borderRadius: BorderRadius.circular(18),
-                      child: Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Material(
+                        elevation: 3,
+                        borderRadius: BorderRadius.circular(18),
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(18)),

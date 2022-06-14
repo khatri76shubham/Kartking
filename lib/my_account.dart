@@ -6,7 +6,9 @@ import 'package:kartking/my_order.dart';
 import 'package:kartking/provider/user_provider.dart';
 import 'package:kartking/model/user_model.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'mainpage/login.dart';
+import 'package:flutter_share/flutter_share.dart';
 
 class myaccount extends StatefulWidget {
   UserProvider? userProvider;
@@ -125,14 +127,30 @@ class _myaccountState extends State<myaccount> {
                         },
                       ),
                       listTile(
-                          icon: Icons.person_outline,
-                          title: "Refer A Friend",
-                          press: () {}),
+                          icon: Icons.share_outlined,
+                          title: "Share with Friend",
+                          press: () {
+                            FlutterShare.share(
+                                title: "share",
+                                linkUrl:
+                                    "https://drive.google.com/drive/folders/167bc-6HOrY4TnJCt4qStUwUbRN6MBTke?usp=sharing");
+                          }),
                       listTile(
                           icon: Icons.file_copy_outlined,
-                          title: "Term's & Condition"),
+                          title: "Term's & Condition",
+                          press: () {
+                            final Uri _url = Uri.parse(
+                                'https://drive.google.com/file/d/1nDj1-Ydzhnzs0_uvhHmg2G_ai1FsJOFt/view');
+                            launchUrl(_url);
+                          }),
                       listTile(
-                          icon: Icons.policy_outlined, title: "Privacy policy"),
+                          icon: Icons.policy_outlined,
+                          title: "Privacy policy",
+                          press: () {
+                            final Uri _url = Uri.parse(
+                                'https://drive.google.com/file/d/1li0zdem5QsmaADJNaCH0-7LcwN0wJ-8y/view?usp=sharing');
+                            launchUrl(_url);
+                          }),
                       listTile(icon: Icons.add_chart, title: "About"),
                       listTile(
                         icon: Icons.exit_to_app_outlined,

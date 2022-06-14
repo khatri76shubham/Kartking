@@ -14,6 +14,7 @@ class productview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(itemnu);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: primarycolor,
@@ -185,31 +186,31 @@ class productview extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemCount: snapshot.data?.docs.length,
                 itemBuilder: (context, index) {
-                  // if (snapshot.data?.docs[index]['iname'] != itemnu['iname']) {
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        height: 350 / 3,
-                        width: 200 / 1.3,
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(18),
-                            topRight: Radius.circular(18),
+                  if (snapshot.data?.docs[index]['iname'] != itemnu['iname']) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: 350 / 3,
+                          width: 200 / 1.3,
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(18),
+                              topRight: Radius.circular(18),
+                            ),
+                            image: DecorationImage(
+                                image: NetworkImage(
+                                    snapshot.data?.docs[index]["iimage"]),
+                                fit: BoxFit.cover),
                           ),
-                          image: DecorationImage(
-                              image: NetworkImage(
-                                  snapshot.data?.docs[index]["iimage"]),
-                              fit: BoxFit.cover),
                         ),
-                      ),
-                      Text(snapshot.data?.docs[index]["iname"]),
-                    ],
-                  );
-                  // } else {
-                  //   return const SizedBox.shrink();
-                  // }
+                        Text(snapshot.data?.docs[index]["iname"]),
+                      ],
+                    );
+                  } else {
+                    return const SizedBox.shrink();
+                  }
                 });
           }),
     );

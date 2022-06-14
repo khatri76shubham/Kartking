@@ -10,7 +10,6 @@ import 'package:kartking/provider/my_order_provider.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
-import 'package:translator/translator.dart';
 import 'provider/user_provider.dart';
 
 void main() async {
