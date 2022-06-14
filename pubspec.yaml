@@ -37,6 +37,7 @@ dependencies:
   firebase_core: ^1.11.0
   flutter:
     sdk: flutter
+  flutter_launcher_icons: ^0.9.3
   flutter_rating_bar: ^4.0.0
   flutter_share: ^2.0.0
   flutter_signin_button: ^2.0.0
@@ -55,7 +56,9 @@ dependencies:
   toggle_switch: ^2.0.1
   url_launcher: ^6.1.3
   
-
+flutter_icons:
+  image_path: "assets/images/kartlogo.png"
+  android: true
 dev_dependencies:
 
   # The "flutter_lints" package below contains a set of recommended lints to
