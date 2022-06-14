@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kartking/constant/colors.dart';
 import 'package:kartking/mainpage/login.dart';
@@ -22,11 +23,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     setState(() {
       _isLoading = false;
     });
-    if (res != "success") {
-      showSnakBar(res, context);
-    } else {
+    if (res == "success") {
       showSnakBar("Link has been send to your email", context);
       Navigator.push(context, MaterialPageRoute(builder: (_) => login()));
+    } else {
+      showSnakBar(res, context);
     }
   }
 
