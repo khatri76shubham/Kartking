@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:kartking/constant/colors.dart';
 import 'package:kartking/home/favorite_store.dart';
+import 'package:kartking/items_view_all.dart';
 import 'package:kartking/my_account.dart';
 import 'package:kartking/home/items.dart';
 import 'package:kartking/home/single_store.dart';
@@ -117,16 +118,22 @@ class _homepageState extends State<homepage> {
                       padding: const EdgeInsets.symmetric(vertical: 5),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
+                        children: [
                           Text(
                             'Items',
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
-                          Text(
-                            'view all',
-                            style: TextStyle(
-                                color: Colors.blueGrey,
-                                fontWeight: FontWeight.bold),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => Itemsviewall()));
+                            },
+                            child: Text(
+                              'view all',
+                              style: TextStyle(
+                                  color: Colors.blueGrey,
+                                  fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ],
                       ),
@@ -148,22 +155,11 @@ class _homepageState extends State<homepage> {
                               )),
                     ),
                     divider(),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Text(
-                            'Near you',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            'view all',
-                            style: TextStyle(
-                                color: Colors.blueGrey,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
+                    const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                      child: Text(
+                        'Near you',
+                        style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
                     SizedBox(
@@ -198,25 +194,11 @@ class _homepageState extends State<homepage> {
                           }
                           return Column(
                             children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 5),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: const [
-                                    Text(
-                                      'favorite store',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Text(
-                                      'view all',
-                                      style: TextStyle(
-                                          color: Colors.blueGrey,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
+                              const Padding(
+                                padding: EdgeInsets.symmetric(vertical: 5),
+                                child: Text(
+                                  'favorite store',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                               ),
                               SizedBox(
@@ -237,25 +219,11 @@ class _homepageState extends State<homepage> {
                             ],
                           );
                         }),
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.all(5),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Stores',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          GestureDetector(
-                            onTap: () {},
-                            child: Text(
-                              'view all',
-                              style: TextStyle(
-                                  color: Colors.blueGrey,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ],
+                      child: Text(
+                        'Stores',
+                        style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
                     ListView.builder(

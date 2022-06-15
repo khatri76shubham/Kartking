@@ -14,6 +14,7 @@ final stores = [
   'Bajrang Departmental Store',
   'Bharat Audio Center',
   'Gajanand Bhandar',
+  'Jain General Store',
   'Khandelwal general store',
   'Khunteta Mobile',
   'Shree Govind Kirana Store',
