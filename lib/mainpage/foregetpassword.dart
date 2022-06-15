@@ -25,7 +25,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     });
     if (res == "success") {
       showSnakBar("Link has been send to your email", context);
-      Navigator.push(context, MaterialPageRoute(builder: (_) => login()));
+      Navigator.push(context, MaterialPageRoute(builder: (_) => const login()));
     } else {
       showSnakBar(res, context);
     }

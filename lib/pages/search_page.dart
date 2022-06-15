@@ -187,9 +187,19 @@ class _searchpageState extends State<searchpage> {
   }
 }
 
+final stores = [
+  'Bajrang Departmental Store',
+  'Bharat Audio Center',
+  'Gajanand Bhandar',
+  'Khandelwal general store',
+  'Khunteta Mobile',
+  'Shree Govind Kirana Store',
+  'Shree Hari The Grocery Point',
+  'Singhal Kirana Store',
+  'Vikas Mobile Shop',
+];
+
 class productsearch extends SearchDelegate {
-  final CollectionReference _firebasefirestore =
-      FirebaseFirestore.instance.collection("store").doc().collection("items");
   @override
   List<Widget>? buildActions(BuildContext context) {
     // TODO: implement buildActions
@@ -215,8 +225,14 @@ class productsearch extends SearchDelegate {
   @override
   Widget buildResults(BuildContext context) {
     // TODO: implement buildResults
+    var index = 0;
     return StreamBuilder<QuerySnapshot>(
-        stream: _firebasefirestore.snapshots().asBroadcastStream(),
+        stream: FirebaseFirestore.instance
+            .collection("store")
+            .doc('${stores[index]}')
+            .collection("items")
+            .snapshots()
+            .asBroadcastStream(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
             return Center(
@@ -230,6 +246,8 @@ class productsearch extends SearchDelegate {
                         .toLowerCase()
                         .contains(query.toLowerCase()))
                 .isEmpty) {
+              index++ < 9;
+
               return Center(
                   child: Text(
                 "No Search Query Found",
@@ -250,6 +268,7 @@ class productsearch extends SearchDelegate {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => productview(
                                 itemnu: data,
+                                sid: index,
                               )));
                     },
                     child: Padding(
@@ -281,39 +300,43 @@ class productsearch extends SearchDelegate {
                                       fit: BoxFit.cover),
                                 ),
                               ),
-                              Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Text(
-                                    data['iname'],
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w500,
+                              SizedBox(
+                                height: 400 / 2.5,
+                                width: 500 / 2.5,
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Text(
+                                      data['iname'],
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w500,
+                                      ),
                                     ),
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        'price ->',
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w500,
+                                    Row(
+                                      children: [
+                                        Text(
+                                          'price ->',
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                         ),
-                                      ),
-                                      Text(
-                                        data['iprice'],
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w500,
+                                        Text(
+                                          data['iprice'],
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),

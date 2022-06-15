@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:kartking/constant/colors.dart';
 import 'package:kartking/favorite.dart';
+import 'package:kartking/pages/inside_store_search.dart';
 import 'package:kartking/pages/product_overview/product_card.dart';
 import 'package:kartking/pages/product_overview/product_view.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -26,8 +27,13 @@ class _storeviewState extends State<storeview> {
           ),
           backgroundColor: primarycolor,
           actions: [
-            IconButton(onPressed: () {}, icon: Icon(Icons.search)),
-            IconButton(onPressed: () {}, icon: Icon(Icons.shopping_cart)),
+            IconButton(
+                onPressed: () {
+                  showSearch(
+                      context: context,
+                      delegate: Searchinside(index: widget.Index));
+                },
+                icon: Icon(Icons.search)),
           ],
         ),
         body: StreamBuilder<QuerySnapshot>(

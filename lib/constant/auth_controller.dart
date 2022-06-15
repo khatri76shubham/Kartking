@@ -63,7 +63,7 @@ class AuthController {
     String res = "some error occured";
     try {
       if (email.isNotEmpty) {
-        await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+        await FirebaseAuth.instance.sendPasswordResetEmail(email: email.trim());
         print("Resend link is send to your email");
         res = "success";
       } else {

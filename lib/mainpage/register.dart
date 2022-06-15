@@ -113,33 +113,6 @@ class _RegisterState extends State<Register> {
                   ),
                   TextFormField(
                       autofocus: false,
-                      controller: userName,
-                      keyboardType: TextInputType.name,
-
-                      // validations
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Please enter your Last Name";
-                        }
-                        return null;
-                      },
-                      onSaved: (value) {
-                        userName.text = value!;
-                      },
-                      textInputAction: TextInputAction.next,
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.person),
-                        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-                        hintText: "Last Name",
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      )),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(
-                      autofocus: false,
                       controller: email,
                       keyboardType: TextInputType.emailAddress,
 

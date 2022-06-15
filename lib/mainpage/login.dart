@@ -6,7 +6,6 @@ import 'package:flutter_signin_button/button_view.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kartking/constant/auth_controller.dart';
 import 'package:kartking/constant/colors.dart';
-import 'package:kartking/home/home_page.dart';
 import 'package:kartking/mainpage/foregetpassword.dart';
 import 'package:kartking/mainpage/homescreen.dart';
 import 'package:kartking/mainpage/register.dart';
@@ -214,9 +213,6 @@ class _loginState extends State<login> {
                 ),
                 Divider(
                   color: textcolor,
-                ),
-                SizedBox(
-                  height: 15,
                 ),
                 SizedBox(
                   height: 50,

@@ -132,6 +132,7 @@ class productview extends StatelessWidget {
                             fontSize: 30),
                       ),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           RichText(
                               text: TextSpan(children: [
@@ -147,10 +148,13 @@ class productview extends StatelessWidget {
                             )
                           ])),
                           Expanded(
-                              child: Image.network(
-                            itemnu['iimage'],
-                            fit: BoxFit.fill,
-                          )),
+                            child: Container(
+                                height: size.height * .4,
+                                child: Image.network(
+                                  itemnu['iimage'],
+                                  fit: BoxFit.fill,
+                                )),
+                          ),
                         ],
                       ),
                     ],
