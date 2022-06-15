@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:kartking/constant/colors.dart';
 import 'package:kartking/constant/theme.dart';
+import 'package:kartking/items_view_all.dart';
 import 'package:kartking/pages/product_overview/product_view.dart';
 import 'package:kartking/pages/store_overview/storeview.dart';
 
@@ -55,12 +56,6 @@ class _searchpageState extends State<searchpage> {
                         'stores',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      Text(
-                        'view all',
-                        style: TextStyle(
-                            color: Colors.blueGrey,
-                            fontWeight: FontWeight.bold),
-                      ),
                     ],
                   ),
                 ),
@@ -110,16 +105,22 @@ class _searchpageState extends State<searchpage> {
                       const EdgeInsets.symmetric(vertical: 4, horizontal: 6),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Text(
                         'Items',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      Text(
-                        'view all',
-                        style: TextStyle(
-                            color: Colors.blueGrey,
-                            fontWeight: FontWeight.bold),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => Itemsviewall()));
+                        },
+                        child: Text(
+                          'view all',
+                          style: TextStyle(
+                              color: Colors.blueGrey,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ],
                   ),

@@ -589,13 +589,15 @@ class _CheckoutState extends State<Checkout> {
                     return Center(
                       child: Row(
                         children: [
-                          const Text('No data Please add address'),
+                          const Text('No data Please add address '),
                           GestureDetector(
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => location()));
                             },
-                            child: Text('Click here'),
+                            child: const Text('Click here',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 17)),
                           )
                         ],
                       ),

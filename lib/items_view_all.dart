@@ -71,22 +71,31 @@ class _ItemsviewallState extends State<Itemsviewall> {
                                                         .data?.docs[index],
                                                   )));
                                     },
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          width: 80,
-                                          height: 90,
-                                          decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              image: DecorationImage(
-                                                  image: NetworkImage(
-                                                      snapshot.data?.docs[index]
-                                                          ["iimage"]))),
-                                        ),
-                                        Expanded(
+                                    child: SizedBox(
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height /
+                                                12,
+                                            decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                image: DecorationImage(
+                                                    image: NetworkImage(snapshot
+                                                            .data?.docs[index]
+                                                        ["iimage"]))),
+                                          ),
+                                          Expanded(
+                                              child: Container(
                                             child: Text(snapshot
-                                                .data?.docs[index]["iname"])),
-                                      ],
+                                                .data?.docs[index]["iname"]),
+                                          )),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 );

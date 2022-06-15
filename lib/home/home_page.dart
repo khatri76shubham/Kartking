@@ -7,10 +7,8 @@ import 'package:kartking/constant/colors.dart';
 import 'package:kartking/home/favorite_store.dart';
 import 'package:kartking/items_view_all.dart';
 import 'package:kartking/my_account.dart';
-import 'package:kartking/home/items.dart';
 import 'package:kartking/home/single_store.dart';
-import 'package:kartking/provider/user_provider.dart';
-import 'package:provider/provider.dart';
+import '../pages/product_overview/product_view.dart';
 import '../pages/store_overview/storeview.dart';
 
 // ignore: camel_case_types
@@ -139,20 +137,9 @@ class _homepageState extends State<homepage> {
                       ),
                     ),
                     SizedBox(
-                      height: 250,
-                      child: GridView.builder(
-                          scrollDirection: Axis.horizontal,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            mainAxisSpacing: 8.0,
-                            crossAxisSpacing: 5.0,
-                          ),
-                          itemCount: 6,
-                          itemBuilder: (context, index) => items(
-                                index: index,
-                                storename: snapshot.data?.docs[index],
-                              )),
+                      height: MediaQuery.of(context).size.height / 2,
+                      width: MediaQuery.of(context).size.width,
+                      child: item(),
                     ),
                     divider(),
                     const Padding(
@@ -163,7 +150,7 @@ class _homepageState extends State<homepage> {
                       ),
                     ),
                     SizedBox(
-                      height: 200,
+                      height: MediaQuery.of(context).size.height / 3.5,
                       child: GridView.builder(
                           scrollDirection: Axis.horizontal,
                           gridDelegate:
@@ -193,6 +180,7 @@ class _homepageState extends State<homepage> {
                             return const Center();
                           }
                           return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Padding(
                                 padding: EdgeInsets.symmetric(vertical: 5),
@@ -202,7 +190,8 @@ class _homepageState extends State<homepage> {
                                 ),
                               ),
                               SizedBox(
-                                height: 200,
+                                height:
+                                    MediaQuery.of(context).size.height / 3.5,
                                 child: GridView.builder(
                                     scrollDirection: Axis.horizontal,
                                     gridDelegate:
@@ -335,5 +324,92 @@ class _homepageState extends State<homepage> {
                 ),
               );
             }));
+  }
+
+  Widget item() {
+    return StreamBuilder<QuerySnapshot>(
+        stream: FirebaseFirestore.instance.collection("store").snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (!snapshot.hasData) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 1,
+                mainAxisSpacing: 8.0,
+                crossAxisSpacing: 10.0,
+              ),
+              physics: ScrollPhysics(),
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemCount: snapshot.data?.docs.length,
+              itemBuilder: ((context, index) {
+                var name = snapshot.data!.docs[index];
+                return StreamBuilder<QuerySnapshot>(
+                    stream: FirebaseFirestore.instance
+                        .collection("store")
+                        .doc(name['sname'])
+                        .collection("items")
+                        .snapshots(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<QuerySnapshot> snapshot) {
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+
+                      return GridView.builder(
+                          physics: ScrollPhysics(),
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            mainAxisSpacing: 8.0,
+                            crossAxisSpacing: 5.0,
+                          ),
+                          itemCount: snapshot.data?.docs.length,
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => productview(
+                                          sid: name,
+                                          itemnu: snapshot.data?.docs[index],
+                                        )));
+                              },
+                              child: Container(
+                                width: MediaQuery.of(context).size.width / 2,
+                                height: MediaQuery.of(context).size.height / 1,
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      width:
+                                          MediaQuery.of(context).size.width / 3,
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              8,
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          image: DecorationImage(
+                                              image: NetworkImage(snapshot.data
+                                                  ?.docs[index]["iimage"]))),
+                                    ),
+                                    Expanded(
+                                        child: Center(
+                                      child: Text(
+                                          snapshot.data?.docs[index]["iname"]),
+                                    )),
+                                  ],
+                                ),
+                              ),
+                            );
+                          });
+                    });
+              }));
+        });
   }
 }

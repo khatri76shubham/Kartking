@@ -38,7 +38,7 @@ class productview extends StatelessWidget {
                   ),
                   Expanded(
                     child: Container(
-                      height: 50,
+                      height: MediaQuery.of(context).size.height / 16,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(18),
                           color: primarycolor),
@@ -114,7 +114,7 @@ class productview extends StatelessWidget {
                       Text("other Product \n",
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold)),
-                      otherproduct(),
+                      otherproduct(context),
                     ],
                   ),
                 ),
@@ -149,7 +149,7 @@ class productview extends StatelessWidget {
                           ])),
                           Expanded(
                             child: Container(
-                                height: size.height * .4,
+                                height: size.height * .3,
                                 child: Image.network(
                                   itemnu['iimage'],
                                   fit: BoxFit.fill,
@@ -166,11 +166,11 @@ class productview extends StatelessWidget {
         ));
   }
 
-  Widget otherproduct() {
+  Widget otherproduct(context) {
     var store = sid['sname'];
     return SizedBox(
-      width: 380,
-      height: 150,
+      height: MediaQuery.of(context).size.height / 5,
+      width: MediaQuery.of(context).size.width,
       child: StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance
               .collection("store")
@@ -196,8 +196,8 @@ class productview extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
-                          height: 350 / 3,
-                          width: 200 / 1.3,
+                          height: MediaQuery.of(context).size.height / 7.1,
+                          width: MediaQuery.of(context).size.width / 1.8,
                           decoration: BoxDecoration(
                             borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(18),
@@ -206,10 +206,15 @@ class productview extends StatelessWidget {
                             image: DecorationImage(
                                 image: NetworkImage(
                                     snapshot.data?.docs[index]["iimage"]),
-                                fit: BoxFit.cover),
+                                fit: BoxFit.fill),
                           ),
                         ),
-                        Text(snapshot.data?.docs[index]["iname"]),
+                        Expanded(
+                          child: SizedBox(
+                              height: MediaQuery.of(context).size.height / 20,
+                              width: MediaQuery.of(context).size.width / 2,
+                              child: Text(snapshot.data?.docs[index]["iname"])),
+                        ),
                       ],
                     );
                   } else {
