@@ -30,7 +30,7 @@ class _ItemsviewallState extends State<Itemsviewall> {
               return ListView.builder(
                   physics: ScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: 9,
+                  itemCount: snapshot.data?.docs.length,
                   itemBuilder: ((context, index) {
                     var name = snapshot.data!.docs[index];
                     return StreamBuilder<QuerySnapshot>(
@@ -47,53 +47,50 @@ class _ItemsviewallState extends State<Itemsviewall> {
                             );
                           }
 
-                          return Expanded(
-                            child: GridView.builder(
-                                physics: ScrollPhysics(),
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 3,
-                                  mainAxisSpacing: 8.0,
-                                  crossAxisSpacing: 5.0,
-                                ),
-                                itemCount: snapshot.data?.docs.length,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(8),
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    productview(
-                                                      sid: name,
-                                                      itemnu: snapshot
-                                                          .data?.docs[index],
-                                                    )));
-                                      },
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                            width: 80,
-                                            height: 90,
-                                            decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                image: DecorationImage(
-                                                    image: NetworkImage(snapshot
-                                                            .data?.docs[index]
-                                                        ["iimage"]))),
-                                          ),
-                                          Expanded(
-                                              child: Text(snapshot
-                                                  .data?.docs[index]["iname"])),
-                                        ],
-                                      ),
+                          return GridView.builder(
+                              physics: ScrollPhysics(),
+                              shrinkWrap: true,
+                              scrollDirection: Axis.vertical,
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3,
+                                mainAxisSpacing: 8.0,
+                                crossAxisSpacing: 5.0,
+                              ),
+                              itemCount: snapshot.data?.docs.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.of(context)
+                                          .push(MaterialPageRoute(
+                                              builder: (context) => productview(
+                                                    sid: name,
+                                                    itemnu: snapshot
+                                                        .data?.docs[index],
+                                                  )));
+                                    },
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          width: 80,
+                                          height: 90,
+                                          decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              image: DecorationImage(
+                                                  image: NetworkImage(
+                                                      snapshot.data?.docs[index]
+                                                          ["iimage"]))),
+                                        ),
+                                        Expanded(
+                                            child: Text(snapshot
+                                                .data?.docs[index]["iname"])),
+                                      ],
                                     ),
-                                  );
-                                }),
-                          );
+                                  ),
+                                );
+                              });
                         });
                   }));
             }));
