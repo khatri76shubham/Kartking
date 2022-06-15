@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:kartking/constant/auth_controller.dart';
+import 'package:kartking/mainpage/homescreen.dart';
 import 'package:kartking/provider/address_provider.dart';
 import 'package:kartking/provider/cart_provider.dart';
 import 'package:kartking/constant/colors.dart';
@@ -26,13 +28,25 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  Widget nextscreen = login();
+  AuthController authController = AuthController();
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    checkLogin();
     currentTheme.addListener(() {
       setState(() {});
     });
+  }
+
+  void checkLogin() async {
+    var token = await authController.getToken();
+    if (token != null) {
+      setState(() {
+        nextscreen = homescreen();
+      });
+    }
   }
 
   @override
@@ -70,7 +84,7 @@ class _MyAppState extends State<MyApp> {
               ],
             ),
             centered: true,
-            nextScreen: const login(),
+            nextScreen: nextscreen,
             splashTransition: SplashTransition.fadeTransition,
             pageTransitionType: PageTransitionType.fade,
             backgroundColor: primarycolor,

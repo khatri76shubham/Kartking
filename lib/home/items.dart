@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:kartking/constant/colors.dart';
 import 'package:kartking/pages/product_overview/product_view.dart';
 
 class items extends StatelessWidget {
@@ -12,7 +13,7 @@ class items extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String name = storename['sname'];
+    String name = stores[0];
     return StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
             .collection("store")

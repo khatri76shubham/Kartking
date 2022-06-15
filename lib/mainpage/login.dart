@@ -1,4 +1,3 @@
-// ignore: file_names
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_list.dart';
@@ -221,14 +220,7 @@ class _loginState extends State<login> {
                     Buttons.Google,
                     text: 'Sign in with Google',
                     onPressed: () {
-                      AuthController().googleSignUp().then(
-                            // ignore: non_constant_identifier_names
-                            (Value) => Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                builder: (context) => const homescreen(),
-                              ),
-                            ),
-                          );
+                      AuthController().googleSignUp(context);
                     },
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30)),

@@ -141,7 +141,7 @@ class _homepageState extends State<homepage> {
                             mainAxisSpacing: 8.0,
                             crossAxisSpacing: 5.0,
                           ),
-                          itemCount: 5,
+                          itemCount: 6,
                           itemBuilder: (context, index) => items(
                                 index: index,
                                 storename: snapshot.data?.docs[index],

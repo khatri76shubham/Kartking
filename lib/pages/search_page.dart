@@ -187,18 +187,6 @@ class _searchpageState extends State<searchpage> {
   }
 }
 
-final stores = [
-  'Bajrang Departmental Store',
-  'Bharat Audio Center',
-  'Gajanand Bhandar',
-  'Khandelwal general store',
-  'Khunteta Mobile',
-  'Shree Govind Kirana Store',
-  'Shree Hari The Grocery Point',
-  'Singhal Kirana Store',
-  'Vikas Mobile Shop',
-];
-
 class productsearch extends SearchDelegate {
   @override
   List<Widget>? buildActions(BuildContext context) {

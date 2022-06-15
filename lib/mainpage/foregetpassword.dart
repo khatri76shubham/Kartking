@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kartking/constant/colors.dart';
 import 'package:kartking/mainpage/login.dart';
@@ -19,7 +18,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     setState(() {
       _isLoading = true;
     });
-    String res = await AuthController().forgotPassword(email.text);
+    String res = await AuthController().forgotPassword(email.text.trim());
     setState(() {
       _isLoading = false;
     });
