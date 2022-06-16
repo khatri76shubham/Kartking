@@ -371,13 +371,16 @@ class _CheckoutState extends State<Checkout> {
                                 int.parse(totalPrice(
                                     snapshot.data!.docs[index]['cartquantity'],
                                     snapshot.data!.docs[index]['cartprice']));
-                            price = tPrice - 50;
+                            int percentage = 10;
+                            int perc = 100;
+                            var discount = percentage * tPrice ~/ perc;
+                            price = tPrice - discount;
                             WidgetsBinding.instance
                                 .addPostFrameCallback((_) => setState(() {}));
                           } else {
                             tPrice = 0;
                           }
-                          var discountprice = tPrice - 50;
+
                           return Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 15.0),
@@ -473,7 +476,7 @@ class _CheckoutState extends State<Checkout> {
                                                     fontSize: 15),
                                               ),
                                               Text(
-                                                '-50',
+                                                '10%',
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.w600,
                                                     fontSize: 15),
@@ -494,7 +497,7 @@ class _CheckoutState extends State<Checkout> {
                                                     fontSize: 22),
                                               ),
                                               Text(
-                                                '$discountprice',
+                                                '$price',
                                                 style: const TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 22),
