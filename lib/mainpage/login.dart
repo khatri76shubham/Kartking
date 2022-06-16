@@ -1,3 +1,5 @@
+// ignore_for_file: unused_field
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_list.dart';
@@ -13,15 +15,15 @@ import 'package:provider/provider.dart';
 import '../provider/user_provider.dart';
 
 // ignore: camel_case_types
-class login extends StatefulWidget {
-  const login({Key? key}) : super(key: key);
+class Login extends StatefulWidget {
+  const Login({Key? key}) : super(key: key);
 
   @override
-  State<login> createState() => _loginState();
+  State<Login> createState() => _LoginState();
 }
 
 // ignore: camel_case_types
-class _loginState extends State<login> {
+class _LoginState extends State<Login> {
   UserProvider? userProvider;
 
   final TextEditingController email = TextEditingController();
@@ -42,9 +44,12 @@ class _loginState extends State<login> {
       _isLoading = false;
     });
     if (res != "success") {
+      // ignore: use_build_context_synchronously
       showSnakBar(res, context);
     } else {
-      Navigator.push(context, MaterialPageRoute(builder: (_) => homescreen()));
+      // ignore: use_build_context_synchronously
+      Navigator.push(
+          context, MaterialPageRoute(builder: (_) => const homescreen()));
     }
   }
 
@@ -68,7 +73,7 @@ class _loginState extends State<login> {
                       "assets/images/kartlogo.png",
                       fit: BoxFit.contain,
                     )),
-                Divider(),
+                const Divider(),
                 TextFormField(
                     autofocus: false,
                     controller: email,
@@ -90,14 +95,14 @@ class _loginState extends State<login> {
                     },
                     textInputAction: TextInputAction.next,
                     decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.mail),
-                      contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                      prefixIcon: const Icon(Icons.mail),
+                      contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
                       hintText: "Email",
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
                     )),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 TextFormField(
@@ -105,21 +110,22 @@ class _loginState extends State<login> {
                   autofocus: false,
                   controller: password,
                   validator: (value) {
-                    RegExp regex = new RegExp(r'^.{6,}$');
+                    RegExp regex = RegExp(r'^.{6,}$');
                     if (value!.isEmpty) {
                       return "Please enter your password";
                     }
                     if (!regex.hasMatch(value)) {
                       return "Enter valid Password(Min. 6 Characters)";
                     }
+                    return null;
                   },
                   onSaved: (value) {
                     password.text = value!;
                   },
                   textInputAction: TextInputAction.done,
                   decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.vpn_key),
-                    contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                    prefixIcon: const Icon(Icons.vpn_key),
+                    contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
                     hintText: "Password",
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -135,7 +141,7 @@ class _loginState extends State<login> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Material(
@@ -143,7 +149,7 @@ class _loginState extends State<login> {
                   borderRadius: BorderRadius.circular(30),
                   color: whitecolor,
                   child: MaterialButton(
-                      padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                      padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
                       minWidth: MediaQuery.of(context).size.width,
                       onPressed: () async {
                         signIn(email.text, password.text);
@@ -157,18 +163,18 @@ class _loginState extends State<login> {
                             fontWeight: FontWeight.bold),
                       )),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
+                    const Text(
                       "Don't have an account?",
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 14,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     GestureDetector(
@@ -176,9 +182,9 @@ class _loginState extends State<login> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: ((context) => Register())));
+                                builder: ((context) => const Register())));
                       },
-                      child: Text(
+                      child: const Text(
                         "Sign Up",
                         style: TextStyle(
                             color: Colors.black,
@@ -189,7 +195,7 @@ class _loginState extends State<login> {
                     )
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 Row(
@@ -200,9 +206,9 @@ class _loginState extends State<login> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (_) => ForgotPasswordScreen()));
+                                builder: (_) => const ForgotPasswordScreen()));
                       },
-                      child: Text(
+                      child: const Text(
                         "Forget Password ?",
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 15),
@@ -241,8 +247,8 @@ class _loginState extends State<login> {
             .signInWithEmailAndPassword(email: email, password: password)
             .then((uid) => {
                   Fluttertoast.showToast(msg: "Login Successful"),
-                  Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => homescreen())),
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => const homescreen())),
                 })
             .catchError((e) {
           Fluttertoast.showToast(msg: e!.message);

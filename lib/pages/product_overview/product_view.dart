@@ -1,20 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:kartking/constant/colors.dart';
 import 'package:kartking/pages/cart_page.dart';
 import 'package:kartking/pages/count.dart';
 
-class productview extends StatelessWidget {
+class Productview extends StatelessWidget {
+  // ignore: prefer_typing_uninitialized_variables
   final itemnu;
+  // ignore: prefer_typing_uninitialized_variables
   final sid;
 
-  productview({Key? key, itemno, required this.itemnu, this.sid})
+  const Productview({Key? key, itemno, required this.itemnu, this.sid})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    print(itemnu);
+    if (kDebugMode) {
+      print(itemnu);
+    }
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: primarycolor,
@@ -25,7 +30,7 @@ class productview extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  count(
+                  Count(
                     storeid: sid['sname'], //storeid
                     cartname: itemnu['iname'],
                     cartid: itemnu['iid'],
@@ -33,7 +38,7 @@ class productview extends StatelessWidget {
                     cartprice: itemnu['iprice'],
                     storeimage: sid['simage'],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Expanded(
@@ -45,9 +50,9 @@ class productview extends StatelessWidget {
                       child: GestureDetector(
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => cartpage()));
+                              builder: (context) => const Cartpage()));
                         },
-                        child: Center(
+                        child: const Center(
                             child: Text('View Cart',
                                 style: TextStyle(
                                     fontSize: 18,
@@ -75,7 +80,7 @@ class productview extends StatelessWidget {
                       top: size.height * 0.12, left: 08, right: 08),
                   decoration: BoxDecoration(
                       color: whitecolor,
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(24),
                           topRight: Radius.circular(24))),
                   child: Column(
@@ -111,7 +116,7 @@ class productview extends StatelessWidget {
                       Divider(
                         color: textcolor,
                       ),
-                      Text("other Product \n",
+                      const Text("other Product \n",
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold)),
                       otherproduct(context),
@@ -136,7 +141,7 @@ class productview extends StatelessWidget {
                         children: [
                           RichText(
                               text: TextSpan(children: [
-                            TextSpan(text: "Price\n"),
+                            const TextSpan(text: "Price\n"),
                             TextSpan(
                               text: itemnu['iprice'],
                               style: Theme.of(context)
@@ -148,7 +153,7 @@ class productview extends StatelessWidget {
                             )
                           ])),
                           Expanded(
-                            child: Container(
+                            child: SizedBox(
                                 height: size.height * .3,
                                 child: Image.network(
                                   itemnu['iimage'],
@@ -186,7 +191,7 @@ class productview extends StatelessWidget {
             }
             return ListView.builder(
                 shrinkWrap: true,
-                physics: ScrollPhysics(),
+                physics: const ScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 itemCount: snapshot.data?.docs.length,
                 itemBuilder: (context, index) {

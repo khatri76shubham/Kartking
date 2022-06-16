@@ -12,16 +12,16 @@ import '../pages/product_overview/product_view.dart';
 import '../pages/store_overview/storeview.dart';
 
 // ignore: camel_case_types
-class homepage extends StatefulWidget {
-  homepage({
+class Homepage extends StatefulWidget {
+  const Homepage({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<homepage> createState() => _homepageState();
+  State<Homepage> createState() => _HomepageState();
 }
 
-class _homepageState extends State<homepage> {
+class _HomepageState extends State<Homepage> {
   Widget divider() {
     return const Divider(
       color: Colors.grey,
@@ -57,10 +57,10 @@ class _homepageState extends State<homepage> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => myaccount()),
+                      MaterialPageRoute(builder: (context) => Myaccount()),
                     );
                   },
-                  child: CircleAvatar(
+                  child: const CircleAvatar(
                     backgroundColor: Color(0xffE6E6E6),
                     radius: 20,
                     child: Icon(Icons.person),
@@ -73,7 +73,7 @@ class _homepageState extends State<homepage> {
             builder:
                 (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (!snapshot.hasData) {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               }
@@ -86,7 +86,7 @@ class _homepageState extends State<homepage> {
                       itemCount: imageurl.length,
                       options: CarouselOptions(
                           autoPlay: true,
-                          autoPlayInterval: Duration(seconds: 3),
+                          autoPlayInterval: const Duration(seconds: 2),
                           enlargeCenterPage: true,
                           enlargeStrategy: CenterPageEnlargeStrategy.height),
                       itemBuilder: (context, index, realIndex) {
@@ -103,7 +103,7 @@ class _homepageState extends State<homepage> {
                               ),
                             ],
                           ),
-                          margin: EdgeInsets.symmetric(horizontal: 10),
+                          margin: const EdgeInsets.symmetric(horizontal: 10),
                           child: Image.network(
                             imgurl,
                             fit: BoxFit.cover,
@@ -124,7 +124,7 @@ class _homepageState extends State<homepage> {
                           GestureDetector(
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => Itemsviewall()));
+                                  builder: (context) => const Itemsviewall()));
                             },
                             child: const Text(
                               'view all',
@@ -251,7 +251,7 @@ class _homepageState extends State<homepage> {
                                               fit: BoxFit.cover),
                                         ),
                                       ),
-                                      Container(
+                                      SizedBox(
                                         height: size.height / 12,
                                         width: size.width / 1.2,
                                         child: Row(
@@ -261,7 +261,7 @@ class _homepageState extends State<homepage> {
                                             Text(
                                               snapshot.data?.docs[index]
                                                   ["sname"],
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 20,
                                                 fontWeight: FontWeight.w500,
@@ -279,7 +279,7 @@ class _homepageState extends State<homepage> {
                                               child: Text(
                                                 snapshot.data?.docs[index]
                                                     ['srating'],
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   color: Colors.white,
                                                   fontWeight: FontWeight.bold,
                                                 ),
@@ -293,7 +293,7 @@ class _homepageState extends State<homepage> {
                                           Expanded(
                                             child: Text(
                                               "${snapshot.data?.docs[index]["slocation"]}",
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 fontSize: 12.9,
                                                 fontWeight: FontWeight.w500,
                                               ),
@@ -303,7 +303,7 @@ class _homepageState extends State<homepage> {
                                             rating: double.parse(snapshot
                                                 .data?.docs[index]['srating']),
                                             itemBuilder: (context, index) =>
-                                                Icon(
+                                                const Icon(
                                               Icons.star,
                                               color: Colors.red,
                                             ),
@@ -331,7 +331,7 @@ class _homepageState extends State<homepage> {
         stream: FirebaseFirestore.instance.collection("store").snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -341,7 +341,7 @@ class _homepageState extends State<homepage> {
                 mainAxisSpacing: 8.0,
                 crossAxisSpacing: 10.0,
               ),
-              physics: ScrollPhysics(),
+              physics: const ScrollPhysics(),
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               itemCount: snapshot.data?.docs.length,
@@ -356,13 +356,13 @@ class _homepageState extends State<homepage> {
                     builder: (BuildContext context,
                         AsyncSnapshot<QuerySnapshot> snapshot) {
                       if (!snapshot.hasData) {
-                        return Center(
+                        return const Center(
                           child: CircularProgressIndicator(),
                         );
                       }
 
                       return GridView.builder(
-                          physics: ScrollPhysics(),
+                          physics: const ScrollPhysics(),
                           shrinkWrap: true,
                           scrollDirection: Axis.vertical,
                           gridDelegate:
@@ -376,12 +376,12 @@ class _homepageState extends State<homepage> {
                             return GestureDetector(
                               onTap: () {
                                 Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => productview(
+                                    builder: (context) => Productview(
                                           sid: name,
                                           itemnu: snapshot.data?.docs[index],
                                         )));
                               },
-                              child: Container(
+                              child: SizedBox(
                                 width: MediaQuery.of(context).size.width / 2,
                                 height: MediaQuery.of(context).size.height / 1,
                                 child: Column(

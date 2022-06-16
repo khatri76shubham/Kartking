@@ -4,7 +4,7 @@ import 'package:kartking/constant/colors.dart';
 import 'package:kartking/pages/product_overview/product_view.dart';
 
 class Itemsviewall extends StatefulWidget {
-  Itemsviewall({Key? key}) : super(key: key);
+  const Itemsviewall({Key? key}) : super(key: key);
 
   @override
   State<Itemsviewall> createState() => _ItemsviewallState();
@@ -15,7 +15,7 @@ class _ItemsviewallState extends State<Itemsviewall> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('All items'),
+          title: const Text('All items'),
           backgroundColor: primarycolor,
         ),
         body: StreamBuilder<QuerySnapshot>(
@@ -23,12 +23,12 @@ class _ItemsviewallState extends State<Itemsviewall> {
             builder:
                 (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (!snapshot.hasData) {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               }
               return ListView.builder(
-                  physics: ScrollPhysics(),
+                  physics: const ScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: snapshot.data?.docs.length,
                   itemBuilder: ((context, index) {
@@ -42,13 +42,13 @@ class _ItemsviewallState extends State<Itemsviewall> {
                         builder: (BuildContext context,
                             AsyncSnapshot<QuerySnapshot> snapshot) {
                           if (!snapshot.hasData) {
-                            return Center(
+                            return const Center(
                               child: CircularProgressIndicator(),
                             );
                           }
 
                           return GridView.builder(
-                              physics: ScrollPhysics(),
+                              physics: const ScrollPhysics(),
                               shrinkWrap: true,
                               scrollDirection: Axis.vertical,
                               gridDelegate:
@@ -65,7 +65,7 @@ class _ItemsviewallState extends State<Itemsviewall> {
                                     onTap: () {
                                       Navigator.of(context)
                                           .push(MaterialPageRoute(
-                                              builder: (context) => productview(
+                                              builder: (context) => Productview(
                                                     sid: name,
                                                     itemnu: snapshot
                                                         .data?.docs[index],
@@ -90,10 +90,8 @@ class _ItemsviewallState extends State<Itemsviewall> {
                                                         ["iimage"]))),
                                           ),
                                           Expanded(
-                                              child: Container(
-                                            child: Text(snapshot
-                                                .data?.docs[index]["iname"]),
-                                          )),
+                                              child: Text(snapshot
+                                                  .data?.docs[index]["iname"])),
                                         ],
                                       ),
                                     ),

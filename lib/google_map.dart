@@ -6,18 +6,18 @@ import 'package:location/location.dart';
 import 'package:provider/provider.dart';
 
 class Googlemap extends StatefulWidget {
-  Googlemap({Key? key}) : super(key: key);
+  const Googlemap({Key? key}) : super(key: key);
 
   @override
   State<Googlemap> createState() => _GooglemapState();
 }
 
 class _GooglemapState extends State<Googlemap> {
-  LatLng _latLng = LatLng(20.5937, 78.9629);
+  final LatLng _latLng = const LatLng(20.5937, 78.9629);
   GoogleMapController? controller;
-  Location _location = Location();
-  void _onmapcreated(GoogleMapController _contrl) {
-    controller = _contrl;
+  final Location _location = Location();
+  void _onmapcreated(GoogleMapController contrl) {
+    controller = contrl;
     _location.onLocationChanged.listen((event) {
       controller!.animateCamera(CameraUpdate.newCameraPosition(
         CameraPosition(
@@ -38,7 +38,7 @@ class _GooglemapState extends State<Googlemap> {
         backgroundColor: primarycolor,
       ),
       body: SafeArea(
-        child: Container(
+        child: SizedBox(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: Stack(
@@ -56,7 +56,7 @@ class _GooglemapState extends State<Googlemap> {
                   child: Container(
                     height: 50,
                     width: double.infinity,
-                    margin: EdgeInsets.only(
+                    margin: const EdgeInsets.only(
                         left: 10, right: 60, bottom: 40, top: 40),
                     child: MaterialButton(
                       onPressed: () async {
@@ -65,11 +65,12 @@ class _GooglemapState extends State<Googlemap> {
                             addressProvider.setlocation = value;
                           });
                         });
+                        // ignore: use_build_context_synchronously
                         Navigator.of(context).pop();
                       },
                       color: primarycolor,
-                      child: Text('Set Location'),
-                      shape: StadiumBorder(),
+                      shape: const StadiumBorder(),
+                      child: const Text('Set Location'),
                     ),
                   ))
             ],

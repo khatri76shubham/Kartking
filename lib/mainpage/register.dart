@@ -1,6 +1,3 @@
-import 'dart:developer';
-import 'dart:typed_data';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +8,7 @@ import 'package:kartking/mainpage/login.dart';
 import 'package:kartking/model/user_model.dart';
 
 class Register extends StatefulWidget {
-  Register({Key? key}) : super(key: key);
+  const Register({Key? key}) : super(key: key);
 
   @override
   State<Register> createState() => _RegisterState();
@@ -27,8 +24,9 @@ class _RegisterState extends State<Register> {
 
   final password = TextEditingController();
 
-  final confirmPasswordEditingController = new TextEditingController();
+  final confirmPasswordEditingController = TextEditingController();
 
+  // ignore: unused_field
   bool _isLoading = false;
   bool isObscure = true;
   final _formKey = GlobalKey<FormState>();
@@ -52,8 +50,10 @@ class _RegisterState extends State<Register> {
       _isLoading = false;
     });
     if (res != 'success') {
+      // ignore: use_build_context_synchronously
       return showSnakBar(res, context);
     } else {
+      // ignore: use_build_context_synchronously
       return showSnakBar(
           "Congratulations account has been created for you", context);
     }
@@ -79,7 +79,7 @@ class _RegisterState extends State<Register> {
                         "assets/images/kartlogo.png",
                         fit: BoxFit.contain,
                       )),
-                  Divider(),
+                  const Divider(),
                   TextFormField(
                       autofocus: false,
                       controller: fullName,
@@ -87,7 +87,7 @@ class _RegisterState extends State<Register> {
 
                       // validations
                       validator: (value) {
-                        RegExp regex = new RegExp(r'^.{3,}$');
+                        RegExp regex = RegExp(r'^.{3,}$');
                         if (value!.isEmpty) {
                           return "Please enter your First Name";
                         }
@@ -101,14 +101,15 @@ class _RegisterState extends State<Register> {
                       },
                       textInputAction: TextInputAction.next,
                       decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.person),
-                        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                        prefixIcon: const Icon(Icons.person),
+                        contentPadding:
+                            const EdgeInsets.fromLTRB(20, 15, 20, 15),
                         hintText: "First Name",
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
                       )),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   TextFormField(
@@ -132,14 +133,15 @@ class _RegisterState extends State<Register> {
                       },
                       textInputAction: TextInputAction.next,
                       decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.mail),
-                        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                        prefixIcon: const Icon(Icons.mail),
+                        contentPadding:
+                            const EdgeInsets.fromLTRB(20, 15, 20, 15),
                         hintText: "Email",
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
                       )),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   TextFormField(
@@ -150,21 +152,23 @@ class _RegisterState extends State<Register> {
 
                       // validatons
                       validator: (value) {
-                        RegExp regex = new RegExp(r'^.{6,}$');
+                        RegExp regex = RegExp(r'^.{6,}$');
                         if (value!.isEmpty) {
                           return "Please enter your password";
                         }
                         if (!regex.hasMatch(value)) {
                           return "Enter valid Password(Min. 6 Characters)";
                         }
+                        return null;
                       },
                       onSaved: (value) {
                         password.text = value!;
                       },
                       textInputAction: TextInputAction.next,
                       decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.vpn_key),
-                        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                        prefixIcon: const Icon(Icons.vpn_key),
+                        contentPadding:
+                            const EdgeInsets.fromLTRB(20, 15, 20, 15),
                         hintText: "Password",
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -181,7 +185,7 @@ class _RegisterState extends State<Register> {
                               : Icons.visibility),
                         ),
                       )),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   TextFormField(
@@ -203,8 +207,9 @@ class _RegisterState extends State<Register> {
                       },
                       textInputAction: TextInputAction.done,
                       decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.vpn_key),
-                          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                          prefixIcon: const Icon(Icons.vpn_key),
+                          contentPadding:
+                              const EdgeInsets.fromLTRB(20, 15, 20, 15),
                           hintText: "Confirm Password",
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -220,7 +225,7 @@ class _RegisterState extends State<Register> {
                                 ? Icons.visibility_off
                                 : Icons.visibility),
                           ))),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Material(
@@ -228,7 +233,7 @@ class _RegisterState extends State<Register> {
                     borderRadius: BorderRadius.circular(30),
                     color: whitecolor,
                     child: MaterialButton(
-                        padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                        padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
                         minWidth: MediaQuery.of(context).size.width,
                         onPressed: () {
                           signUp(email.text, password.text);
@@ -242,13 +247,13 @@ class _RegisterState extends State<Register> {
                               fontWeight: FontWeight.bold),
                         )),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
+                      const Text(
                         "Already have an account ?",
                         style: TextStyle(
                           color: Colors.black,
@@ -257,7 +262,7 @@ class _RegisterState extends State<Register> {
                           //fontWeight: FontWeight.bold
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       GestureDetector(
@@ -265,9 +270,9 @@ class _RegisterState extends State<Register> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: ((context) => login())));
+                                  builder: ((context) => const Login())));
                         },
-                        child: Text(
+                        child: const Text(
                           "SignIn",
                           style: TextStyle(
                               color: Colors.black,
@@ -330,7 +335,9 @@ class _RegisterState extends State<Register> {
 
     Fluttertoast.showToast(msg: "Account created successfully :)");
 
-    Navigator.pushAndRemoveUntil((context),
-        MaterialPageRoute(builder: (context) => login()), (route) => false);
+    Navigator.pushAndRemoveUntil(
+        (context),
+        MaterialPageRoute(builder: (context) => const Login()),
+        (route) => false);
   }
 }

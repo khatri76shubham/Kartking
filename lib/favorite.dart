@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import 'constant/colors.dart';
 
+// ignore: must_be_immutable
 class Favorite extends StatefulWidget {
   String? sname;
   String? simage;

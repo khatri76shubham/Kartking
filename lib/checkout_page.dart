@@ -12,7 +12,9 @@ import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class Checkout extends StatefulWidget {
+  // ignore: non_constant_identifier_names, prefer_typing_uninitialized_variables
   final Index;
+  // ignore: non_constant_identifier_names
   const Checkout({Key? key, this.Index}) : super(key: key);
 
   @override
@@ -20,6 +22,7 @@ class Checkout extends StatefulWidget {
 }
 
 class _CheckoutState extends State<Checkout> {
+  // ignore: prefer_typing_uninitialized_variables
   var addressindex;
   int? price;
 
@@ -34,7 +37,6 @@ class _CheckoutState extends State<Checkout> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _razorpay.clear();
   }
@@ -114,7 +116,7 @@ class _CheckoutState extends State<Checkout> {
                   boxShadow: [
                     BoxShadow(
                       color: primarycolor,
-                      offset: Offset(1.0, 3.0), //(x,y)
+                      offset: const Offset(1.0, 3.0), //(x,y)
                       blurRadius: 3.0,
                     ),
                   ],
@@ -126,13 +128,13 @@ class _CheckoutState extends State<Checkout> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           'Deliverable address :-',
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 17),
                         ),
                         if (addressindex == null) ...{
-                          ListTile(
+                          const ListTile(
                             title: Text(
                                 'No data is avilable please selcet address'),
                           )
@@ -182,21 +184,21 @@ class _CheckoutState extends State<Checkout> {
               Divider(
                 color: textcolor,
               ),
-              Container(
+              SizedBox(
                 height: 50,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
                       children: [
-                        Text(
+                        const Text(
                           'Total Price -> ',
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                         Text(
                           '$price',
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                       ],
@@ -224,8 +226,8 @@ class _CheckoutState extends State<Checkout> {
                             ),
                           ],
                         ),
-                        child: Center(
-                          child: const Text(
+                        child: const Center(
+                          child: Text(
                             'Pay Now',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 20),
@@ -255,7 +257,7 @@ class _CheckoutState extends State<Checkout> {
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             var tPrice = 0;
             if (!snapshot.hasData) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             }
@@ -270,12 +272,12 @@ class _CheckoutState extends State<Checkout> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           "Your order",
                           style: TextStyle(
                               fontWeight: FontWeight.w500, fontSize: 25),
                         ),
-                        Text(
+                        const Text(
                           'From',
                           style: TextStyle(
                               fontSize: 14,
@@ -397,7 +399,7 @@ class _CheckoutState extends State<Checkout> {
                                                   ?.docs[index]['cartimage']),
                                               fit: BoxFit.cover,
                                             )),
-                                        Container(
+                                        SizedBox(
                                             width: 100,
                                             height: 20,
                                             child: Text(snapshot.data
@@ -406,7 +408,7 @@ class _CheckoutState extends State<Checkout> {
                                     ),
                                     Text(snapshot.data?.docs[index]
                                         ['cartquantity']),
-                                    Container(
+                                    SizedBox(
                                         width: 40,
                                         height: 20,
                                         child: Text(
@@ -418,7 +420,7 @@ class _CheckoutState extends State<Checkout> {
                                         )),
                                   ],
                                 ),
-                                Divider(),
+                                const Divider(),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 3, horizontal: 10),
@@ -578,7 +580,7 @@ class _CheckoutState extends State<Checkout> {
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (!snapshot.hasData) {
-                    return Center(
+                    return const Center(
                       child: CircularProgressIndicator(),
                     );
                   }
@@ -590,7 +592,7 @@ class _CheckoutState extends State<Checkout> {
                           GestureDetector(
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => location()));
+                                  builder: (context) => const Location()));
                             },
                             child: const Text('Click here',
                                 style: TextStyle(
@@ -610,7 +612,7 @@ class _CheckoutState extends State<Checkout> {
                       ),
                       const Divider(),
                       ListView.builder(
-                          physics: ScrollPhysics(),
+                          physics: const ScrollPhysics(),
                           shrinkWrap: true,
                           itemCount: snapshot.data?.docs.length ?? 0,
                           itemBuilder: ((context, index) {

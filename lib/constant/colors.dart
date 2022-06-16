@@ -9,16 +9,3 @@ String totalPrice(String quantity, String price) {
   var intPrince = int.parse(price);
   return (intQuantity * intPrince).toString();
 }
-
-final stores = [
-  'Bajrang Departmental Store',
-  'Bharat Audio Center',
-  'Gajanand Bhandar',
-  'Jain General Store',
-  'Khandelwal general store',
-  'Khunteta Mobile',
-  'Shree Govind Kirana Store',
-  'Shree Hari The Grocery Point',
-  'Singhal Kirana Store',
-  'Vikas Mobile Shop',
-];

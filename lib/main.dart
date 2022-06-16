@@ -28,7 +28,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Widget nextscreen = login();
+  Widget nextscreen = const Login();
   AuthController authController = AuthController();
 
   @override
@@ -44,7 +44,7 @@ class _MyAppState extends State<MyApp> {
     var token = await authController.getToken();
     if (token != null) {
       setState(() {
-        nextscreen = homescreen();
+        nextscreen = const homescreen();
       });
     }
   }

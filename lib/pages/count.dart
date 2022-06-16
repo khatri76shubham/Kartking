@@ -3,15 +3,17 @@ import 'package:kartking/provider/cart_provider.dart';
 import 'package:kartking/constant/colors.dart';
 import 'package:provider/provider.dart';
 
-class count extends StatefulWidget {
+// ignore: must_be_immutable
+class Count extends StatefulWidget {
   String? cartid;
+
   String? cartname;
   String? cartimage;
   String? cartprice;
   String? storeid;
   String? storeimage;
 
-  count(
+  Count(
       {Key? key,
       this.cartid,
       this.storeid,
@@ -22,10 +24,10 @@ class count extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<count> createState() => _countState();
+  State<Count> createState() => _CountState();
 }
 
-class _countState extends State<count> {
+class _CountState extends State<Count> {
   int count = 1;
   bool istrue = false;
   @override
@@ -33,7 +35,7 @@ class _countState extends State<count> {
     CartProvider cartprovider = Provider.of(context);
     YourCartProvider yourCartProvider = Provider.of(context);
     return Container(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         height: 50,
         width: 150,
         decoration: BoxDecoration(
@@ -108,7 +110,7 @@ class _countState extends State<count> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.shopping_cart,
                         size: 20,
                       ),

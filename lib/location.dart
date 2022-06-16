@@ -2,26 +2,22 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:kartking/add_delivery_address.dart';
-import 'package:kartking/model/address_model.dart';
-import 'package:kartking/provider/address_provider.dart';
-import 'package:kartking/checkout_page.dart';
 import 'package:kartking/constant/colors.dart';
 import 'package:kartking/single_address.dart';
-import 'package:provider/provider.dart';
 
-class location extends StatefulWidget {
-  location({Key? key}) : super(key: key);
+class Location extends StatefulWidget {
+  const Location({Key? key}) : super(key: key);
 
   @override
-  State<location> createState() => _locationState();
+  State<Location> createState() => _LocationState();
 }
 
-class _locationState extends State<location> {
+class _LocationState extends State<Location> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My address'),
+        title: const Text('My address'),
         backgroundColor: primarycolor,
       ),
       body: Padding(
@@ -31,9 +27,9 @@ class _locationState extends State<location> {
             GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => Adddeliveryaddress()));
+                      builder: (context) => const Adddeliveryaddress()));
                 },
-                child: Text(
+                child: const Text(
                   "+ Add Address",
                   style:
                       TextStyle(color: Colors.red, fontWeight: FontWeight.w700),
@@ -41,14 +37,14 @@ class _locationState extends State<location> {
             Divider(
               color: textcolor,
             ),
-            Text('Saved Address'),
-            SizedBox(
+            const Text('Saved Address'),
+            const SizedBox(
               height: 20,
             ),
-            ListTile(
+            const ListTile(
               title: Text("Deliver To"),
             ),
-            Divider(
+            const Divider(
               height: 1,
             ),
             StreamBuilder<QuerySnapshot>(
@@ -60,17 +56,17 @@ class _locationState extends State<location> {
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (!snapshot.hasData) {
-                    return Center(
+                    return const Center(
                       child: CircularProgressIndicator(),
                     );
                   }
                   if (snapshot.data!.docs.isEmpty) {
-                    return Center(
+                    return const Center(
                       child: Text('No data Please add address'),
                     );
                   }
                   return ListView.builder(
-                      physics: ScrollPhysics(),
+                      physics: const ScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: snapshot.data?.docs.length ?? 0,
                       itemBuilder: ((context, index) {

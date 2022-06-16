@@ -1,13 +1,10 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:kartking/constant/colors.dart';
-import 'package:kartking/pages/cart_page.dart';
 import 'package:kartking/home/home_page.dart';
+import 'package:kartking/pages/cart_page.dart';
 import 'package:kartking/pages/search_page.dart';
 import 'package:kartking/pages/setting_page.dart';
-import 'package:provider/provider.dart';
-
-import '../provider/user_provider.dart';
 
 // ignore: camel_case_types
 class homescreen extends StatefulWidget {
@@ -23,10 +20,10 @@ class _homescreenState extends State<homescreen> {
 
   // ignore: non_constant_identifier_names
   final Screen = [
-    homepage(),
-    searchpage(),
-    cartpage(),
-    settingpage(),
+    const Homepage(),
+    const Searchpage(),
+    const Cartpage(),
+    const Settingpage(),
   ];
 
   @override

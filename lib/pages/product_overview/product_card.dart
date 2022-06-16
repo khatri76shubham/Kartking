@@ -5,6 +5,7 @@ class Productcard extends StatelessWidget {
   const Productcard({Key? key, required this.product, required this.press})
       : super(key: key);
 
+  // ignore: prefer_typing_uninitialized_variables
   final product;
 
   final VoidCallback press;
@@ -13,11 +14,11 @@ class Productcard extends StatelessWidget {
     return GestureDetector(
       onTap: press,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
             color: whitecolor,
             border: Border.all(color: primarycolor, width: 2),
-            borderRadius: BorderRadius.all(Radius.circular(20))),
+            borderRadius: const BorderRadius.all(Radius.circular(20))),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,6 +42,10 @@ class Productcard extends StatelessWidget {
                     child: Container(
                         height: 40,
                         width: 70,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: primarycolor, width: 2),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(20))),
                         child: Center(
                           child: Text(
                             product['iprice'],
@@ -49,11 +54,7 @@ class Productcard extends StatelessWidget {
                                 .subtitle1!
                                 .copyWith(fontWeight: FontWeight.w600),
                           ),
-                        ),
-                        decoration: BoxDecoration(
-                            border: Border.all(color: primarycolor, width: 2),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(20)))),
+                        )),
                   ),
                 ],
               ),

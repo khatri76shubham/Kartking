@@ -6,7 +6,7 @@ import 'package:kartking/pages/store_overview/storeview.dart';
 
 class Favoritestore extends StatelessWidget {
   final int index;
-  Favoritestore({Key? key, required this.index}) : super(key: key);
+  const Favoritestore({Key? key, required this.index}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class Favoritestore extends StatelessWidget {
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -51,7 +51,7 @@ class Favoritestore extends StatelessWidget {
                             fit: BoxFit.cover),
                       ),
                     ),
-                    Container(
+                    SizedBox(
                       height: MediaQuery.of(context).size.height / 10,
                       width: MediaQuery.of(context).size.width / 1,
                       child: Column(
@@ -59,7 +59,7 @@ class Favoritestore extends StatelessWidget {
                         children: [
                           Text(
                             snapshot.data?.docs[index]["sname"],
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.black,
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
@@ -78,7 +78,7 @@ class Favoritestore extends StatelessWidget {
                                 alignment: Alignment.center,
                                 child: Text(
                                   snapshot.data?.docs[index]["srating"],
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -87,7 +87,7 @@ class Favoritestore extends StatelessWidget {
                               RatingBarIndicator(
                                 rating: double.parse(
                                     snapshot.data?.docs[index]["srating"]),
-                                itemBuilder: (context, index) => Icon(
+                                itemBuilder: (context, index) => const Icon(
                                   Icons.star,
                                   color: Colors.red,
                                 ),

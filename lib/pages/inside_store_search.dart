@@ -1,16 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:kartking/constant/colors.dart';
 import 'package:kartking/pages/product_overview/product_view.dart';
 
 class Searchinside extends SearchDelegate {
+  // ignore: prefer_typing_uninitialized_variables
   final index;
 
   Searchinside({this.index});
 
   @override
   List<Widget>? buildActions(BuildContext context) {
-    // TODO: implement buildActions
     return <Widget>[
       IconButton(
           onPressed: () {
@@ -22,17 +23,15 @@ class Searchinside extends SearchDelegate {
 
   @override
   Widget? buildLeading(BuildContext context) {
-    // TODO: implement buildLeading
     return IconButton(
         onPressed: () {
           Navigator.of(context).pop();
         },
-        icon: Icon(Icons.arrow_back));
+        icon: const Icon(Icons.arrow_back));
   }
 
   @override
   Widget buildResults(BuildContext context) {
-    // TODO: implement buildResults
     return StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
             .collection("store")
@@ -42,7 +41,7 @@ class Searchinside extends SearchDelegate {
             .asBroadcastStream(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           } else {
@@ -53,7 +52,7 @@ class Searchinside extends SearchDelegate {
                         .toLowerCase()
                         .contains(query.toLowerCase()))
                 .isEmpty) {
-              return Center(
+              return const Center(
                   child: Text(
                 "No Search Query Found",
                 style: TextStyle(fontSize: 25),
@@ -68,11 +67,13 @@ class Searchinside extends SearchDelegate {
                             .toLowerCase()
                             .contains(query.toLowerCase()))
                     .map((QueryDocumentSnapshot<Object?> data) {
-                  print(data);
+                  if (kDebugMode) {
+                    print(data);
+                  }
                   return GestureDetector(
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => productview(
+                          builder: (context) => Productview(
                                 itemnu: data,
                                 sid: index,
                               )));
@@ -84,7 +85,8 @@ class Searchinside extends SearchDelegate {
                         borderRadius: BorderRadius.circular(18),
                         child: Container(
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(18)),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(18)),
                             color: whitecolor,
                             border: Border.all(color: primarycolor, width: 2),
                           ),
@@ -97,7 +99,7 @@ class Searchinside extends SearchDelegate {
                                 height: 400 / 2.5,
                                 width: 500 / 4,
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
+                                  borderRadius: const BorderRadius.only(
                                     topLeft: Radius.circular(18),
                                     topRight: Radius.circular(18),
                                   ),
@@ -106,7 +108,7 @@ class Searchinside extends SearchDelegate {
                                       fit: BoxFit.cover),
                                 ),
                               ),
-                              Container(
+                              SizedBox(
                                 height: 400 / 2.5,
                                 width: 500 / 2.5,
                                 child: Column(
@@ -115,7 +117,7 @@ class Searchinside extends SearchDelegate {
                                   children: [
                                     Text(
                                       data['iname'],
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         color: Colors.black,
                                         fontSize: 20,
                                         fontWeight: FontWeight.w500,
@@ -123,7 +125,7 @@ class Searchinside extends SearchDelegate {
                                     ),
                                     Row(
                                       children: [
-                                        Text(
+                                        const Text(
                                           'price ->',
                                           style: TextStyle(
                                             color: Colors.black,
@@ -133,7 +135,7 @@ class Searchinside extends SearchDelegate {
                                         ),
                                         Text(
                                           data['iprice'],
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 20,
                                             fontWeight: FontWeight.w500,
@@ -159,8 +161,7 @@ class Searchinside extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    // TODO: implement buildSuggestions
-    return Center(
+    return const Center(
       child: Text('search for store'),
     );
   }

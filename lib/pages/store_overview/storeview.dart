@@ -8,8 +8,10 @@ import 'package:kartking/pages/product_overview/product_view.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class Storeview extends StatefulWidget {
+  // ignore: prefer_typing_uninitialized_variables, non_constant_identifier_names
   final Index;
-  Storeview({Key? key, this.Index}) : super(key: key);
+  // ignore: non_constant_identifier_names
+  const Storeview({Key? key, this.Index}) : super(key: key);
 
   @override
   State<Storeview> createState() => _StoreviewState();
@@ -33,19 +35,19 @@ class _StoreviewState extends State<Storeview> {
                       context: context,
                       delegate: Searchinside(index: widget.Index));
                 },
-                icon: Icon(Icons.search)),
+                icon: const Icon(Icons.search)),
           ],
         ),
         body: StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance
               .collection("store")
-              .doc("$storename")
+              .doc(storename)
               .collection('items')
               .snapshots(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (!snapshot.hasData) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             }
@@ -55,20 +57,20 @@ class _StoreviewState extends State<Storeview> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      padding: EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(15),
                       decoration: BoxDecoration(
                           image: DecorationImage(
                             image: NetworkImage(widget.Index['simage']),
                             fit: BoxFit.cover,
-                            colorFilter: new ColorFilter.mode(
+                            colorFilter: ColorFilter.mode(
                                 Colors.black.withOpacity(0.7), BlendMode.dstIn),
                           ),
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                               bottomLeft: Radius.circular(40),
                               bottomRight: Radius.circular(40))),
                       child: Column(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             height: 100,
                           ),
                           Row(
@@ -77,7 +79,7 @@ class _StoreviewState extends State<Storeview> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 20,
                                   ),
                                   Text(
@@ -124,7 +126,7 @@ class _StoreviewState extends State<Storeview> {
                                   sname: widget.Index['sname'])
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
                           Text(
@@ -137,25 +139,26 @@ class _StoreviewState extends State<Storeview> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 15),
+                    const SizedBox(height: 15),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Column(
                         children: [
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              Text(
+                              const Text(
                                 'Your Favourite',
                                 style: TextStyle(
                                     fontSize: 22, fontWeight: FontWeight.w700),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
                               Expanded(
                                   child: Container(
-                                margin: EdgeInsets.symmetric(horizontal: 20),
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 20),
                                 height: 1.2,
                                 color: Colors.grey,
                               ))
@@ -167,16 +170,17 @@ class _StoreviewState extends State<Storeview> {
                   ],
                 ),
                 Container(
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
+                  padding: const EdgeInsets.all(10),
+                  decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(
                       Radius.circular(10),
                     ),
                   ),
                   child: GridView.builder(
-                      physics: ScrollPhysics(),
+                      physics: const ScrollPhysics(),
                       shrinkWrap: true,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         childAspectRatio: 0.75,
                         mainAxisSpacing: 8.0,
@@ -187,7 +191,7 @@ class _StoreviewState extends State<Storeview> {
                             product: snapshot.data?.docs[index],
                             press: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => productview(
+                                  builder: (context) => Productview(
                                         sid: widget.Index,
                                         itemnu: snapshot.data?.docs[index],
                                       )));

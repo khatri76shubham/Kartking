@@ -10,26 +10,29 @@ import 'package:url_launcher/url_launcher.dart';
 import 'mainpage/login.dart';
 import 'package:flutter_share/flutter_share.dart';
 
-class myaccount extends StatefulWidget {
+// ignore: must_be_immutable
+class Myaccount extends StatefulWidget {
   UserProvider? userProvider;
   UserModel? userData;
+
+  Myaccount({Key? key}) : super(key: key);
   @override
-  State<myaccount> createState() => _myaccountState();
+  State<Myaccount> createState() => _MyaccountState();
 }
 
-class _myaccountState extends State<myaccount> {
+class _MyaccountState extends State<Myaccount> {
   Widget listTile(
       {required IconData icon, required String title, VoidCallback? press}) {
     return Column(
       children: [
-        Divider(
+        const Divider(
           height: 1,
         ),
         ListTile(
           onTap: press,
           leading: Icon(icon),
           title: Text(title),
-          trailing: Icon(Icons.arrow_forward_ios),
+          trailing: const Icon(Icons.arrow_forward_ios),
         )
       ],
     );
@@ -70,8 +73,9 @@ class _myaccountState extends State<myaccount> {
                 Expanded(
                   child: Container(
                     width: double.infinity,
-                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                    decoration: BoxDecoration(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 10),
+                    decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(30),
                         topRight: Radius.circular(30),
@@ -84,7 +88,7 @@ class _myaccountState extends State<myaccount> {
                           Container(
                             width: 250,
                             height: 80,
-                            padding: EdgeInsets.only(left: 20),
+                            padding: const EdgeInsets.only(left: 20),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -96,7 +100,7 @@ class _myaccountState extends State<myaccount> {
                                         fontWeight: FontWeight.bold,
                                         color: textcolor,
                                       )),
-                                SizedBox(
+                                const SizedBox(
                                   height: 10,
                                 ),
                                 if (value.currentdata?.userEmail != null)
@@ -116,14 +120,14 @@ class _myaccountState extends State<myaccount> {
                           title: "My orders",
                           press: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => Myorders()));
+                                builder: (context) => const Myorders()));
                           }),
                       listTile(
                         icon: Icons.location_on_outlined,
                         title: "location",
                         press: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => location()));
+                              builder: (context) => const Location()));
                         },
                       ),
                       listTile(
@@ -139,17 +143,17 @@ class _myaccountState extends State<myaccount> {
                           icon: Icons.file_copy_outlined,
                           title: "Term's & Condition",
                           press: () {
-                            final Uri _url = Uri.parse(
+                            final Uri url = Uri.parse(
                                 'https://drive.google.com/file/d/1nDj1-Ydzhnzs0_uvhHmg2G_ai1FsJOFt/view');
-                            launchUrl(_url);
+                            launchUrl(url);
                           }),
                       listTile(
                           icon: Icons.policy_outlined,
                           title: "Privacy policy",
                           press: () {
-                            final Uri _url = Uri.parse(
+                            final Uri url = Uri.parse(
                                 'https://drive.google.com/file/d/1li0zdem5QsmaADJNaCH0-7LcwN0wJ-8y/view?usp=sharing');
-                            launchUrl(_url);
+                            launchUrl(url);
                           }),
                       listTile(icon: Icons.add_chart, title: "About"),
                       listTile(
@@ -158,7 +162,8 @@ class _myaccountState extends State<myaccount> {
                         press: () {
                           auth.signOut();
                           Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(builder: (context) => login()));
+                              MaterialPageRoute(
+                                  builder: (context) => const Login()));
                         },
                       ),
                     ]),

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:kartking/constant/colors.dart';
 
 class Myorders extends StatefulWidget {
-  Myorders({Key? key}) : super(key: key);
+  const Myorders({Key? key}) : super(key: key);
 
   @override
   State<Myorders> createState() => _MyordersState();
@@ -53,7 +53,7 @@ class _MyordersState extends State<Myorders> {
                             children: [
                               Text(
                                 snapshot.data?.docs[index]['storeid'],
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 20),
                               ),
                               Divider(
@@ -64,7 +64,7 @@ class _MyordersState extends State<Myorders> {
                                     MainAxisAlignment.spaceBetween,
                                 children: const [Text('items'), Text('price')],
                               ),
-                              Divider(),
+                              const Divider(),
                               StreamBuilder<QuerySnapshot>(
                                   stream: FirebaseFirestore.instance
                                       .collection("cartdata")
@@ -85,7 +85,7 @@ class _MyordersState extends State<Myorders> {
                                     }
 
                                     return ListView.builder(
-                                        physics: ScrollPhysics(),
+                                        physics: const ScrollPhysics(),
                                         shrinkWrap: true,
                                         itemCount: snapshot.data?.docs.length,
                                         itemBuilder: ((context, index) {
@@ -143,6 +143,7 @@ class _MyordersState extends State<Myorders> {
                                                                         .w700)),
                                                       ],
                                                     ),
+                                                    // ignore: prefer_interpolation_to_compose_strings
                                                     Text('x' +
                                                         snapshot.data
                                                                 ?.docs[index]
@@ -173,8 +174,8 @@ class _MyordersState extends State<Myorders> {
                                                   children: [
                                                     GestureDetector(
                                                       child: Container(
-                                                        margin: EdgeInsets.only(
-                                                            top: 8),
+                                                        margin: const EdgeInsets
+                                                            .only(top: 8),
                                                         height: 50,
                                                         width: 200,
                                                         decoration: BoxDecoration(
@@ -211,7 +212,7 @@ class _MyordersState extends State<Myorders> {
                         ),
                       );
                     }
-                    return SizedBox.shrink();
+                    return const SizedBox.shrink();
                   })));
         });
   }

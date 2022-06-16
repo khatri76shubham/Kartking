@@ -1,21 +1,18 @@
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:kartking/constant/colors.dart';
-import 'package:kartking/constant/theme.dart';
 import 'package:kartking/items_view_all.dart';
 import 'package:kartking/pages/product_overview/product_view.dart';
 import 'package:kartking/pages/store_overview/storeview.dart';
 
-class searchpage extends StatefulWidget {
-  searchpage({Key? key}) : super(key: key);
+class Searchpage extends StatefulWidget {
+  const Searchpage({Key? key}) : super(key: key);
 
   @override
-  State<searchpage> createState() => _searchpageState();
+  State<Searchpage> createState() => _SearchpageState();
 }
 
-class _searchpageState extends State<searchpage> {
+class _SearchpageState extends State<Searchpage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +21,7 @@ class _searchpageState extends State<searchpage> {
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (!snapshot.hasData) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             }
@@ -33,17 +30,17 @@ class _searchpageState extends State<searchpage> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    showSearch(context: context, delegate: productsearch());
+                    showSearch(context: context, delegate: Productsearch());
                   },
                   child: Container(
                     width: 400,
                     height: 55,
-                    child: Center(child: Text("search here")),
                     margin: const EdgeInsets.all(10),
                     padding: const EdgeInsets.all(5),
                     decoration: BoxDecoration(
                         color: primarycolor,
                         borderRadius: BorderRadius.circular(20)),
+                    child: const Center(child: Text("search here")),
                   ),
                 ),
                 Padding(
@@ -113,7 +110,7 @@ class _searchpageState extends State<searchpage> {
                       GestureDetector(
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => Itemsviewall()));
+                              builder: (context) => const Itemsviewall()));
                         },
                         child: const Text(
                           'view all',
@@ -126,7 +123,7 @@ class _searchpageState extends State<searchpage> {
                   ),
                 ),
                 ListView.builder(
-                    physics: ScrollPhysics(),
+                    physics: const ScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: 4,
                     itemBuilder: ((context, index) {
@@ -139,7 +136,7 @@ class _searchpageState extends State<searchpage> {
                           builder: (BuildContext context,
                               AsyncSnapshot<QuerySnapshot> snapshot) {
                             if (!snapshot.hasData) {
-                              return Center(
+                              return const Center(
                                 child: CircularProgressIndicator(),
                               );
                             }
@@ -149,13 +146,26 @@ class _searchpageState extends State<searchpage> {
                               child: GestureDetector(
                                 onTap: () {
                                   Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => productview(
+                                      builder: (context) => Productview(
                                           sid: sidindex?[index],
                                           itemnu: snapshot.data?.docs[index])));
                                 },
                                 child: Container(
                                   width: 30,
                                   height: 50,
+                                  decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: NetworkImage(snapshot
+                                            .data?.docs[index]['iimage']),
+                                        fit: BoxFit.cover,
+                                        colorFilter: ColorFilter.mode(
+                                            Colors.black.withOpacity(0.7),
+                                            BlendMode.dstIn),
+                                      ),
+                                      color: whitecolor,
+                                      border: Border.all(
+                                          color: primarycolor, width: 3),
+                                      borderRadius: BorderRadius.circular(20)),
                                   child: Center(
                                       child: Text(
                                     snapshot.data?.docs[index]['iname'],
@@ -164,19 +174,6 @@ class _searchpageState extends State<searchpage> {
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold),
                                   )),
-                                  decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        image: NetworkImage(snapshot
-                                            .data?.docs[index]['iimage']),
-                                        fit: BoxFit.cover,
-                                        colorFilter: new ColorFilter.mode(
-                                            Colors.black.withOpacity(0.7),
-                                            BlendMode.dstIn),
-                                      ),
-                                      color: whitecolor,
-                                      border: Border.all(
-                                          color: primarycolor, width: 3),
-                                      borderRadius: BorderRadius.circular(20)),
                                 ),
                               ),
                             );
@@ -189,10 +186,9 @@ class _searchpageState extends State<searchpage> {
   }
 }
 
-class productsearch extends SearchDelegate {
+class Productsearch extends SearchDelegate {
   @override
   List<Widget>? buildActions(BuildContext context) {
-    // TODO: implement buildActions
     return <Widget>[
       IconButton(
           onPressed: () {
@@ -204,27 +200,25 @@ class productsearch extends SearchDelegate {
 
   @override
   Widget? buildLeading(BuildContext context) {
-    // TODO: implement buildLeading
     return IconButton(
         onPressed: () {
           Navigator.of(context).pop();
         },
-        icon: Icon(Icons.arrow_back));
+        icon: const Icon(Icons.arrow_back));
   }
 
   @override
   Widget buildResults(BuildContext context) {
-    // TODO: implement buildResults
     return StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance.collection("store").snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (!snapshot.hasData) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
           return ListView.builder(
-              physics: ScrollPhysics(),
+              physics: const ScrollPhysics(),
               shrinkWrap: true,
               itemCount: snapshot.data?.docs.length,
               itemBuilder: ((context, index) {
@@ -239,7 +233,7 @@ class productsearch extends SearchDelegate {
                     builder: (BuildContext context,
                         AsyncSnapshot<QuerySnapshot> snapshot) {
                       if (!snapshot.hasData) {
-                        return Center(
+                        return const Center(
                           child: CircularProgressIndicator(),
                         );
                       } else {
@@ -250,17 +244,17 @@ class productsearch extends SearchDelegate {
                                     .toLowerCase()
                                     .contains(query.toLowerCase()))
                             .isEmpty) {
-                          return SizedBox.shrink();
+                          return const SizedBox.shrink();
                         }
                         return Column(
                           children: [
                             Text(
                               name['sname'],
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 17),
                             ),
                             GridView(
-                              physics: ScrollPhysics(),
+                              physics: const ScrollPhysics(),
                               shrinkWrap: true,
                               scrollDirection: Axis.vertical,
                               gridDelegate:
@@ -285,7 +279,7 @@ class productsearch extends SearchDelegate {
                                         Navigator.of(context).push(
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    productview(
+                                                    Productview(
                                                       sid: name,
                                                       itemnu: data,
                                                     )));
@@ -304,7 +298,8 @@ class productsearch extends SearchDelegate {
                                               width: 80,
                                               height: 90,
                                               decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.only(
+                                                borderRadius:
+                                                    const BorderRadius.only(
                                                   topLeft: Radius.circular(18),
                                                   topRight: Radius.circular(18),
                                                 ),
@@ -334,8 +329,7 @@ class productsearch extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    // TODO: implement buildSuggestions
-    return Center(
+    return const Center(
       child: Text('search for store'),
     );
   }
