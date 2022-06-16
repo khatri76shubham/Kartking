@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:kartking/about.dart';
 import 'package:kartking/constant/colors.dart';
 import 'package:kartking/location.dart';
 import 'package:kartking/my_order.dart';
@@ -155,7 +156,13 @@ class _MyaccountState extends State<Myaccount> {
                                 'https://drive.google.com/file/d/1li0zdem5QsmaADJNaCH0-7LcwN0wJ-8y/view?usp=sharing');
                             launchUrl(url);
                           }),
-                      listTile(icon: Icons.add_chart, title: "About"),
+                      listTile(
+                          icon: Icons.add_chart,
+                          title: "About",
+                          press: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const About()));
+                          }),
                       listTile(
                         icon: Icons.exit_to_app_outlined,
                         title: "Log out",
