@@ -27,7 +27,7 @@ class Favoritestore extends StatelessWidget {
             child: GestureDetector(
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => storeview(
+                    builder: (context) => Storeview(
                           Index: snapshot.data?.docs[index],
                         )));
               },
@@ -41,7 +41,7 @@ class Favoritestore extends StatelessWidget {
                       height: MediaQuery.of(context).size.height / 6.1,
                       width: MediaQuery.of(context).size.width / 1.8,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(18),
                           topRight: Radius.circular(18),
                         ),

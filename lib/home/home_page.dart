@@ -117,7 +117,7 @@ class _homepageState extends State<homepage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
+                          const Text(
                             'Items',
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
@@ -126,7 +126,7 @@ class _homepageState extends State<homepage> {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => Itemsviewall()));
                             },
-                            child: Text(
+                            child: const Text(
                               'view all',
                               style: TextStyle(
                                   color: Colors.blueGrey,
@@ -216,7 +216,7 @@ class _homepageState extends State<homepage> {
                       ),
                     ),
                     ListView.builder(
-                        physics: ScrollPhysics(),
+                        physics: const ScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: snapshot.data?.docs.length ?? 0,
                         itemBuilder: ((context, index) {
@@ -226,7 +226,7 @@ class _homepageState extends State<homepage> {
                             child: GestureDetector(
                               onTap: () {
                                 Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => storeview(
+                                    builder: (context) => Storeview(
                                         Index: snapshot.data?.docs[index])));
                               },
                               child: Material(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:kartking/constant/colors.dart';
 import 'package:kartking/my_account.dart';
 import 'package:kartking/pages/screens/profile_menu.dart';
 import 'package:kartking/constant/theme.dart';
@@ -32,7 +33,7 @@ class _settingpageState extends State<settingpage> {
           'Setting',
           style: TextStyle(color: Colors.black, fontSize: 17),
         ),
-        backgroundColor: Color(0xff7E89F0),
+        backgroundColor: primarycolor,
       ),
       body: ListView(children: [
         Column(
@@ -56,7 +57,7 @@ class _settingpageState extends State<settingpage> {
               text: 'Help',
               icon: ("assets/icons/Question mark.svg"),
               press: () {
-                launchwhatsapp(message: "Hello", number: "9602526622");
+                launchwhatsapp(message: "Hello", number: "+91 9602526622");
               },
             ),
             ProfileMenu(

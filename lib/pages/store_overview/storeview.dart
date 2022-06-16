@@ -7,15 +7,15 @@ import 'package:kartking/pages/product_overview/product_card.dart';
 import 'package:kartking/pages/product_overview/product_view.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-class storeview extends StatefulWidget {
+class Storeview extends StatefulWidget {
   final Index;
-  storeview({Key? key, this.Index}) : super(key: key);
+  Storeview({Key? key, this.Index}) : super(key: key);
 
   @override
-  State<storeview> createState() => _storeviewState();
+  State<Storeview> createState() => _StoreviewState();
 }
 
-class _storeviewState extends State<storeview> {
+class _StoreviewState extends State<Storeview> {
   @override
   Widget build(BuildContext context) {
     String storename = widget.Index['sname'];

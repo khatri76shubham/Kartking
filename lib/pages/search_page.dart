@@ -60,7 +60,7 @@ class _searchpageState extends State<searchpage> {
                   ),
                 ),
                 ListView.builder(
-                    physics: ScrollPhysics(),
+                    physics: const ScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: 4,
                     itemBuilder: ((context, index) {
@@ -70,12 +70,25 @@ class _searchpageState extends State<searchpage> {
                           child: GestureDetector(
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => storeview(
+                                  builder: (context) => Storeview(
                                       Index: snapshot.data?.docs[index])));
                             },
                             child: Container(
                               width: 30,
                               height: 50,
+                              decoration: BoxDecoration(
+                                  color: whitecolor,
+                                  image: DecorationImage(
+                                    image: NetworkImage(
+                                        snapshot.data?.docs[index]['simage']),
+                                    fit: BoxFit.cover,
+                                    colorFilter: ColorFilter.mode(
+                                        Colors.black.withOpacity(0.7),
+                                        BlendMode.dstIn),
+                                  ),
+                                  border:
+                                      Border.all(color: primarycolor, width: 3),
+                                  borderRadius: BorderRadius.circular(20)),
                               child: Center(
                                   child: Text(
                                 snapshot.data?.docs[index]['sname'],
@@ -84,19 +97,6 @@ class _searchpageState extends State<searchpage> {
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold),
                               )),
-                              decoration: BoxDecoration(
-                                  color: whitecolor,
-                                  image: DecorationImage(
-                                    image: NetworkImage(
-                                        snapshot.data?.docs[index]['simage']),
-                                    fit: BoxFit.cover,
-                                    colorFilter: new ColorFilter.mode(
-                                        Colors.black.withOpacity(0.7),
-                                        BlendMode.dstIn),
-                                  ),
-                                  border:
-                                      Border.all(color: primarycolor, width: 3),
-                                  borderRadius: BorderRadius.circular(20)),
                             ),
                           ));
                     })),
@@ -106,7 +106,7 @@ class _searchpageState extends State<searchpage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         'Items',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
@@ -115,7 +115,7 @@ class _searchpageState extends State<searchpage> {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => Itemsviewall()));
                         },
-                        child: Text(
+                        child: const Text(
                           'view all',
                           style: TextStyle(
                               color: Colors.blueGrey,

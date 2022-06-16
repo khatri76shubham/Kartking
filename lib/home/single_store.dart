@@ -22,7 +22,7 @@ class Singlestore extends StatelessWidget {
             child: GestureDetector(
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => storeview(
+                    builder: (context) => Storeview(
                           Index: snapshot.data?.docs[index],
                         )));
               },

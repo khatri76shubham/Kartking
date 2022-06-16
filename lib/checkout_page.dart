@@ -3,20 +3,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get.dart';
 import 'package:kartking/constant/colors.dart';
 import 'package:kartking/location.dart';
-import 'package:kartking/my_account.dart';
 import 'package:kartking/pages/store_overview/storeview.dart';
 import 'package:kartking/provider/my_order_provider.dart';
 import 'package:kartking/single_address.dart';
-import 'package:kartking/constant/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class Checkout extends StatefulWidget {
   final Index;
-  Checkout({Key? key, this.Index}) : super(key: key);
+  const Checkout({Key? key, this.Index}) : super(key: key);
 
   @override
   State<Checkout> createState() => _CheckoutState();
@@ -526,7 +523,7 @@ class _CheckoutState extends State<Checkout> {
                           );
                         }
                         return ListView.builder(
-                            physics: ScrollPhysics(),
+                            physics: const ScrollPhysics(),
                             shrinkWrap: true,
                             itemCount: snapshot.data?.docs.length ?? 0,
                             itemBuilder: ((context, index) {
@@ -539,7 +536,7 @@ class _CheckoutState extends State<Checkout> {
                                             Navigator.of(context).push(
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        storeview(
+                                                        Storeview(
                                                           Index: snapshot.data!
                                                               .docs[index],
                                                         )));

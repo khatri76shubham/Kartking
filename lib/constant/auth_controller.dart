@@ -104,9 +104,6 @@ class AuthController {
             context,
             MaterialPageRoute(builder: (builder) => homescreen()),
             (route) => false);
-
-        final snackBar = SnackBar(content: Text(userCredential.user!.uid));
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
       final User? user = (await _auth.signInWithCredential(credential)).user;
       // print("signed in " + user.displayName);
