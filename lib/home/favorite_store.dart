@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:kartking/pages/store_overview/storeview.dart';
 
+//use when someone add store to favorite
 class Favoritestore extends StatelessWidget {
   final int index;
   const Favoritestore({Key? key, required this.index}) : super(key: key);
@@ -11,12 +12,14 @@ class Favoritestore extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
+        //Stream builder to collect data from favoritedata
         stream: FirebaseFirestore.instance
             .collection("favoritedata")
             .doc(FirebaseAuth.instance.currentUser?.uid)
             .collection("favoritestore")
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          //circular indicator when data available
           if (!snapshot.hasData) {
             return const Center(
               child: CircularProgressIndicator(),
@@ -25,10 +28,12 @@ class Favoritestore extends StatelessWidget {
           return Material(
             elevation: 8,
             child: GestureDetector(
+              //onclick move to store view page
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => Storeview(
-                          Index: snapshot.data?.docs[index],
+                          Index: snapshot.data?.docs[
+                              index], //Index pass value to store view page
                         )));
               },
               child: Container(
@@ -38,8 +43,10 @@ class Favoritestore extends StatelessWidget {
                 child: Column(
                   children: [
                     Container(
-                      height: MediaQuery.of(context).size.height / 6.1,
-                      width: MediaQuery.of(context).size.width / 1.8,
+                      height: MediaQuery.of(context).size.height /
+                          6.1, //image container height
+                      width: MediaQuery.of(context).size.width /
+                          1.8, //image container width
                       decoration: BoxDecoration(
                         borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(18),
