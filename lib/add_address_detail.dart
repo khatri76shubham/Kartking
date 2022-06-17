@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class addressdetail extends StatelessWidget {
+class Addressdetail extends StatelessWidget {
   final TextEditingController controller;
   final TextInputType keboardtype;
   final String labtext;
   final int max;
 
-  const addressdetail(
+  const Addressdetail(
       {Key? key,
       required this.controller,
       required this.keboardtype,

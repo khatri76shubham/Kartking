@@ -1,10 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:kartking/favorite_provider.dart';
+import 'package:kartking/provider/favorite_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'constant/colors.dart';
 
+// ignore: must_be_immutable
 class Favorite extends StatefulWidget {
   String? sname;
   String? simage;

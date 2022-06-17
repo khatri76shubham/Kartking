@@ -22,7 +22,7 @@ class Singlestore extends StatelessWidget {
             child: GestureDetector(
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => storeview(
+                    builder: (context) => Storeview(
                           Index: snapshot.data?.docs[index],
                         )));
               },
@@ -33,8 +33,8 @@ class Singlestore extends StatelessWidget {
                 child: Column(
                   children: [
                     Container(
-                      height: 500 / 4,
-                      width: 300 / 1.1,
+                      height: MediaQuery.of(context).size.height / 6.1,
+                      width: MediaQuery.of(context).size.width / 1.8,
                       decoration: BoxDecoration(
                         borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(18),
@@ -47,8 +47,8 @@ class Singlestore extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 500 / 7,
-                      width: 300 / 1.2,
+                      height: MediaQuery.of(context).size.height / 10,
+                      width: MediaQuery.of(context).size.width / 1,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -64,8 +64,8 @@ class Singlestore extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Container(
-                                height: 500 / 25,
-                                width: 300 / 7,
+                                height: MediaQuery.of(context).size.height / 30,
+                                width: MediaQuery.of(context).size.height / 20,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
                                   color: Colors.green,

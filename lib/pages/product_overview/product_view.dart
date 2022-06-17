@@ -1,18 +1,25 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:kartking/constant/colors.dart';
 import 'package:kartking/pages/cart_page.dart';
 import 'package:kartking/pages/count.dart';
 
-class productview extends StatelessWidget {
+class Productview extends StatelessWidget {
+  // ignore: prefer_typing_uninitialized_variables
   final itemnu;
+  // ignore: prefer_typing_uninitialized_variables
   final sid;
 
-  productview({Key? key, itemno, required this.itemnu, this.sid})
+  const Productview({Key? key, itemno, required this.itemnu, this.sid})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    if (kDebugMode) {
+      print(itemnu);
+    }
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: primarycolor,
@@ -23,7 +30,7 @@ class productview extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  count(
+                  Count(
                     storeid: sid['sname'], //storeid
                     cartname: itemnu['iname'],
                     cartid: itemnu['iid'],
@@ -31,21 +38,21 @@ class productview extends StatelessWidget {
                     cartprice: itemnu['iprice'],
                     storeimage: sid['simage'],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Expanded(
                     child: Container(
-                      height: 50,
+                      height: MediaQuery.of(context).size.height / 16,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(18),
                           color: primarycolor),
                       child: GestureDetector(
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => cartpage()));
+                              builder: (context) => const Cartpage()));
                         },
-                        child: Center(
+                        child: const Center(
                             child: Text('View Cart',
                                 style: TextStyle(
                                     fontSize: 18,
@@ -61,14 +68,8 @@ class productview extends StatelessWidget {
           systemOverlayStyle:
               SystemUiOverlayStyle(statusBarColor: primarycolor),
           elevation: 0,
-          actions: [
-            IconButton(onPressed: () {}, icon: Icon(Icons.search)),
-            IconButton(onPressed: () {}, icon: Icon(Icons.shopping_cart)),
-          ],
         ),
         body: ListView(
-          physics: ScrollPhysics(),
-          shrinkWrap: true,
           children: [
             Stack(
               children: [
@@ -79,7 +80,7 @@ class productview extends StatelessWidget {
                       top: size.height * 0.12, left: 08, right: 08),
                   decoration: BoxDecoration(
                       color: whitecolor,
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(24),
                           topRight: Radius.circular(24))),
                   child: Column(
@@ -112,11 +113,13 @@ class productview extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Text("About Product \n",
+                      Divider(
+                        color: textcolor,
+                      ),
+                      const Text("other Product \n",
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold)),
-                      Text(
-                          "Frozen vegetables are vegetables that have had their temperature reduced and maintained to below their freezing point for the purpose of storage and transportation (often for far longer than their natural shelf life would permit) until they are ready to be eaten. They may be commercially packaged or frozen at home."),
+                      otherproduct(context),
                     ],
                   ),
                 ),
@@ -134,10 +137,11 @@ class productview extends StatelessWidget {
                             fontSize: 30),
                       ),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           RichText(
                               text: TextSpan(children: [
-                            TextSpan(text: "Price\n"),
+                            const TextSpan(text: "Price\n"),
                             TextSpan(
                               text: itemnu['iprice'],
                               style: Theme.of(context)
@@ -149,10 +153,13 @@ class productview extends StatelessWidget {
                             )
                           ])),
                           Expanded(
-                              child: Image.network(
-                            itemnu['iimage'],
-                            fit: BoxFit.fill,
-                          )),
+                            child: SizedBox(
+                                height: size.height * .3,
+                                child: Image.network(
+                                  itemnu['iimage'],
+                                  fit: BoxFit.fill,
+                                )),
+                          ),
                         ],
                       ),
                     ],
@@ -162,5 +169,64 @@ class productview extends StatelessWidget {
             )
           ],
         ));
+  }
+
+  Widget otherproduct(context) {
+    var store = sid['sname'];
+    return SizedBox(
+      height: MediaQuery.of(context).size.height / 5,
+      width: MediaQuery.of(context).size.width,
+      child: StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance
+              .collection("store")
+              .doc('$store')
+              .collection('items')
+              .snapshots(),
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (!snapshot.hasData) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return ListView.builder(
+                shrinkWrap: true,
+                physics: const ScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                itemCount: snapshot.data?.docs.length,
+                itemBuilder: (context, index) {
+                  if (snapshot.data?.docs[index]['iname'] != itemnu['iname']) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: MediaQuery.of(context).size.height / 7.1,
+                          width: MediaQuery.of(context).size.width / 1.8,
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(18),
+                              topRight: Radius.circular(18),
+                            ),
+                            image: DecorationImage(
+                                image: NetworkImage(
+                                    snapshot.data?.docs[index]["iimage"]),
+                                fit: BoxFit.fill),
+                          ),
+                        ),
+                        Expanded(
+                          child: SizedBox(
+                              height: MediaQuery.of(context).size.height / 20,
+                              width: MediaQuery.of(context).size.width / 2,
+                              child: Text(snapshot.data?.docs[index]["iname"])),
+                        ),
+                      ],
+                    );
+                  } else {
+                    return const SizedBox.shrink();
+                  }
+                });
+          }),
+    );
   }
 }

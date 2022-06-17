@@ -6,11 +6,13 @@ class SingleDeliveryItem extends StatelessWidget {
   final String address;
   final String number;
   final String addressType;
-  SingleDeliveryItem(
-      {required this.title,
+  const SingleDeliveryItem(
+      {Key? key,
+      required this.title,
       required this.addressType,
       required this.address,
-      required this.number});
+      required this.number})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -22,7 +24,7 @@ class SingleDeliveryItem extends StatelessWidget {
               Text(title),
               Container(
                 width: 60,
-                padding: EdgeInsets.all(1),
+                padding: const EdgeInsets.all(1),
                 height: 20,
                 decoration: BoxDecoration(
                     color: primarycolor,
@@ -30,7 +32,7 @@ class SingleDeliveryItem extends StatelessWidget {
                 child: Center(
                   child: Text(
                     addressType,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 13,
                       color: Colors.black,
                     ),
@@ -48,15 +50,12 @@ class SingleDeliveryItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(address),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
               Text(number),
             ],
           ),
-        ),
-        Divider(
-          height: 35,
         ),
       ],
     );

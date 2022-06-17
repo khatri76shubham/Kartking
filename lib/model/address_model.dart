@@ -1,4 +1,4 @@
-class addressmodel {
+class Addressmodel {
   String? name;
   String? mobileno;
   String? area;
@@ -9,7 +9,7 @@ class addressmodel {
   String? pinCode;
   String? addressType;
 
-  addressmodel({
+  Addressmodel({
     this.addressType,
     this.area,
     this.city,

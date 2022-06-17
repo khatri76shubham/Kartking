@@ -8,14 +8,14 @@ import 'package:kartking/constant/colors.dart';
 import 'package:kartking/mainpage/login.dart';
 
 // ignore: camel_case_types
-class cartpage extends StatefulWidget {
-  const cartpage({Key? key}) : super(key: key);
+class Cartpage extends StatefulWidget {
+  const Cartpage({Key? key}) : super(key: key);
 
   @override
-  State<cartpage> createState() => _cartpageState();
+  State<Cartpage> createState() => _CartpageState();
 }
 
-class _cartpageState extends State<cartpage> {
+class _CartpageState extends State<Cartpage> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
@@ -36,7 +36,7 @@ class _cartpageState extends State<cartpage> {
                 backgroundColor: primarycolor,
                 title: const Text('Your cart'),
               ),
-              body: Center(
+              body: const Center(
                 child: Text('No Data Is available in Your cart'),
               ),
             );
@@ -61,7 +61,7 @@ class _cartpageState extends State<cartpage> {
                         onPressed: () {
                           Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
-                              builder: (context) => const login(),
+                              builder: (context) => const Login(),
                             ),
                           );
                         },
@@ -84,9 +84,9 @@ class _cartpageState extends State<cartpage> {
                 shrinkWrap: true,
                 itemCount: snapshot.data?.docs.length ?? 0,
                 itemBuilder: ((context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Expanded(
+                  if (snapshot.data?.docs[index]['paymentstatus'] != "done") {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
                       child: Container(
                         margin: const EdgeInsets.only(top: 10),
                         padding: const EdgeInsets.all(8),
@@ -100,7 +100,7 @@ class _cartpageState extends State<cartpage> {
                               children: [
                                 Text(
                                   snapshot.data?.docs[index]['storeid'],
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20),
                                 ),
@@ -108,7 +108,7 @@ class _cartpageState extends State<cartpage> {
                                   child: IconButton(
                                     key: Key(
                                         snapshot.data?.docs[index]['storeid']),
-                                    icon: Icon(Icons.delete),
+                                    icon: const Icon(Icons.delete),
                                     onPressed: () {
                                       FirebaseFirestore.instance
                                           .collection("cartdata")
@@ -128,6 +128,7 @@ class _cartpageState extends State<cartpage> {
                                           .collection('storedata')
                                           .get()
                                           .then((QuerySnapshot querySnapshot) {
+                                        // ignore: avoid_function_literals_in_foreach_calls
                                         querySnapshot.docs.forEach((doc) {
                                           doc.reference.delete();
                                         });
@@ -145,7 +146,7 @@ class _cartpageState extends State<cartpage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: const [Text('items'), Text('price')],
                             ),
-                            Divider(),
+                            const Divider(),
                             StreamBuilder<QuerySnapshot>(
                                 stream: FirebaseFirestore.instance
                                     .collection("cartdata")
@@ -164,7 +165,7 @@ class _cartpageState extends State<cartpage> {
                                   }
 
                                   return ListView.builder(
-                                      physics: ScrollPhysics(),
+                                      physics: const ScrollPhysics(),
                                       shrinkWrap: true,
                                       itemCount: snapshot.data?.docs.length,
                                       itemBuilder: ((context, index) {
@@ -239,6 +240,7 @@ class _cartpageState extends State<cartpage> {
                                                                         .w700)),
                                                       ],
                                                     ),
+                                                    // ignore: prefer_interpolation_to_compose_strings
                                                     Text('x' +
                                                         snapshot.data
                                                                 ?.docs[index]
@@ -281,8 +283,9 @@ class _cartpageState extends State<cartpage> {
                                                                       )));
                                                     },
                                                     child: Container(
-                                                      margin: EdgeInsets.only(
-                                                          top: 8),
+                                                      margin:
+                                                          const EdgeInsets.only(
+                                                              top: 8),
                                                       height: 50,
                                                       width: 200,
                                                       decoration: BoxDecoration(
@@ -301,7 +304,7 @@ class _cartpageState extends State<cartpage> {
                                                             MainAxisAlignment
                                                                 .spaceAround,
                                                         children: [
-                                                          Text(
+                                                          const Text(
                                                             "Buy Now",
                                                             style: TextStyle(
                                                                 fontWeight:
@@ -324,8 +327,10 @@ class _cartpageState extends State<cartpage> {
                           ],
                         ),
                       ),
-                    ),
-                  );
+                    );
+                  } else {
+                    return const SizedBox.shrink();
+                  }
                 })),
           );
         });

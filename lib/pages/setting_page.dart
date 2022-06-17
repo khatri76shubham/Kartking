@@ -1,23 +1,30 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kartking/constant/colors.dart';
-import 'package:kartking/mainpage/login.dart';
 import 'package:kartking/my_account.dart';
 import 'package:kartking/pages/screens/profile_menu.dart';
-import 'package:kartking/theme.dart';
-import 'package:kartking/user_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:kartking/constant/theme.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // ignore: camel_case_types
-class settingpage extends StatefulWidget {
-  const settingpage({Key? key}) : super(key: key);
+class Settingpage extends StatefulWidget {
+  const Settingpage({Key? key}) : super(key: key);
 
   @override
-  State<settingpage> createState() => _settingpageState();
+  State<Settingpage> createState() => _SettingpageState();
 }
 
 // ignore: camel_case_types
-class _settingpageState extends State<settingpage> {
+class _SettingpageState extends State<Settingpage> {
+  void launchwhatsapp({required message, required number}) async {
+    final Uri url = Uri.parse("whatsapp://send/?phone=$number&text=$message");
+
+    await canLaunchUrl(url)
+        ? launchUrl(url)
+        : Fluttertoast.showToast(msg: 'Can\'t open whatsapp ');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,54 +34,54 @@ class _settingpageState extends State<settingpage> {
           'Setting',
           style: TextStyle(color: Colors.black, fontSize: 17),
         ),
-        backgroundColor: Color(0xff7E89F0),
+        backgroundColor: primarycolor,
       ),
       body: ListView(children: [
         Column(
           children: [
             ProfileMenu(
               text: 'My Account',
-              icon: ("assets/icons/User Icon.svg"),
+              icon: Icons.person_add_alt_1_outlined,
               press: () {
                 Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => myaccount()));
+                    .push(MaterialPageRoute(builder: (context) => Myaccount()));
               },
             ),
             ProfileMenu(
               text: 'Theme',
-              icon: ("assets/icons/theme.svg"),
+              icon: Icons.change_circle,
               press: () {
                 currentTheme.toggleTheme();
               },
             ),
             ProfileMenu(
               text: 'Help',
-              icon: ("assets/icons/Question mark.svg"),
-              press: () {},
+              icon: Icons.help,
+              press: () {
+                launchwhatsapp(message: "Hello", number: "+919602526622");
+              },
             ),
             ProfileMenu(
-              text: 'Notification',
-              icon: ("assets/icons/Bell.svg"),
-              press: () {},
-            ),
-            ProfileMenu(
-              text: 'Privacy/Security',
-              icon: ("assets/icons/Lock.svg"),
-              press: () {},
-            ),
-            ProfileMenu(
-              text: 'Two step verification',
-              icon: ("assets/icons/shield.svg"),
-              press: () {},
-            ),
-            ProfileMenu(
-              text: 'App language',
-              icon: ("assets/icons/language.svg"),
-              press: () {},
+              text: 'Call with Support',
+              icon: Icons.phone_android,
+              press: () {
+                call();
+              },
             ),
           ],
         ),
       ]),
     );
+  }
+
+  call() async {
+    final Uri tel = Uri.parse("tel://+919351171925");
+    try {
+      await launchUrl(tel);
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
   }
 }

@@ -1,22 +1,99 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kartking/constant/colors.dart';
 import 'package:kartking/location.dart';
 import 'package:kartking/pages/store_overview/storeview.dart';
+import 'package:kartking/provider/my_order_provider.dart';
 import 'package:kartking/single_address.dart';
+import 'package:provider/provider.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class Checkout extends StatefulWidget {
+  // ignore: non_constant_identifier_names, prefer_typing_uninitialized_variables
   final Index;
-
-  Checkout({Key? key, this.Index}) : super(key: key);
+  // ignore: non_constant_identifier_names
+  const Checkout({Key? key, this.Index}) : super(key: key);
 
   @override
   State<Checkout> createState() => _CheckoutState();
 }
 
 class _CheckoutState extends State<Checkout> {
-  String? addressindex;
+  // ignore: prefer_typing_uninitialized_variables
+  var addressindex;
+  int? price;
+
+  late Razorpay _razorpay;
+  @override
+  void initState() {
+    // ignore: todo
+    // TODO: implement initState
+    super.initState();
+    initializeRazorpay();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _razorpay.clear();
+  }
+
+  void launchRazorpay() {
+    var amount = price! * 100;
+    var options = {
+      'key': 'rzp_test_GvHyXEBxTkh3w6',
+      'amount': amount,
+      'name': 'Kart King',
+      'description': widget.Index['storeid'],
+      'prefill': {'contact': '', 'email': ''}
+    };
+    try {
+      _razorpay.open(options);
+    } catch (e) {
+      if (kDebugMode) {
+        print("Error: $e");
+      }
+    }
+  }
+
+  void initializeRazorpay() {
+    _razorpay = Razorpay();
+    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+  }
+
+  void _handlePaymentSuccess(PaymentSuccessResponse response) async {
+    MyorderProvider myorderProvider = Provider.of(context, listen: false);
+    myorderProvider.addorderData(
+      paymentstatus: "done",
+      storeid: widget.Index['storeid'],
+      storeimage: widget.Index['storeimage'],
+    );
+    if (kDebugMode) {
+      print('Payment Sucessfull');
+      Fluttertoast.showToast(msg: 'Payment Sucessfull');
+      Navigator.pop(context);
+    }
+  }
+
+  void _handlePaymentError(PaymentFailureResponse response) {
+    if (kDebugMode) {
+      print('Payment error');
+      Fluttertoast.showToast(msg: 'Payment error');
+    }
+  }
+
+  void _handleExternalWallet(ExternalWalletResponse response) {
+    if (kDebugMode) {
+      print('External wallet');
+      Fluttertoast.showToast(msg: 'Payment Failed');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var storeid = widget.Index['storeid'];
@@ -25,21 +102,21 @@ class _CheckoutState extends State<Checkout> {
         padding: const EdgeInsets.all(8.0),
         child: Container(
           width: 200,
-          height: 150,
+          height: 200,
           color: Colors.transparent,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                height: 75,
+                height: 120,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.0),
                   color: whitecolor,
                   boxShadow: [
                     BoxShadow(
                       color: primarycolor,
-                      offset: Offset(1.0, 3.0), //(x,y)
+                      offset: const Offset(1.0, 3.0), //(x,y)
                       blurRadius: 3.0,
                     ),
                   ],
@@ -51,27 +128,54 @@ class _CheckoutState extends State<Checkout> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Deliverable address :-',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 17),
-                            ),
-                            Text('Home'),
-                          ],
+                        const Text(
+                          'Deliverable address :-',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 17),
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            _deliverableaddress(context);
-                          },
-                          child: Text('change address',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 15,
-                                  color: Colors.red)),
-                        ),
+                        if (addressindex == null) ...{
+                          const ListTile(
+                            title: Text(
+                                'No data is avilable please selcet address'),
+                          )
+                        } else
+                          SingleDeliveryItem(
+                            address: addressindex['area'] +
+                                ', ' +
+                                addressindex['street'] +
+                                ', ' +
+                                addressindex['landmark'] +
+                                ', ' +
+                                addressindex['pincode'],
+                            title: addressindex['name'],
+                            number: addressindex['mobileno'],
+                            addressType: addressindex['addresstype'] ==
+                                    "Addresstype.Home"
+                                ? "Home"
+                                : addressindex['addresstype'] ==
+                                        "Addresstypes.Other"
+                                    ? "Other"
+                                    : "Work",
+                          ),
+                        if (addressindex == null) ...{
+                          GestureDetector(
+                            onTap: () => deliverableaddress(context),
+                            child: const Text('Select address',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 15,
+                                    color: Colors.red)),
+                          ),
+                        } else ...{
+                          GestureDetector(
+                            onTap: () => deliverableaddress(context),
+                            child: const Text('change address',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 15,
+                                    color: Colors.red)),
+                          ),
+                        }
                       ],
                     ),
                   ),
@@ -80,31 +184,54 @@ class _CheckoutState extends State<Checkout> {
               Divider(
                 color: textcolor,
               ),
-              Container(
+              SizedBox(
                 height: 50,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('hello'),
-                    Container(
-                      height: 50,
-                      width: 200,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: primarycolor,
-                        boxShadow: [
-                          BoxShadow(
-                            color: textcolor,
-                            offset: Offset(1.0, 3.0), //(x,y)
-                            blurRadius: 4.0,
-                          ),
-                        ],
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Pay Now',
+                    Row(
+                      children: [
+                        const Text(
+                          'Total Price -> ',
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20),
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          '$price',
+                          style: const TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        if (addressindex == null) {
+                          Fluttertoast.showToast(
+                              msg: 'Please Select Deliverable address');
+                        } else {
+                          launchRazorpay();
+                        }
+                      },
+                      child: Container(
+                        height: 50,
+                        width: 200,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: primarycolor,
+                          boxShadow: [
+                            BoxShadow(
+                              color: textcolor,
+                              offset: const Offset(1.0, 3.0), //(x,y)
+                              blurRadius: 4.0,
+                            ),
+                          ],
+                        ),
+                        child: const Center(
+                          child: Text(
+                            'Pay Now',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),
+                          ),
                         ),
                       ),
                     )
@@ -130,7 +257,7 @@ class _CheckoutState extends State<Checkout> {
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             var tPrice = 0;
             if (!snapshot.hasData) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             }
@@ -145,12 +272,12 @@ class _CheckoutState extends State<Checkout> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           "Your order",
                           style: TextStyle(
                               fontWeight: FontWeight.w500, fontSize: 25),
                         ),
-                        Text(
+                        const Text(
                           'From',
                           style: TextStyle(
                               fontSize: 14,
@@ -166,7 +293,7 @@ class _CheckoutState extends State<Checkout> {
                             width: 400,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
-                              boxShadow: [
+                              boxShadow: const [
                                 BoxShadow(
                                   color: Colors.grey,
                                   offset: Offset(0.0, 1.0), //(x,y)
@@ -178,15 +305,15 @@ class _CheckoutState extends State<Checkout> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(widget.Index['storeid'],
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.w700)),
-                                SizedBox(height: 5),
+                                const SizedBox(height: 5),
                                 Container(
                                   height: 100,
                                   width: 400,
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.only(
+                                    borderRadius: const BorderRadius.only(
                                       bottomLeft: Radius.circular(20),
                                       bottomRight: Radius.circular(20),
                                     ),
@@ -209,7 +336,7 @@ class _CheckoutState extends State<Checkout> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Row(
-                            children: [
+                            children: const [
                               SizedBox(
                                 width: 60,
                               ),
@@ -217,7 +344,7 @@ class _CheckoutState extends State<Checkout> {
                             ],
                           ),
                           Row(
-                            children: [
+                            children: const [
                               SizedBox(
                                 width: 60,
                               ),
@@ -225,7 +352,7 @@ class _CheckoutState extends State<Checkout> {
                             ],
                           ),
                           Row(
-                            children: [
+                            children: const [
                               Text('prices'),
                               SizedBox(
                                 width: 10,
@@ -235,7 +362,7 @@ class _CheckoutState extends State<Checkout> {
                         ],
                       ),
                       ListView.builder(
-                        physics: ScrollPhysics(),
+                        physics: const ScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: snapshot.data?.docs.length ?? 0,
                         itemBuilder: ((context, index) {
@@ -244,10 +371,16 @@ class _CheckoutState extends State<Checkout> {
                                 int.parse(totalPrice(
                                     snapshot.data!.docs[index]['cartquantity'],
                                     snapshot.data!.docs[index]['cartprice']));
+                            int percentage = 10;
+                            int perc = 100;
+                            var discount = percentage * tPrice ~/ perc;
+                            price = tPrice - discount;
+                            WidgetsBinding.instance
+                                .addPostFrameCallback((_) => setState(() {}));
                           } else {
                             tPrice = 0;
                           }
-                          var discountprice = tPrice - 50;
+
                           return Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 15.0),
@@ -269,7 +402,7 @@ class _CheckoutState extends State<Checkout> {
                                                   ?.docs[index]['cartimage']),
                                               fit: BoxFit.cover,
                                             )),
-                                        Container(
+                                        SizedBox(
                                             width: 100,
                                             height: 20,
                                             child: Text(snapshot.data
@@ -278,7 +411,7 @@ class _CheckoutState extends State<Checkout> {
                                     ),
                                     Text(snapshot.data?.docs[index]
                                         ['cartquantity']),
-                                    Container(
+                                    SizedBox(
                                         width: 40,
                                         height: 20,
                                         child: Text(
@@ -290,7 +423,7 @@ class _CheckoutState extends State<Checkout> {
                                         )),
                                   ],
                                 ),
-                                Divider(),
+                                const Divider(),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 3, horizontal: 10),
@@ -298,7 +431,7 @@ class _CheckoutState extends State<Checkout> {
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(20.0),
                                       color: Colors.white,
-                                      boxShadow: [
+                                      boxShadow: const [
                                         BoxShadow(
                                           color: Colors.grey,
                                           offset: Offset(0.0, 1.0), //(x,y)
@@ -315,7 +448,7 @@ class _CheckoutState extends State<Checkout> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Text(
+                                              const Text(
                                                 'Item total',
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.w600,
@@ -323,7 +456,7 @@ class _CheckoutState extends State<Checkout> {
                                               ),
                                               Text(
                                                 '$tPrice',
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     fontWeight: FontWeight.w600,
                                                     fontSize: 15),
                                               )
@@ -335,7 +468,7 @@ class _CheckoutState extends State<Checkout> {
                                           child: Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
-                                            children: [
+                                            children: const [
                                               Text(
                                                 'Discount',
                                                 style: TextStyle(
@@ -343,7 +476,7 @@ class _CheckoutState extends State<Checkout> {
                                                     fontSize: 15),
                                               ),
                                               Text(
-                                                '-50',
+                                                '10%',
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.w600,
                                                     fontSize: 15),
@@ -357,18 +490,18 @@ class _CheckoutState extends State<Checkout> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Text(
+                                              const Text(
                                                 'Grand total',
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 22),
                                               ),
                                               Text(
-                                                '$discountprice',
-                                                style: TextStyle(
+                                                '$price',
+                                                style: const TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 22),
-                                              )
+                                              ),
                                             ],
                                           ),
                                         )
@@ -390,12 +523,12 @@ class _CheckoutState extends State<Checkout> {
                       builder: (BuildContext context,
                           AsyncSnapshot<QuerySnapshot> snapshot) {
                         if (!snapshot.hasData) {
-                          return Center(
+                          return const Center(
                             child: CircularProgressIndicator(),
                           );
                         }
                         return ListView.builder(
-                            physics: ScrollPhysics(),
+                            physics: const ScrollPhysics(),
                             shrinkWrap: true,
                             itemCount: snapshot.data?.docs.length ?? 0,
                             itemBuilder: ((context, index) {
@@ -408,7 +541,7 @@ class _CheckoutState extends State<Checkout> {
                                             Navigator.of(context).push(
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        storeview(
+                                                        Storeview(
                                                           Index: snapshot.data!
                                                               .docs[index],
                                                         )));
@@ -421,111 +554,108 @@ class _CheckoutState extends State<Checkout> {
                                                 color: Colors.red),
                                           ),
                                         )
-                                      : Container(
-                                          color: textcolor,
-                                          height: 0,
-                                        ));
+                                      : null);
                             }));
                       }),
-                  Divider(),
                 ],
               ),
             );
           }),
     );
   }
-}
 
-void _deliverableaddress(context, final addressindex) {
-  showModalBottomSheet(
-      context: context,
-      builder: (BuildContext bc) {
-        return StreamBuilder<QuerySnapshot>(
-            stream: FirebaseFirestore.instance
-                .collection("Address")
-                .doc(FirebaseAuth.instance.currentUser!.uid)
-                .collection("moredata")
-                .snapshots(),
-            builder:
-                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-              if (!snapshot.hasData) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              if (snapshot.data!.docs.isEmpty) {
-                return Center(
-                  child: Row(
+  void deliverableaddress(context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+            decoration: BoxDecoration(
+                color: whitecolor,
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(28),
+                    topRight: Radius.circular(28))),
+            child: StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection("Address")
+                    .doc(FirebaseAuth.instance.currentUser!.uid)
+                    .collection("moredata")
+                    .snapshots(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  if (snapshot.data!.docs.isEmpty) {
+                    return Center(
+                      child: Row(
+                        children: [
+                          const Text('No data Please add address '),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => const Location()));
+                            },
+                            child: const Text('Click here',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 17)),
+                          )
+                        ],
+                      ),
+                    );
+                  }
+
+                  return Column(
                     children: [
-                      Text('No data Please add address'),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => location()));
-                        },
-                        child: Text('Click here'),
-                      )
+                      const Divider(),
+                      const Text(
+                        "Select deliverable address",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      const Divider(),
+                      ListView.builder(
+                          physics: const ScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: snapshot.data?.docs.length ?? 0,
+                          itemBuilder: ((context, index) {
+                            return GestureDetector(
+                              onTap: () {
+                                _selecteditem(snapshot.data?.docs[index]);
+                              },
+                              child: SingleDeliveryItem(
+                                address: snapshot.data?.docs[index]['area'] +
+                                    ', ' +
+                                    snapshot.data?.docs[index]['street'] +
+                                    ', ' +
+                                    snapshot.data?.docs[index]['landmark'] +
+                                    ', ' +
+                                    snapshot.data?.docs[index]['pincode'],
+                                title: snapshot.data?.docs[index]['name'],
+                                number: snapshot.data?.docs[index]['mobileno'],
+                                addressType: snapshot.data?.docs[index]
+                                            ['addresstype'] ==
+                                        "Addresstype.Home"
+                                    ? "Home"
+                                    : snapshot.data?.docs[index]
+                                                ['addresstype'] ==
+                                            "Addresstypes.Other"
+                                        ? "Other"
+                                        : "Work",
+                              ),
+                            );
+                          })),
                     ],
-                  ),
-                );
-              }
+                  );
+                }),
+          );
+        });
+  }
 
-              return Column(
-                children: [
-                  Text("Select deliverable address"),
-                  ListView.builder(
-                      physics: ScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: snapshot.data?.docs.length ?? 0,
-                      itemBuilder: ((context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            // Navigator.of(context).push(MaterialPageRoute(
-                            //     builder: (context) => bottomBar(
-                            //           addressindex: snapshot.data?.docs[index],
-                            //         )));
-                            var addressindex = snapshot.data?.docs[index];
-                          },
-                          child: SingleDeliveryItem(
-                            address: snapshot.data?.docs[index]['area'] +
-                                ', ' +
-                                snapshot.data?.docs[index]['street'] +
-                                ', ' +
-                                snapshot.data?.docs[index]['landmark'] +
-                                ', ' +
-                                snapshot.data?.docs[index]['pincode'],
-                            title: snapshot.data?.docs[index]['name'],
-                            number: snapshot.data?.docs[index]['mobileno'],
-                            addressType: snapshot.data?.docs[index]
-                                        ['addresstype'] ==
-                                    "Addresstype.Home"
-                                ? "Home"
-                                : snapshot.data?.docs[index]['addresstype'] ==
-                                        "Addresstypes.Other"
-                                    ? "Other"
-                                    : "Work",
-                          ),
-                        );
-                      })),
-                ],
-              );
-            });
-      });
+  _selecteditem(final s) {
+    Navigator.pop(context);
+    setState(() {
+      addressindex = s;
+    });
+  }
 }
-
-// class bottomBar extends StatefulWidget {
-//   final addressindex;
-//   bottomBar({Key? key, this.addressindex}) : super(key: key);
-
-//   @override
-//   State<bottomBar> createState() => _bottomBarState();
-// }
-
-// class _bottomBarState extends State<bottomBar> {
-//   @override
-//   Widget build(BuildContext context) {
-//     print('${widget.addressindex}');
-//     return 
-//     // });
-//   }
-// }

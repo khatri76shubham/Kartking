@@ -1,75 +1,103 @@
 import 'package:flutter/material.dart';
+import 'package:kartking/constant/colors.dart';
 import 'package:kartking/mainpage/login.dart';
 
-class ForgotPasswordPage extends StatefulWidget {
-  const ForgotPasswordPage({Key? key}) : super(key: key);
+import '../constant/auth_controller.dart';
+
+class ForgotPasswordScreen extends StatefulWidget {
+  const ForgotPasswordScreen({Key? key}) : super(key: key);
 
   @override
-  State<ForgotPasswordPage> createState() => _ForgotPasswordPageState();
+  State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
 }
 
-class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
+class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
+  final TextEditingController email = TextEditingController();
+  bool _isLoading = false;
+  forgotPassword() async {
+    setState(() {
+      _isLoading = true;
+    });
+    String res = await AuthController().forgotPassword(email.text.trim());
+    setState(() {
+      _isLoading = false;
+    });
+    if (res == "success") {
+      // ignore: use_build_context_synchronously
+      showSnakBar("Link has been send to your email", context);
+      // ignore: use_build_context_synchronously
+      Navigator.push(context, MaterialPageRoute(builder: (_) => const Login()));
+    } else {
+      // ignore: use_build_context_synchronously
+      showSnakBar(res, context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        color: const Color(0xff7E89F0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              margin: const EdgeInsets.all(50),
-              child: const Text(
-                "Kart King",
-                style: TextStyle(fontSize: 30, color: Colors.white),
+        backgroundColor: primarycolor,
+        body: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                "Forgot Password",
+                style: TextStyle(
+                    color: Colors.black,
+                    letterSpacing: .5,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold),
               ),
-            ),
-            Container(
-              margin: const EdgeInsets.all(10),
-              alignment: Alignment.centerLeft,
-              child: const Text("Forgot Password",
-                  style: TextStyle(fontSize: 20, color: Colors.white)),
-            ),
-            Container(
-              alignment: Alignment.topLeft,
-              margin: const EdgeInsets.all(10),
-              padding: const EdgeInsets.all(5),
-              child: TextFormField(
-                decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    focusedBorder: InputBorder.none,
-                    enabledBorder: InputBorder.none,
-                    errorBorder: InputBorder.none,
-                    disabledBorder: InputBorder.none,
-                    contentPadding: EdgeInsets.only(
-                        left: 15, bottom: 11, top: 11, right: 15),
-                    hintText: "Email"),
+              const SizedBox(
+                height: 15,
               ),
-              decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(20)),
-            ),
-            Container(
-              padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-              margin: const EdgeInsets.all(5),
-              child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const login()));
-                  },
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: Size(double.infinity,
-                        MediaQuery.of(context).size.height * 0.07),
-                    primary: Colors.black,
-                    padding: const EdgeInsets.all(8),
-                    shape: const StadiumBorder(),
-                    elevation: 5,
-                  ),
-                  child: const Text("Reset Password")),
-            ),
-          ],
-        ),
-      ),
-    );
+              TextField(
+                  controller: email,
+                  cursorColor: Colors.black,
+                  decoration: InputDecoration(
+                    filled: true,
+                    border:
+                        const OutlineInputBorder(borderSide: BorderSide.none),
+                    hintText: "Enter Email",
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  )),
+              const SizedBox(
+                height: 15,
+              ),
+              GestureDetector(
+                onTap: () {
+                  forgotPassword();
+                  email.clear();
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  width: MediaQuery.of(context).size.width,
+                  padding: const EdgeInsets.all(15),
+                  decoration: BoxDecoration(
+                      color: whitecolor,
+                      borderRadius: BorderRadius.circular(30)),
+                  child: _isLoading
+                      ? const Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                          ),
+                        )
+                      : Text(
+                          "Forget Password",
+                          style: TextStyle(
+                              color: textcolor,
+                              letterSpacing: .5,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                        ),
+                ),
+              ),
+            ],
+          ),
+        ));
   }
 }

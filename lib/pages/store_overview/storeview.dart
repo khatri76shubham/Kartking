@@ -2,19 +2,22 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:kartking/constant/colors.dart';
 import 'package:kartking/favorite.dart';
+import 'package:kartking/pages/inside_store_search.dart';
 import 'package:kartking/pages/product_overview/product_card.dart';
 import 'package:kartking/pages/product_overview/product_view.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-class storeview extends StatefulWidget {
+class Storeview extends StatefulWidget {
+  // ignore: prefer_typing_uninitialized_variables, non_constant_identifier_names
   final Index;
-  storeview({Key? key, this.Index}) : super(key: key);
+  // ignore: non_constant_identifier_names
+  const Storeview({Key? key, this.Index}) : super(key: key);
 
   @override
-  State<storeview> createState() => _storeviewState();
+  State<Storeview> createState() => _StoreviewState();
 }
 
-class _storeviewState extends State<storeview> {
+class _StoreviewState extends State<Storeview> {
   @override
   Widget build(BuildContext context) {
     String storename = widget.Index['sname'];
@@ -26,20 +29,25 @@ class _storeviewState extends State<storeview> {
           ),
           backgroundColor: primarycolor,
           actions: [
-            IconButton(onPressed: () {}, icon: Icon(Icons.search)),
-            IconButton(onPressed: () {}, icon: Icon(Icons.shopping_cart)),
+            IconButton(
+                onPressed: () {
+                  showSearch(
+                      context: context,
+                      delegate: Searchinside(index: widget.Index));
+                },
+                icon: const Icon(Icons.search)),
           ],
         ),
         body: StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance
               .collection("store")
-              .doc("$storename")
+              .doc(storename)
               .collection('items')
               .snapshots(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (!snapshot.hasData) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             }
@@ -49,20 +57,20 @@ class _storeviewState extends State<storeview> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      padding: EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(15),
                       decoration: BoxDecoration(
                           image: DecorationImage(
                             image: NetworkImage(widget.Index['simage']),
                             fit: BoxFit.cover,
-                            colorFilter: new ColorFilter.mode(
+                            colorFilter: ColorFilter.mode(
                                 Colors.black.withOpacity(0.7), BlendMode.dstIn),
                           ),
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                               bottomLeft: Radius.circular(40),
                               bottomRight: Radius.circular(40))),
                       child: Column(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             height: 100,
                           ),
                           Row(
@@ -71,7 +79,7 @@ class _storeviewState extends State<storeview> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 20,
                                   ),
                                   Text(
@@ -118,7 +126,7 @@ class _storeviewState extends State<storeview> {
                                   sname: widget.Index['sname'])
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
                           Text(
@@ -131,25 +139,26 @@ class _storeviewState extends State<storeview> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 15),
+                    const SizedBox(height: 15),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Column(
                         children: [
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              Text(
+                              const Text(
                                 'Your Favourite',
                                 style: TextStyle(
                                     fontSize: 22, fontWeight: FontWeight.w700),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
                               Expanded(
                                   child: Container(
-                                margin: EdgeInsets.symmetric(horizontal: 20),
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 20),
                                 height: 1.2,
                                 color: Colors.grey,
                               ))
@@ -160,36 +169,34 @@ class _storeviewState extends State<storeview> {
                     ),
                   ],
                 ),
-                Expanded(
-                  child: Container(
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ),
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
                     ),
-                    child: GridView.builder(
-                        physics: ScrollPhysics(),
-                        shrinkWrap: true,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 0.75,
-                          mainAxisSpacing: 8.0,
-                          crossAxisSpacing: 8.0,
-                        ),
-                        itemCount: snapshot.data?.docs.length ?? 0,
-                        itemBuilder: (context, index) => Productcard(
-                              product: snapshot.data?.docs[index],
-                              press: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => productview(
-                                          sid: widget.Index,
-                                          itemnu: snapshot.data?.docs[index],
-                                        )));
-                              },
-                            )),
                   ),
+                  child: GridView.builder(
+                      physics: const ScrollPhysics(),
+                      shrinkWrap: true,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 0.75,
+                        mainAxisSpacing: 8.0,
+                        crossAxisSpacing: 8.0,
+                      ),
+                      itemCount: snapshot.data?.docs.length ?? 0,
+                      itemBuilder: (context, index) => Productcard(
+                            product: snapshot.data?.docs[index],
+                            press: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => Productview(
+                                        sid: widget.Index,
+                                        itemnu: snapshot.data?.docs[index],
+                                      )));
+                            },
+                          )),
                 )
               ],
             );
