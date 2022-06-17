@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//theme
 CustomTheme currentTheme = CustomTheme();
 
 class CustomTheme with ChangeNotifier {
@@ -10,6 +11,7 @@ class CustomTheme with ChangeNotifier {
     notifyListeners();
   }
 
+//when light theme toggle
   static ThemeData get lightTheme {
     return ThemeData(
       canvasColor: Colors.transparent,
@@ -19,6 +21,7 @@ class CustomTheme with ChangeNotifier {
     );
   }
 
+//when dark theme toggle
   static ThemeData get darkTheme {
     return ThemeData(
       canvasColor: Colors.transparent,
@@ -28,5 +31,3 @@ class CustomTheme with ChangeNotifier {
     );
   }
 }
-
-class Textstyle {}
