@@ -22,6 +22,8 @@ class Myaccount extends StatefulWidget {
 }
 
 class _MyaccountState extends State<Myaccount> {
+//predefined single button use in listview
+
   Widget listTile(
       {required IconData icon, required String title, VoidCallback? press}) {
     return Column(
@@ -38,6 +40,8 @@ class _MyaccountState extends State<Myaccount> {
       ],
     );
   }
+
+//set user data fetch from firebase
 
   @override
   void initState() {
@@ -82,6 +86,9 @@ class _MyaccountState extends State<Myaccount> {
                         topRight: Radius.circular(30),
                       ),
                     ),
+
+                    //listview all buttons in my account
+
                     child: ListView(children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -116,6 +123,9 @@ class _MyaccountState extends State<Myaccount> {
                           )
                         ],
                       ),
+
+                      //my orders
+
                       listTile(
                           icon: Icons.shop_outlined,
                           title: "My orders",
@@ -123,6 +133,9 @@ class _MyaccountState extends State<Myaccount> {
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => const Myorders()));
                           }),
+
+                      //location
+
                       listTile(
                         icon: Icons.location_on_outlined,
                         title: "location",
@@ -131,6 +144,9 @@ class _MyaccountState extends State<Myaccount> {
                               builder: (context) => const Location()));
                         },
                       ),
+
+                      //share
+
                       listTile(
                           icon: Icons.share_outlined,
                           title: "Share with Friend",
@@ -140,6 +156,9 @@ class _MyaccountState extends State<Myaccount> {
                                 linkUrl:
                                     "https://drive.google.com/drive/folders/167bc-6HOrY4TnJCt4qStUwUbRN6MBTke?usp=sharing");
                           }),
+
+                      //term and condition
+
                       listTile(
                           icon: Icons.file_copy_outlined,
                           title: "Term's & Condition",
@@ -148,6 +167,9 @@ class _MyaccountState extends State<Myaccount> {
                                 'https://drive.google.com/file/d/1nDj1-Ydzhnzs0_uvhHmg2G_ai1FsJOFt/view');
                             launchUrl(url);
                           }),
+
+                      //privacy policy
+
                       listTile(
                           icon: Icons.policy_outlined,
                           title: "Privacy policy",
@@ -156,6 +178,9 @@ class _MyaccountState extends State<Myaccount> {
                                 'https://drive.google.com/file/d/1li0zdem5QsmaADJNaCH0-7LcwN0wJ-8y/view?usp=sharing');
                             launchUrl(url);
                           }),
+
+                      //About
+
                       listTile(
                           icon: Icons.add_chart,
                           title: "About",
@@ -163,6 +188,9 @@ class _MyaccountState extends State<Myaccount> {
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => const About()));
                           }),
+
+                      //logout
+
                       listTile(
                         icon: Icons.exit_to_app_outlined,
                         title: "Log out",
