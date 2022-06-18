@@ -42,7 +42,7 @@ class Addressprovider with ChangeNotifier {
           .collection("Address")
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .collection('moredata')
-          .doc(pincode.text)
+          .doc(area.text)
           .set({
         "name": name.text,
         "mobileno": mobileno.text,
