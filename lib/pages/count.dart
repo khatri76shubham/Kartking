@@ -55,6 +55,17 @@ class _CountState extends State<Count> {
                       if (count >= 1) {
                         setState(() {
                           count--;
+                          yourCartProvider.yourcartdata(
+                              storeid: widget.storeid,
+                              storeimage: widget.storeimage);
+                          cartprovider.addcartData(
+                              storeimage: widget.storeimage,
+                              storeid: widget.storeid,
+                              cartid: widget.cartid,
+                              cartimage: widget.cartimage,
+                              cartname: widget.cartname,
+                              cartprice: widget.cartprice,
+                              cartquantity: '$count');
                         });
                       }
                     },

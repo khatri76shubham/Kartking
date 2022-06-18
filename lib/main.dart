@@ -31,6 +31,7 @@ class _MyAppState extends State<MyApp> {
   Widget nextscreen = const Login();
   AuthController authController = AuthController();
 
+// checking theme state and cheklogin token
   @override
   void initState() {
     super.initState();
@@ -40,6 +41,7 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+//cheklogin token from mobile storage
   void checkLogin() async {
     var token = await authController.getToken();
     if (token != null) {
@@ -54,17 +56,23 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider<UserProvider>(
-              create: (context) => UserProvider()),
+              create: (context) =>
+                  UserProvider()), // fetch the user data and send to firebase
           ChangeNotifierProvider<Addressprovider>(
-              create: (context) => Addressprovider()),
+              create: (context) =>
+                  Addressprovider()), //fetch the user address and send to firebase
           ChangeNotifierProvider<CartProvider>(
-              create: (context) => CartProvider()),
+              create: (context) =>
+                  CartProvider()), //fetch the user cart data and send to firebase
           ChangeNotifierProvider<YourCartProvider>(
-              create: (context) => YourCartProvider()),
+              create: (context) =>
+                  YourCartProvider()), //fetch the cart data for stores and send to firebase
           ChangeNotifierProvider<FavoriteProvider>(
-              create: (context) => FavoriteProvider()),
+              create: (context) =>
+                  FavoriteProvider()), //fetch the favorite store data and send to firebase
           ChangeNotifierProvider<MyorderProvider>(
-              create: (context) => MyorderProvider()),
+              create: (context) =>
+                  MyorderProvider()), //fetch the user payment status and send to firebase
         ],
         child: MaterialApp(
           theme: CustomTheme.lightTheme,
@@ -84,8 +92,8 @@ class _MyAppState extends State<MyApp> {
               ],
             ),
             centered: true,
-            nextScreen: nextscreen,
-            splashTransition: SplashTransition.fadeTransition,
+            nextScreen: nextscreen, //data from checklogin after token check
+            splashTransition: SplashTransition.fadeTransition, //splash screen
             pageTransitionType: PageTransitionType.fade,
             backgroundColor: primarycolor,
           ),

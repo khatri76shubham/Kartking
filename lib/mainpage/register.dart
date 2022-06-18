@@ -89,7 +89,7 @@ class _RegisterState extends State<Register> {
                       validator: (value) {
                         RegExp regex = RegExp(r'^.{3,}$');
                         if (value!.isEmpty) {
-                          return "Please enter your First Name";
+                          return "Please enter your Full Name";
                         }
                         if (!regex.hasMatch(value)) {
                           return "Enter valid Name(Min. 3 Characters)";
@@ -104,7 +104,7 @@ class _RegisterState extends State<Register> {
                         prefixIcon: const Icon(Icons.person),
                         contentPadding:
                             const EdgeInsets.fromLTRB(20, 15, 20, 15),
-                        hintText: "First Name",
+                        hintText: "Full Name",
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
