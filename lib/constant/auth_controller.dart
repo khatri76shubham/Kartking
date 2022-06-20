@@ -141,6 +141,10 @@ class AuthController {
   Future<String?> getToken() async {
     return await storage.read(key: "token");
   }
+
+  Future<void> deleteToken() async {
+    return await storage.delete(key: "token");
+  }
 }
 
 showSnakBar(String content, BuildContext context) {

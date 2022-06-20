@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kartking/about.dart';
 import 'package:kartking/constant/colors.dart';
 import 'package:kartking/location.dart';
@@ -51,6 +53,8 @@ class _MyaccountState extends State<Myaccount> {
   }
 
   final auth = FirebaseAuth.instance;
+  FlutterSecureStorage storage = const FlutterSecureStorage();
+  final GoogleSignIn googleSignIn = GoogleSignIn();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -194,8 +198,11 @@ class _MyaccountState extends State<Myaccount> {
                       listTile(
                         icon: Icons.exit_to_app_outlined,
                         title: "Log out",
-                        press: () {
-                          auth.signOut();
+                        press: () async {
+                          FirebaseAuth.instance.signOut();
+                          storage.deleteAll();
+                          await googleSignIn.signOut();
+                          // ignore: use_build_context_synchronously
                           Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
                                   builder: (context) => const Login()));
