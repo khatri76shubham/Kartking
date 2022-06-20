@@ -92,7 +92,8 @@ class _MyAppState extends State<MyApp> {
               ],
             ),
             centered: true,
-            nextScreen: nextscreen, //data from checklogin after token check
+            nextScreen:
+                nextscreen, //data from checklogin after token check or const defined value
             splashTransition: SplashTransition.fadeTransition, //splash screen
             pageTransitionType: PageTransitionType.fade,
             backgroundColor: primarycolor,
