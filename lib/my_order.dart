@@ -26,8 +26,14 @@ class _MyordersState extends State<Myorders> {
             );
           }
           if (snapshot.data!.docs.isEmpty) {
-            return const Center(
-              child: Text("No Orders Found"),
+            return Scaffold(
+              appBar: AppBar(
+                backgroundColor: primarycolor,
+                title: const Text('Your Orders'),
+              ),
+              body: const Center(
+                child: Text('No order found'),
+              ),
             );
           }
           return Scaffold(
