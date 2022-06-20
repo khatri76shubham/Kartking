@@ -137,7 +137,7 @@ class _HomepageState extends State<Homepage> {
                       ),
                     ),
                     SizedBox(
-                      height: MediaQuery.of(context).size.height / 2,
+                      height: MediaQuery.of(context).size.height / 2.5,
                       width: MediaQuery.of(context).size.width,
                       child: item(),
                     ),
@@ -341,8 +341,6 @@ class _HomepageState extends State<Homepage> {
                 mainAxisSpacing: 8.0,
                 crossAxisSpacing: 10.0,
               ),
-              physics: const ScrollPhysics(),
-              shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               itemCount: snapshot.data?.docs.length,
               itemBuilder: ((context, index) {
@@ -362,16 +360,13 @@ class _HomepageState extends State<Homepage> {
                       }
 
                       return GridView.builder(
-                          physics: const ScrollPhysics(),
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
+                            crossAxisCount: 2,
                             mainAxisSpacing: 8.0,
                             crossAxisSpacing: 5.0,
                           ),
-                          itemCount: snapshot.data?.docs.length,
+                          itemCount: 4,
                           itemBuilder: (context, index) {
                             return GestureDetector(
                               onTap: () {
